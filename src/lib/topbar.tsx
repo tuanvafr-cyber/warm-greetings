@@ -45,23 +45,18 @@ export function useTopBarState(): TopBarState {
  */
 export function useTopBar(state: TopBarState) {
   const ctx = useContext(TopBarContext);
+  const latest = useRef(state);
+  latest.current = state;
   const serialised = JSON.stringify({
     title: state.title,
     lastUpdatedIso: state.lastUpdatedIso,
     showTimeRange: state.showTimeRange,
-    // extraActions is a ReactNode — we cannot serialise it, so update whenever
-    // other identity changes.
+    hasActions: state.extraActions != null,
   });
   useEffect(() => {
     if (!ctx) return;
-    ctx.set(state);
+    ctx.set(latest.current);
     return () => ctx.set({});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctx, serialised]);
-  // Also push extra actions on every render — cheap and keeps them current.
-  useEffect(() => {
-    if (!ctx) return;
-    ctx.set(state);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.extraActions]);
 }
