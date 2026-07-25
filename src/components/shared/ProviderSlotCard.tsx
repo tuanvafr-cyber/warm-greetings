@@ -121,11 +121,11 @@ export function RoutingPolicyPanel({
       <CardContent className="space-y-2 text-sm">
         <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-xs text-muted-foreground">
           <div>{t("routing.strategy")}</div>
-          <div className="text-right">{t(`routing.strategy.${policy.strategy}`)}</div>
+          <div className="text-right">{t(`routing.strategy.${policy.strategy}` as import("@/lib/i18n/dictionary").TKey)}</div>
           <div>{t("routing.failover_after")}</div>
           <div className="text-right tabular-nums">{policy.failoverAfterAttempts} / 5</div>
           <div>{t("routing.failback_when")}</div>
-          <div className="text-right">{t(`routing.failback.${policy.failbackWhen}`)}</div>
+          <div className="text-right">{t(`routing.failback.${policy.failbackWhen}` as import("@/lib/i18n/dictionary").TKey)}</div>
           <div>{t("routing.recovery_probe")}</div>
           <div className="text-right tabular-nums">{policy.recoveryProbeSeconds}s</div>
           <div>{t("routing.cooldown")}</div>
