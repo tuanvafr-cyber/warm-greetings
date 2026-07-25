@@ -147,7 +147,7 @@ export const controls = {
     disable: "analysis_providers.disable",
     archive: "analysis_providers.archive",
     restore: "analysis_providers.restore",
-    deletePermanent: "analysis_providers.delete_permanent",
+    
     routingPolicy: "analysis_providers.routing_policy",
     switchPreview: "analysis_providers.switch_preview",
     activate: "analysis_providers.activate",
