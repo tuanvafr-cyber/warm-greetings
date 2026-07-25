@@ -62,15 +62,40 @@ function DashboardPage() {
     (q) => q.isPending,
   );
 
+  const lastUpdated = useMemo(() => new Date().toISOString(), []);
   useTopBar({
     title: t("dashboard.title"),
-    lastUpdatedIso: new Date().toISOString(),
+    lastUpdatedIso: lastUpdated,
     showTimeRange: true,
   });
+
+  const [analyticsHeight, setAnalyticsHeight] = useState<number>(360);
+
+  const slides = useMemo(
+    () => [
+      {
+        key: "be",
+        label: t("dashboard.balance_equity"),
+        content: <BalanceEquityChart data={pnl.data ?? []} />,
+      },
+      {
+        key: "pnl",
+        label: t("dashboard.pnl_over_time"),
+        content: <PnlOverTimeChart data={pnl.data ?? []} />,
+      },
+      {
+        key: "heat",
+        label: t("dashboard.heatmap"),
+        content: <TradeActivityHeatmap buckets={heatmap.data ?? []} />,
+      },
+    ],
+    [pnl.data, heatmap.data, t],
+  );
   // suppress-unused
   useEffect(() => {
     void 0;
   }, []);
+
 
   return (
     <div className="flex flex-col gap-4">
