@@ -1,0 +1,50 @@
+{
+  "contractVersion": "signalops-backend-v3.1",
+  "backend": {
+    "repositoryPath": "C:\\Users\\Vu Tuan\\Desktop\\Project\\SignalOps MT5",
+    "branch": "codex/signalops-all-imported-sources-live-pipeline",
+    "head": "a5f5083bec8078544c61ea5cbd60dfc7677785b3",
+    "schema": "040",
+    "provenance": "Read-only copies from C:\\Users\\Vu Tuan\\Desktop\\Project\\SignalOps MT5\\docs\\backend-contract-v3; no SignalOps files were modified."
+  },
+  "handoffTimestampUtc": "2026-07-25T07:20:07.7509701Z",
+  "artifacts": [
+    {
+      "path": "contracts/signalops-v3.1/snapshot/openapi.yaml",
+      "sourcePath": "C:\\Users\\Vu Tuan\\Desktop\\Project\\SignalOps MT5\\docs\\backend-contract-v3\\openapi.yaml",
+      "sha256": "C4A1F7B07A705C64E7FF9E8C0C6A85233AB0CFF414DA3308D8EC6244EB98D019"
+    },
+    {
+      "path": "contracts/signalops-v3.1/snapshot/signalops-v3.d.ts",
+      "sourcePath": "C:\\Users\\Vu Tuan\\Desktop\\Project\\SignalOps MT5\\docs\\backend-contract-v3\\signalops-v3.d.ts",
+      "sha256": "356B7DFD1DB3A2AD34CB9022C718F5FDBC29FB2D0FB32FDD2B155B138137DF67"
+    },
+    {
+      "path": "contracts/signalops-v3.1/snapshot/capabilities.json",
+      "sourcePath": "C:\\Users\\Vu Tuan\\Desktop\\Project\\SignalOps MT5\\docs\\backend-contract-v3\\capabilities.json",
+      "sha256": "30ACA2BA5C68C8C80AA38CF668F6361CB1DEFF01AA97520090D551016AC1071D"
+    },
+    {
+      "path": "contracts/signalops-v3.1/snapshot/vi-VN.json",
+      "sourcePath": "C:\\Users\\Vu Tuan\\Desktop\\Project\\SignalOps MT5\\docs\\backend-contract-v3\\locales\\vi-VN.json",
+      "sha256": "608181C0901C4909A3AE32F0CB0FACBD57346642AF8E70A3D070CCDE1D0194BE"
+    },
+    {
+      "path": "contracts/signalops-v3.1/snapshot/en-US.json",
+      "sourcePath": "C:\\Users\\Vu Tuan\\Desktop\\Project\\SignalOps MT5\\docs\\backend-contract-v3\\locales\\en-US.json",
+      "sha256": "98A502C0D5B67DE28CE6B3B7FB4A1DEBF66DC2A3FF8DD5D8E57096E16BE30104"
+    },
+    {
+      "path": "contracts/signalops-v3.1/snapshot/contract-manifest-v3.1.json",
+      "sourcePath": "C:\\Users\\Vu Tuan\\Desktop\\Project\\SignalOps MT5\\docs\\backend-contract-v3\\contract-manifest-v3.1.json",
+      "sha256": "7D5EF8EB4F22BE189803DCB7BE3990C8026F4D6313671AE2E6322DC62732C80A"
+    },
+    {
+      "path": "contracts/signalops-v3.1/snapshot/locale-parity-v3.1.json",
+      "sourcePath": "C:\\Users\\Vu Tuan\\Desktop\\Project\\SignalOps MT5\\docs\\backend-contract-v3\\locale-parity-v3.1.json",
+      "sha256": "BAC53420CA539989D86C7C3AFBF47E818DF4F148D2239FF0AA1285D258CFD9CA"
+    }
+  ],
+  "readOnly": true,
+  "forbiddenCopiedContent": ["database files", "credentials", "runtime configuration", "logs", "task-state", "secrets"]
+}

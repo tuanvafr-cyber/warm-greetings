@@ -10,8 +10,17 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "typecheck": "tsgo --noEmit",
-    "controls:check": "node scripts/check-controls.mjs"
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "contracts:generate": "node scripts/contracts.mjs generate",
+    "contracts:check": "node scripts/contracts.mjs check",
+    "controls:check": "node scripts/check-controls.mjs",
+    "i18n:check": "node scripts/i18n-check.mjs",
+    "test": "node scripts/test.mjs",
+    "build:production-fixture-guard": "node scripts/production-fixture-guard.mjs",
+    "browser:smoke": "node scripts/browser-smoke.mjs",
+    "bundle:report": "node scripts/bundle-report.mjs",
+    "validate": "node scripts/validate.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
