@@ -8,7 +8,7 @@ const adapter: PanelDataAdapter = new FixturePanelDataAdapter();
 
 export const usePanelAdapter = () => adapter;
 
-const q = <T,>(key: string, fn: () => Promise<T>) =>
+const q = <T>(key: string, fn: () => Promise<T>) =>
   useQuery({ queryKey: [key], queryFn: fn, staleTime: 30_000 });
 
 export const useAccounts = () => q("accounts", () => adapter.listAccounts());
@@ -30,8 +30,11 @@ export const useHermesRecommendations = () => q("hermes", () => adapter.hermesRe
 export const useProviderSlots = () => q("provider_slots", () => adapter.providerSlots());
 export const useRoutingPolicy = () => q("routing_policy", () => adapter.routingPolicy());
 export const usePromptProfiles = () => q("prompt_profiles", () => adapter.promptProfiles());
-export const useNativeCurrencyReviews = () => q("native_ccy_reviews", () => adapter.nativeCurrencyReviews());
+export const useNativeCurrencyReviews = () =>
+  q("native_ccy_reviews", () => adapter.nativeCurrencyReviews());
 export const useAccountLines = () => q("account_lines", () => adapter.accountLines());
 export const useAccountReadiness = () => q("account_readiness", () => adapter.accountReadiness());
-export const useInstrumentMapping = () => q("instrument_mapping", () => adapter.instrumentMapping());
-export const useSourceAccountMatrix = () => q("source_account_matrix", () => adapter.sourceAccountMatrix());
+export const useInstrumentMapping = () =>
+  q("instrument_mapping", () => adapter.instrumentMapping());
+export const useSourceAccountMatrix = () =>
+  q("source_account_matrix", () => adapter.sourceAccountMatrix());

@@ -54,12 +54,8 @@ export function TimeRangePicker({
   const [fromDraft, setFromDraft] = useState(from ?? "");
   const [toDraft, setToDraft] = useState(to ?? "");
 
-  const label = range === "custom" && from && to
-    ? `${from} → ${to}`
-    : t(KEY[range]);
-  const tz = typeof Intl !== "undefined"
-    ? Intl.DateTimeFormat().resolvedOptions().timeZone
-    : "UTC";
+  const label = range === "custom" && from && to ? `${from} → ${to}` : t(KEY[range]);
+  const tz = typeof Intl !== "undefined" ? Intl.DateTimeFormat().resolvedOptions().timeZone : "UTC";
 
   return (
     <>
@@ -95,11 +91,7 @@ export function TimeRangePicker({
                 }
               }}
             >
-              {range === r ? (
-                <Check className="mr-2 h-4 w-4" />
-              ) : (
-                <span className="mr-2 w-4" />
-              )}
+              {range === r ? <Check className="mr-2 h-4 w-4" /> : <span className="mr-2 w-4" />}
               {t(KEY[r])}
             </DropdownMenuItem>
           ))}

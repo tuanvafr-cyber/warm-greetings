@@ -189,7 +189,10 @@ export const dictionary = {
   },
   "state.stale": { vi: "Dữ liệu có thể đã cũ.", en: "Data may be stale." },
   "state.error.title": { vi: "Có lỗi xảy ra", en: "Something went wrong" },
-  "state.error.desc": { vi: "Vui lòng thử làm mới lại trang.", en: "Please try refreshing the page." },
+  "state.error.desc": {
+    vi: "Vui lòng thử làm mới lại trang.",
+    en: "Please try refreshing the page.",
+  },
   "state.unavailable.title": { vi: "Không khả dụng", en: "Unavailable" },
   "state.unavailable.desc": {
     vi: "Tính năng này chưa khả dụng cho phạm vi hiện tại.",
@@ -244,7 +247,10 @@ export const dictionary = {
   "dashboard.heatmap": { vi: "Bản đồ hoạt động giao dịch", en: "Trade Activity Heatmap" },
   "dashboard.risk_today": { vi: "Rủi ro hôm nay", en: "Risk Today" },
   "dashboard.source_performance": { vi: "Hiệu suất nguồn", en: "Source Performance" },
-  "dashboard.open_positions_recent": { vi: "Vị thế mở & Lệnh gần đây", en: "Open positions & Recent orders" },
+  "dashboard.open_positions_recent": {
+    vi: "Vị thế mở & Lệnh gần đây",
+    en: "Open positions & Recent orders",
+  },
   "dashboard.runtime_inbox": { vi: "Runtime & Hộp xử lý", en: "Runtime & Inbox" },
   "dashboard.play": { vi: "Phát", en: "Play" },
   "dashboard.pause": { vi: "Tạm dừng", en: "Pause" },
@@ -335,13 +341,25 @@ export const dictionary = {
   "accounts.pin": { vi: "Ghim mặc định", en: "Pin as default" },
   "accounts.native_balance": { vi: "Số dư native", en: "Native balance" },
   "accounts.native_equity": { vi: "Vốn native", en: "Native equity" },
-  "accounts.reporting_equivalent": { vi: "Quy đổi báo cáo (USD)", en: "Reporting equivalent (USD)" },
-  "accounts.native_risk": { vi: "Cỡ rủi ro native (không quy đổi)", en: "Native risk size (never converted)" },
-  "accounts.risk_amount_per_order": { vi: "Rủi ro mỗi lệnh (native)", en: "Risk per order (native)" },
+  "accounts.reporting_equivalent": {
+    vi: "Quy đổi báo cáo (USD)",
+    en: "Reporting equivalent (USD)",
+  },
+  "accounts.native_risk": {
+    vi: "Cỡ rủi ro native (không quy đổi)",
+    en: "Native risk size (never converted)",
+  },
+  "accounts.risk_amount_per_order": {
+    vi: "Rủi ro mỗi lệnh (native)",
+    en: "Risk per order (native)",
+  },
   "accounts.hermes_activation": { vi: "Kích hoạt qua Hermes", en: "Activate via Hermes" },
   "accounts.native_currency": { vi: "Đơn vị tiền native", en: "Native currency" },
   "accounts.native_currency.verified": { vi: "Đã xác minh", en: "Verified" },
-  "accounts.native_currency.mismatch": { vi: "Broker báo khác — cần xem lại", en: "Broker mismatch — review required" },
+  "accounts.native_currency.mismatch": {
+    vi: "Broker báo khác — cần xem lại",
+    en: "Broker mismatch — review required",
+  },
   "accounts.native_currency.review": { vi: "Xem lại đơn vị tiền", en: "Review native currency" },
   "accounts.details": { vi: "Chi tiết tài khoản", en: "Account details" },
   "accounts.desired_state": { vi: "Trạng thái mong muốn", en: "Desired state" },
@@ -403,7 +421,10 @@ export const dictionary = {
   "sources.perf.dd": { vi: "Drawdown lớn nhất", en: "Maximum drawdown" },
   "sources.perf.exec": { vi: "Tỷ lệ thực thi", en: "Execution rate" },
   "sources.perf.tech_fail": { vi: "Tỷ lệ lỗi kỹ thuật", en: "Technical failure rate" },
-  "sources.perf.latency": { vi: "Trễ trung bình tín hiệu → thực thi", en: "Avg signal-to-execution latency" },
+  "sources.perf.latency": {
+    vi: "Trễ trung bình tín hiệu → thực thi",
+    en: "Avg signal-to-execution latency",
+  },
   "sources.perf.best_symbol": { vi: "Symbol tốt nhất", en: "Best symbol" },
   "sources.perf.best_hour": { vi: "Giờ tốt nhất", en: "Best hour" },
 
@@ -499,7 +520,10 @@ export const dictionary = {
   "telegram.state.degraded": { vi: "Suy giảm", en: "Degraded" },
   "telegram.state.disconnected": { vi: "Đã ngắt kết nối", en: "Disconnected" },
   "telegram.state.revoked": { vi: "Đã thu hồi", en: "Revoked" },
-  "telegram.observability": { vi: "Quan sát phiên & tiếp nhận", en: "Session & intake observability" },
+  "telegram.observability": {
+    vi: "Quan sát phiên & tiếp nhận",
+    en: "Session & intake observability",
+  },
   "telegram.last_event": { vi: "Sự kiện cuối", en: "Last event" },
   "telegram.last_message": { vi: "Tin nhắn cuối", en: "Last received message" },
   "telegram.sources_active": { vi: "Nguồn đang bật", en: "Active source count" },
@@ -533,7 +557,10 @@ export const dictionary = {
   "runtime.account_line_factory": { vi: "Account Line Factory", en: "Account Line Factory" },
   "runtime.shared_worker": { vi: "Shared Worker", en: "Shared Worker" },
   "runtime.shared_bridge": { vi: "Shared Bridge", en: "Shared Bridge" },
-  "runtime.config_revision": { vi: "Phiên bản cấu hình hiện tại", en: "Current configuration revision" },
+  "runtime.config_revision": {
+    vi: "Phiên bản cấu hình hiện tại",
+    en: "Current configuration revision",
+  },
   "runtime.drift_state": { vi: "Trạng thái lệch", en: "Drift state" },
   "runtime.reconcile_state": { vi: "Trạng thái đối soát", en: "Reconciliation state" },
 
@@ -584,14 +611,26 @@ export const dictionary = {
     en: "New providers default to Inactive and never auto-receive analysis traffic.",
   },
   "provider.routing_policy": { vi: "Policy định tuyến", en: "Routing policy" },
-  "provider.routing.primary": { vi: "Slot 1 luôn ưu tiên. Thử lại tối đa 5 lần trước khi failover.", en: "Slot 1 always preferred. Up to 5 attempts before failover." },
-  "provider.routing.failover": { vi: "Slot 2 → Slot 3 → Tất cả không khả dụng → cooldown → chu kỳ mới.", en: "Slot 2 → Slot 3 → All unavailable → cooldown → new cycle." },
-  "provider.routing.failback": { vi: "Probe Slot 1 mỗi 60 giây để trở về slot ưu tiên cao nhất.", en: "Probe Slot 1 every 60s to return to the highest-priority healthy slot." },
+  "provider.routing.primary": {
+    vi: "Slot 1 luôn ưu tiên. Thử lại tối đa 5 lần trước khi failover.",
+    en: "Slot 1 always preferred. Up to 5 attempts before failover.",
+  },
+  "provider.routing.failover": {
+    vi: "Slot 2 → Slot 3 → Tất cả không khả dụng → cooldown → chu kỳ mới.",
+    en: "Slot 2 → Slot 3 → All unavailable → cooldown → new cycle.",
+  },
+  "provider.routing.failback": {
+    vi: "Probe Slot 1 mỗi 60 giây để trở về slot ưu tiên cao nhất.",
+    en: "Probe Slot 1 every 60s to return to the highest-priority healthy slot.",
+  },
   "provider.routing.attempts_1": { vi: "Slot 1: 5 lần", en: "Slot 1: 5 attempts" },
   "provider.routing.attempts_2": { vi: "Slot 2: 5 lần", en: "Slot 2: 5 attempts" },
   "provider.routing.attempts_3": { vi: "Slot 3: 5 lần", en: "Slot 3: 5 attempts" },
   "provider.routing.probe": { vi: "Primary probe: 60 giây", en: "Primary probe: 60 seconds" },
-  "provider.routing.cooldown": { vi: "Cooldown khi tất cả không khả dụng: cấu hình", en: "All-unavailable cooldown: configurable" },
+  "provider.routing.cooldown": {
+    vi: "Cooldown khi tất cả không khả dụng: cấu hình",
+    en: "All-unavailable cooldown: configurable",
+  },
   "provider.routing.deadline": { vi: "Deadline mỗi request", en: "Per-request deadline" },
   "provider.routing.failback_auto": { vi: "Tự động failback", en: "Automatic failback" },
   "provider.routing.non_retry_note": {
@@ -631,7 +670,10 @@ export const dictionary = {
   "hermes.prompts.duplicate": { vi: "Nhân bản làm bản nháp", en: "Duplicate as draft" },
   "hermes.prompts.edit": { vi: "Chỉnh sửa bản nháp", en: "Edit draft" },
   "hermes.prompts.preview": { vi: "Xem trước", en: "Preview" },
-  "hermes.prompts.evaluate": { vi: "Đánh giá trên fixture lịch sử", en: "Evaluate against historical fixture" },
+  "hermes.prompts.evaluate": {
+    vi: "Đánh giá trên fixture lịch sử",
+    en: "Evaluate against historical fixture",
+  },
   "hermes.prompts.compare": { vi: "So sánh phiên bản", en: "Compare versions" },
   "hermes.prompts.publish": { vi: "Công bố phiên bản mới", en: "Publish new version" },
   "hermes.prompts.export": { vi: "Xuất profile", en: "Export profile" },
@@ -640,14 +682,35 @@ export const dictionary = {
   "hermes.prompts.state.draft": { vi: "Bản nháp", en: "Draft" },
   "hermes.prompts.state.active": { vi: "Đang hoạt động", en: "Active" },
   "hermes.prompts.state.archived": { vi: "Đã lưu trữ", en: "Archived" },
-  "hermes.prompts.problem.source_quality": { vi: "Phân tích chất lượng nguồn", en: "Source quality analysis" },
+  "hermes.prompts.problem.source_quality": {
+    vi: "Phân tích chất lượng nguồn",
+    en: "Source quality analysis",
+  },
   "hermes.prompts.problem.losing_order": { vi: "Phân tích lệnh thua", en: "Losing-order analysis" },
-  "hermes.prompts.problem.abnormal_signal": { vi: "Phát hiện tín hiệu bất thường", en: "Abnormal-signal detection" },
-  "hermes.prompts.problem.risk_decision": { vi: "Giải thích quyết định rủi ro", en: "Risk-decision explanation" },
-  "hermes.prompts.problem.runtime_incident": { vi: "Phân tích sự cố runtime", en: "Runtime-incident analysis" },
-  "hermes.prompts.problem.provider_degraded": { vi: "Phân tích provider suy giảm", en: "Provider-degraded analysis" },
-  "hermes.prompts.problem.broker_unknown": { vi: "Phân tích broker-unknown/đối soát", en: "Broker-unknown / reconciliation analysis" },
-  "hermes.prompts.problem.daily_summary": { vi: "Tổng kết hiệu suất theo ngày", en: "Daily performance summary" },
+  "hermes.prompts.problem.abnormal_signal": {
+    vi: "Phát hiện tín hiệu bất thường",
+    en: "Abnormal-signal detection",
+  },
+  "hermes.prompts.problem.risk_decision": {
+    vi: "Giải thích quyết định rủi ro",
+    en: "Risk-decision explanation",
+  },
+  "hermes.prompts.problem.runtime_incident": {
+    vi: "Phân tích sự cố runtime",
+    en: "Runtime-incident analysis",
+  },
+  "hermes.prompts.problem.provider_degraded": {
+    vi: "Phân tích provider suy giảm",
+    en: "Provider-degraded analysis",
+  },
+  "hermes.prompts.problem.broker_unknown": {
+    vi: "Phân tích broker-unknown/đối soát",
+    en: "Broker-unknown / reconciliation analysis",
+  },
+  "hermes.prompts.problem.daily_summary": {
+    vi: "Tổng kết hiệu suất theo ngày",
+    en: "Daily performance summary",
+  },
   "hermes.prompts.problem.source_ranking": { vi: "Xếp hạng nguồn", en: "Source ranking" },
   "hermes.prompts.problem.policy_reco": { vi: "Khuyến nghị policy", en: "Policy recommendation" },
   "hermes.prompts.version": { vi: "Phiên bản", en: "Version" },
@@ -701,7 +764,6 @@ export const dictionary = {
   "provider.switch_preview": { vi: "Xem trước chuyển", en: "Preview switch" },
   // (provider.* base keys defined earlier in dictionary)
 
-
   // Analysis API Slots
   "runtime.tab.slots": { vi: "Analysis API Slots", en: "Analysis API Slots" },
   "runtime.slots.title": { vi: "Analysis API Slots", en: "Analysis API Slots" },
@@ -737,7 +799,10 @@ export const dictionary = {
   // Routing policy
   "routing.title": { vi: "Chính sách định tuyến provider", en: "Provider routing policy" },
   "routing.strategy": { vi: "Chiến lược", en: "Strategy" },
-  "routing.strategy.primary_then_failover": { vi: "Chính rồi dự phòng", en: "Primary then failover" },
+  "routing.strategy.primary_then_failover": {
+    vi: "Chính rồi dự phòng",
+    en: "Primary then failover",
+  },
   "routing.strategy.primary_only": { vi: "Chỉ dùng chính", en: "Primary only" },
   "routing.strategy.diagnostic_only": { vi: "Chỉ dùng chẩn đoán", en: "Diagnostic only" },
   "routing.failover_after": { vi: "Failover sau số lần thử", en: "Failover after attempts" },
@@ -763,7 +828,10 @@ export const dictionary = {
     en: "The panel never converts the configured native risk size. Changing the currency code moves the account to Input required.",
   },
   "acccy.action.confirm_same": { vi: "Xác nhận giữ nguyên", en: "Confirm keep configured" },
-  "acccy.action.change_code": { vi: "Đổi mã tiền (chuyển sang Cần đầu vào)", en: "Change code (move to Input required)" },
+  "acccy.action.change_code": {
+    vi: "Đổi mã tiền (chuyển sang Cần đầu vào)",
+    en: "Change code (move to Input required)",
+  },
 
   // Source × Account matrix
   "matrix.title": { vi: "Ma trận Nguồn × Tài khoản", en: "Source × Account matrix" },
@@ -783,5 +851,3 @@ export const dictionary = {
 } satisfies Dict;
 
 export type TKey = keyof typeof dictionary;
-
-

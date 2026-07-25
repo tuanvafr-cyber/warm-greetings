@@ -1,7 +1,12 @@
 import { useState, type ReactNode } from "react";
 import {
-  Dialog, DialogContent, DialogDescription, DialogFooter,
-  DialogHeader, DialogTitle, DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -17,7 +22,12 @@ import { useT } from "@/lib/i18n";
  * as `children`. This component owns the confirm + result surface.
  */
 export function BackendRequiredDialog({
-  trigger, title, description, payloadPreview, children, controlId,
+  trigger,
+  title,
+  description,
+  payloadPreview,
+  children,
+  controlId,
 }: {
   trigger: ReactNode;
   title: string;
@@ -38,7 +48,9 @@ export function BackendRequiredDialog({
         if (!v) setSubmitted(false);
       }}
     >
-      <DialogTrigger asChild data-control-id={controlId}>{trigger}</DialogTrigger>
+      <DialogTrigger asChild data-control-id={controlId}>
+        {trigger}
+      </DialogTrigger>
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
@@ -53,7 +65,7 @@ export function BackendRequiredDialog({
               {t("backend.will_submit")}
             </p>
             <pre className="max-h-40 overflow-auto rounded-md border border-border bg-muted/40 p-2 text-[11px] leading-snug">
-{JSON.stringify(payloadPreview, null, 2)}
+              {JSON.stringify(payloadPreview, null, 2)}
             </pre>
           </div>
         ) : null}
@@ -76,9 +88,7 @@ export function BackendRequiredDialog({
               <Button variant="ghost" onClick={() => setOpen(false)}>
                 {t("common.cancel")}
               </Button>
-              <Button onClick={() => setSubmitted(true)}>
-                {t("common.confirm")}
-              </Button>
+              <Button onClick={() => setSubmitted(true)}>{t("common.confirm")}</Button>
             </>
           )}
         </DialogFooter>

@@ -6,12 +6,7 @@
 
 export type Currency = "USD" | "USC";
 
-export type AccountLifecycle =
-  | "connected"
-  | "offline"
-  | "input_required"
-  | "draining"
-  | "archived";
+export type AccountLifecycle = "connected" | "offline" | "input_required" | "draining" | "archived";
 
 export type Account = {
   id: string;
@@ -29,12 +24,7 @@ export type Account = {
   isPinned?: boolean;
 };
 
-export type SourceLifecycle =
-  | "enabled"
-  | "disabled"
-  | "draining"
-  | "archived"
-  | "degraded";
+export type SourceLifecycle = "enabled" | "disabled" | "draining" | "archived" | "degraded";
 
 export type Source = {
   id: string;
@@ -230,13 +220,7 @@ export type RuntimeComponent = {
   detail: string;
 };
 
-export type ProviderState =
-  | "inactive"
-  | "testing"
-  | "ready"
-  | "active"
-  | "degraded"
-  | "archived";
+export type ProviderState = "inactive" | "testing" | "ready" | "active" | "degraded" | "archived";
 
 export type Provider = {
   id: string;
@@ -335,14 +319,14 @@ export type ProviderSlotState =
 
 export type ProviderSlot = {
   slot: ProviderSlotId;
-  label: string;                       // "Analysis API Slot 1/2/3"
+  label: string; // "Analysis API Slot 1/2/3"
   role: "primary" | "failover" | "diagnostic";
   assignedProviderId: string | null;
   state: ProviderSlotState;
-  attempts: number;                    // 0..5 (per current window)
+  attempts: number; // 0..5 (per current window)
   maxAttempts: 5;
   lastAttemptAt: string | null;
-  lastRecoveryProbeAt: string | null;  // Slot 1 only
+  lastRecoveryProbeAt: string | null; // Slot 1 only
   recoveryProbeSeconds: 60;
   cooldownEndsAt: string | null;
   circuitOpenedAt: string | null;
@@ -355,10 +339,10 @@ export type ProviderSlot = {
 export type RoutingPolicy = {
   version: number;
   strategy: "primary_then_failover" | "primary_only" | "diagnostic_only";
-  failoverAfterAttempts: number;       // <= 5
+  failoverAfterAttempts: number; // <= 5
   failbackWhen: "probe_ok" | "manual_only";
-  recoveryProbeSeconds: number;        // 60 for slot 1
-  cooldownSeconds: number;             // backoff between attempts
+  recoveryProbeSeconds: number; // 60 for slot 1
+  cooldownSeconds: number; // backoff between attempts
   circuitResetSeconds: number;
   updatedAt: string;
   updatedBy: string;

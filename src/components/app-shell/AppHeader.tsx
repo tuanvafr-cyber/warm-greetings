@@ -56,28 +56,19 @@ const TITLE_BY_PATH: Record<string, TKey> = {
 function useRouteTitleKey(): TKey {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   if (TITLE_BY_PATH[pathname]) return TITLE_BY_PATH[pathname];
-  const prefix = Object.keys(TITLE_BY_PATH).find(
-    (p) => p !== "/" && pathname.startsWith(p),
-  );
+  const prefix = Object.keys(TITLE_BY_PATH).find((p) => p !== "/" && pathname.startsWith(p));
   return prefix ? TITLE_BY_PATH[prefix] : "app.name";
 }
 
 export function AppHeader({ onOpenMobileNav }: { onOpenMobileNav: () => void }) {
   const t = useT();
   const { locale, setLocale } = useI18n();
-  const {
-    privacyMode,
-    togglePrivacy,
-    accountScope,
-    setAccountScope,
-    pinnedAccountId,
-    pinAccount,
-  } = usePreferences();
+  const { privacyMode, togglePrivacy, accountScope, setAccountScope, pinnedAccountId, pinAccount } =
+    usePreferences();
 
   const titleKey = useRouteTitleKey();
   const top = useTopBarState();
-  const scopeLabel =
-    accountScope === "all" ? t("shell.account_scope.all") : accountScope.label;
+  const scopeLabel = accountScope === "all" ? t("shell.account_scope.all") : accountScope.label;
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
@@ -116,7 +107,11 @@ export function AppHeader({ onOpenMobileNav }: { onOpenMobileNav: () => void }) 
                 data-control-id={controls.shell.accountScopeSelectAll}
                 onSelect={() => setAccountScope("all")}
               >
-                {accountScope === "all" ? <Check className="mr-2 h-4 w-4" /> : <span className="mr-2 w-4" />}
+                {accountScope === "all" ? (
+                  <Check className="mr-2 h-4 w-4" />
+                ) : (
+                  <span className="mr-2 w-4" />
+                )}
                 {t("shell.account_scope.all")}
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -211,17 +206,32 @@ export function AppHeader({ onOpenMobileNav }: { onOpenMobileNav: () => void }) 
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem onSelect={() => setLocale("vi")}>
-                {locale === "vi" ? <Check className="mr-2 h-4 w-4" /> : <span className="mr-2 w-4" />}
+                {locale === "vi" ? (
+                  <Check className="mr-2 h-4 w-4" />
+                ) : (
+                  <span className="mr-2 w-4" />
+                )}
                 Tiếng Việt
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => setLocale("en")}>
-                {locale === "en" ? <Check className="mr-2 h-4 w-4" /> : <span className="mr-2 w-4" />}
+                {locale === "en" ? (
+                  <Check className="mr-2 h-4 w-4" />
+                ) : (
+                  <span className="mr-2 w-4" />
+                )}
                 English
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button variant="ghost" size="icon" asChild className="h-8 w-8" title={t("shell.inbox")} data-control-id={controls.shell.inboxOpen}>
+          <Button
+            variant="ghost"
+            size="icon"
+            asChild
+            className="h-8 w-8"
+            title={t("shell.inbox")}
+            data-control-id={controls.shell.inboxOpen}
+          >
             <Link to="/inbox" aria-label={t("shell.inbox")}>
               <Inbox className="h-4 w-4" />
             </Link>
@@ -231,7 +241,13 @@ export function AppHeader({ onOpenMobileNav }: { onOpenMobileNav: () => void }) 
           <div className="hidden md:flex md:items-center md:gap-1">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-8 w-8" data-control-id={controls.shell.exportOpen} title={t("shell.export")}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8"
+                  data-control-id={controls.shell.exportOpen}
+                  title={t("shell.export")}
+                >
                   <Download className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -243,7 +259,13 @@ export function AppHeader({ onOpenMobileNav }: { onOpenMobileNav: () => void }) 
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-8 w-8" data-control-id={controls.shell.shareOpen} title={t("shell.share")}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8"
+                  data-control-id={controls.shell.shareOpen}
+                  title={t("shell.share")}
+                >
                   <Share2 className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -301,7 +323,11 @@ export function AppHeader({ onOpenMobileNav }: { onOpenMobileNav: () => void }) 
           <DropdownMenuContent align="start" className="w-64">
             <DropdownMenuLabel>{t("shell.account_scope")}</DropdownMenuLabel>
             <DropdownMenuItem onSelect={() => setAccountScope("all")}>
-              {accountScope === "all" ? <Check className="mr-2 h-4 w-4" /> : <span className="mr-2 w-4" />}
+              {accountScope === "all" ? (
+                <Check className="mr-2 h-4 w-4" />
+              ) : (
+                <span className="mr-2 w-4" />
+              )}
               {t("shell.account_scope.all")}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
