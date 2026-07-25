@@ -210,6 +210,8 @@ export const plannedControls = {
     sourceMatrixOpen: "accounts.source_matrix.open",
     accountLineOpen: "accounts.account_line.open",
     instrumentMappingOpen: "accounts.instrument_mapping.open",
+    instrumentMappingOpen: "accounts.instrument_mapping.open",
+    deletePermanent: "accounts.delete_permanent",
   },
   sources: {
     filterGroup: "sources.filter.group",
