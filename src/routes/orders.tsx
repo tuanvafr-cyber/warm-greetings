@@ -12,7 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Download } from "lucide-react";
 import { useAccounts, useOrders } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
-import { useTopBar } from "@/lib/topbar";
+import { useTopBar, useLastUpdatedFromQueries } from "@/lib/topbar";
 import { controls } from "@/lib/control-registry";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
