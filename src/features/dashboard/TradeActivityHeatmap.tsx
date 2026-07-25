@@ -17,8 +17,8 @@ type Aggregated = {
   unresolvedCount: number;
   netPnlUsd: number;
   netPips: number;
-  best: number;
-  worst: number;
+  bestOrderPnlUsd: number;
+  worstOrderPnlUsd: number;
   topSource?: string;
 };
 
@@ -26,7 +26,8 @@ type Aggregated = {
  * Trade Activity Heatmap — date × 2-hour bucket grid. Green = profitable,
  * red = losing, gray = break-even/unresolved. Dot size scales with total
  * orders. Click a bucket to open Order History filtered to that date +
- * two-hour window.
+ * two-hour window. Best/Worst tooltip fields report the largest single
+ * order P&L in the bucket, sourced from the fixture contract.
  */
 export function TradeActivityHeatmap({ buckets }: { buckets: HeatmapBucket[] }) {
   const t = useT();
@@ -50,8 +51,8 @@ export function TradeActivityHeatmap({ buckets }: { buckets: HeatmapBucket[] }) 
             unresolvedCount: prev.unresolvedCount + b.unresolvedCount,
             netPnlUsd: prev.netPnlUsd + b.netPnlUsd,
             netPips: prev.netPips + b.netPips,
-            best: Math.max(prev.best, b.netPnlUsd),
-            worst: Math.min(prev.worst, b.netPnlUsd),
+            bestOrderPnlUsd: Math.max(prev.bestOrderPnlUsd, b.bestOrderPnlUsd),
+            worstOrderPnlUsd: Math.min(prev.worstOrderPnlUsd, b.worstOrderPnlUsd),
           }
         : {
             date: b.date,
@@ -62,8 +63,8 @@ export function TradeActivityHeatmap({ buckets }: { buckets: HeatmapBucket[] }) 
             unresolvedCount: b.unresolvedCount,
             netPnlUsd: b.netPnlUsd,
             netPips: b.netPips,
-            best: b.netPnlUsd,
-            worst: b.netPnlUsd,
+            bestOrderPnlUsd: b.bestOrderPnlUsd,
+            worstOrderPnlUsd: b.worstOrderPnlUsd,
           };
       agg.set(k, next);
       if (b.topSource) {
