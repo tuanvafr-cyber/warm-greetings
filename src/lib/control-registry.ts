@@ -52,7 +52,7 @@ export const controls = {
     pin: "accounts.pin",
     archive: "accounts.archive",
     restore: "accounts.restore",
-    deletePermanent: "accounts.delete_permanent",
+    
     activationOpen: "accounts.activation.open",
     nativeCurrencyReview: "accounts.native_currency.review",
   },
