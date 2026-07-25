@@ -411,10 +411,7 @@ function BrokerMappingsTab() {
                   <td className="px-3 py-2 font-mono">{r.canonical}</td>
                   <td className="px-2 py-2 font-mono">{r.broker ?? "—"}</td>
                   <td className="px-2 py-2">
-                    <StatusBadge
-                      tone={r.state === "mapped" ? "healthy" : "input_required"}
-                      label={r.state}
-                    />
+                    <StatusBadge tone={r.state === "mapped" ? "healthy" : "input_required"} />
                   </td>
                   <td className="px-2 py-2 text-right">
                     <BackendRequiredDialog
@@ -495,10 +492,7 @@ function EffectiveMatrixTab() {
                   <td className="px-2 py-2">{r.account}</td>
                   <td className="px-2 py-2 font-mono">{r.instrument}</td>
                   <td className="px-2 py-2">
-                    <StatusBadge
-                      tone={r.eligible ? "healthy" : "blocked"}
-                      label={r.eligible ? "yes" : "no"}
-                    />
+                    <StatusBadge tone={r.eligible ? "healthy" : "blocked"} />
                   </td>
                   <td className="px-2 py-2 font-mono text-xs">
                     {r.reason ? (
