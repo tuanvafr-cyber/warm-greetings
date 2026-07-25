@@ -258,6 +258,7 @@ export const plannedControls = {
     riskAmountEdit: "accounts.risk_amount_per_order.edit",
     sourceMatrixOpen: "accounts.source_matrix.open",
     accountLineOpen: "accounts.account_line.open",
+    activationOpen: "accounts.activation.open",
     instrumentMappingOpen: "accounts.instrument_mapping.open",
     deletePermanent: "accounts.delete_permanent",
   },
