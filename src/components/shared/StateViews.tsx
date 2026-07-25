@@ -128,7 +128,7 @@ export function FixtureNotice() {
   const t = useT();
   return (
     <div className="rounded-md border border-warning/40 bg-warning/10 px-3 py-2 text-xs text-warning-foreground">
-      {t("state.fixture_notice")}
+      {t("fixture.notice")}
     </div>
   );
 }

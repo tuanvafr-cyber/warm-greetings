@@ -44,10 +44,7 @@ export const dictionary = {
   "shell.refresh": { vi: "Làm mới", en: "Refresh" },
   "shell.export": { vi: "Xuất dữ liệu", en: "Export" },
   "shell.share": { vi: "Chia sẻ báo cáo", en: "Share report" },
-  "shell.share.hide_sensitive": {
-    vi: "Ẩn dữ liệu nhạy cảm",
-    en: "Hide sensitive data",
-  },
+  "shell.share.hide_sensitive": { vi: "Ẩn dữ liệu nhạy cảm", en: "Hide sensitive data" },
 
   // Status
   "status.healthy": { vi: "Bình thường", en: "Healthy" },
@@ -57,13 +54,27 @@ export const dictionary = {
   "status.stale": { vi: "Dữ liệu cũ", en: "Stale data" },
   "status.unavailable": { vi: "Không khả dụng", en: "Unavailable" },
   "status.not_connected": { vi: "Chưa kết nối", en: "Not connected" },
+  "status.connected": { vi: "Đã kết nối", en: "Connected" },
+  "status.offline": { vi: "Ngoại tuyến", en: "Offline" },
+  "status.draining": { vi: "Đang hoàn tất", en: "Draining" },
+  "status.archived": { vi: "Đã lưu trữ", en: "Archived" },
+  "status.pending": { vi: "Đang chờ", en: "Pending" },
+  "status.executed": { vi: "Đã thực thi", en: "Executed" },
+  "status.partial": { vi: "Thực thi một phần", en: "Partial" },
+  "status.rejected": { vi: "Từ chối", en: "Rejected" },
+  "status.canceled": { vi: "Đã hủy", en: "Canceled" },
+  "status.win": { vi: "Thắng", en: "Win" },
+  "status.loss": { vi: "Thua", en: "Loss" },
+  "status.break_even": { vi: "Hòa", en: "Break-even" },
 
   // Source lifecycle
   "source.active": { vi: "Đang bật", en: "Active" },
+  "source.enabled": { vi: "Đang bật", en: "Enabled" },
   "source.disabled": { vi: "Đã tắt", en: "Disabled" },
   "source.draining": { vi: "Đang hoàn tất", en: "Draining" },
   "source.archived": { vi: "Đã lưu trữ", en: "Archived" },
   "source.frozen": { vi: "Đã đóng băng", en: "Frozen" },
+  "source.degraded": { vi: "Suy giảm", en: "Degraded" },
 
   // Common actions
   "common.add": { vi: "Thêm", en: "Add" },
@@ -82,6 +93,17 @@ export const dictionary = {
   "common.close": { vi: "Đóng", en: "Close" },
   "common.retry": { vi: "Thử lại", en: "Retry" },
   "common.view_details": { vi: "Xem chi tiết", en: "View details" },
+  "common.apply": { vi: "Áp dụng", en: "Apply" },
+  "common.preview": { vi: "Xem trước", en: "Preview" },
+  "common.confirm": { vi: "Xác nhận", en: "Confirm" },
+  "common.copy": { vi: "Sao chép", en: "Copy" },
+  "common.reset": { vi: "Đặt lại", en: "Reset" },
+  "common.enable": { vi: "Bật", en: "Enable" },
+  "common.disable": { vi: "Tắt", en: "Disable" },
+  "common.activate": { vi: "Kích hoạt", en: "Activate" },
+  "common.deactivate": { vi: "Ngừng kích hoạt", en: "Deactivate" },
+  "common.import": { vi: "Nhập", en: "Import" },
+  "common.test": { vi: "Kiểm thử", en: "Test" },
 
   // Time ranges (shared)
   "time.today": { vi: "Hôm nay", en: "Today" },
@@ -100,10 +122,7 @@ export const dictionary = {
     vi: "Khi có dữ liệu, nó sẽ hiển thị ở đây.",
     en: "Once data is available it will appear here.",
   },
-  "state.not_connected.title": {
-    vi: "Chưa kết nối backend",
-    en: "Backend not connected",
-  },
+  "state.not_connected.title": { vi: "Chưa kết nối backend", en: "Backend not connected" },
   "state.not_connected.desc": {
     vi: "Giao diện đã sẵn sàng. Codex sẽ kết nối adapter SignalOps thực tế để bật chức năng này.",
     en: "The UI is ready. Codex will wire the real SignalOps adapter to enable this feature.",
@@ -113,23 +132,36 @@ export const dictionary = {
     vi: "Thao tác này bị chặn vì thiếu điều kiện tiên quyết.",
     en: "This action is blocked because a prerequisite is not met.",
   },
-  "state.stale": {
-    vi: "Dữ liệu có thể đã cũ.",
-    en: "Data may be stale.",
-  },
+  "state.stale": { vi: "Dữ liệu có thể đã cũ.", en: "Data may be stale." },
   "state.error.title": { vi: "Có lỗi xảy ra", en: "Something went wrong" },
-  "state.error.desc": {
-    vi: "Vui lòng thử làm mới lại trang.",
-    en: "Please try refreshing the page.",
-  },
+  "state.error.desc": { vi: "Vui lòng thử làm mới lại trang.", en: "Please try refreshing the page." },
   "state.unavailable.title": { vi: "Không khả dụng", en: "Unavailable" },
   "state.unavailable.desc": {
     vi: "Tính năng này chưa khả dụng cho phạm vi hiện tại.",
     en: "This feature is unavailable for the current scope.",
   },
-  "state.fixture_notice": {
-    vi: "Đây là dữ liệu minh họa, không phải dữ liệu vận hành thật.",
-    en: "This is illustrative fixture data, not live operational data.",
+
+  // Fixture notice
+  "fixture.notice": {
+    vi: "Dữ liệu mẫu để xem giao diện · Chưa kết nối SignalOps backend",
+    en: "Visual fixture data · SignalOps backend not connected",
+  },
+
+  // Backend required dialog
+  "backend.title": { vi: "Cần kết nối backend", en: "Backend connection required" },
+  "backend.desc": {
+    vi: "Panel Next chưa kết nối adapter SignalOps thực tế. Thao tác này sẽ chạy khi Codex hoàn tất kết nối.",
+    en: "Panel Next has no live SignalOps adapter wired yet. This action will run once Codex completes the connection.",
+  },
+  "backend.will_submit": { vi: "Sẽ gửi tới backend:", en: "Will submit to the backend:" },
+  "backend.ack": {
+    vi: "Đã hiểu",
+    en: "Understood",
+  },
+  "backend.unmask_confirm.title": { vi: "Xuất dữ liệu không che?", en: "Export unmasked data?" },
+  "backend.unmask_confirm.desc": {
+    vi: "Chế độ riêng tư đang bật. Xác nhận để xuất dữ liệu không che.",
+    en: "Privacy mode is on. Confirm to export unmasked data.",
   },
 
   // Dashboard
@@ -140,35 +172,34 @@ export const dictionary = {
   },
   "dashboard.trading_pnl": { vi: "Lợi nhuận giao dịch", en: "Trading P&L" },
   "dashboard.total_income": { vi: "Tổng thu nhập", en: "Total Income" },
-  "dashboard.active_exposure": {
-    vi: "Vị thế đang hoạt động",
-    en: "Active Exposure",
-  },
-  "dashboard.signal_execution_rate": {
-    vi: "Tỷ lệ thực thi tín hiệu",
-    en: "Signal Execution Rate",
-  },
+  "dashboard.active_exposure": { vi: "Vị thế đang hoạt động", en: "Active Exposure" },
+  "dashboard.signal_execution_rate": { vi: "Tỷ lệ thực thi tín hiệu", en: "Signal Execution Rate" },
   "dashboard.balance_equity": { vi: "Số dư & Vốn", en: "Balance & Equity" },
   "dashboard.pnl_over_time": { vi: "P&L theo thời gian", en: "P&L Over Time" },
-  "dashboard.heatmap": {
-    vi: "Bản đồ hoạt động giao dịch",
-    en: "Trade Activity Heatmap",
-  },
+  "dashboard.heatmap": { vi: "Bản đồ hoạt động giao dịch", en: "Trade Activity Heatmap" },
   "dashboard.risk_today": { vi: "Rủi ro hôm nay", en: "Risk Today" },
-  "dashboard.source_performance": {
-    vi: "Hiệu suất nguồn",
-    en: "Source Performance",
-  },
-  "dashboard.open_positions_recent": {
-    vi: "Vị thế mở & Lệnh gần đây",
-    en: "Open positions & Recent orders",
-  },
-  "dashboard.runtime_inbox": {
-    vi: "Runtime & Hộp xử lý",
-    en: "Runtime & Inbox",
-  },
+  "dashboard.source_performance": { vi: "Hiệu suất nguồn", en: "Source Performance" },
+  "dashboard.open_positions_recent": { vi: "Vị thế mở & Lệnh gần đây", en: "Open positions & Recent orders" },
+  "dashboard.runtime_inbox": { vi: "Runtime & Hộp xử lý", en: "Runtime & Inbox" },
+  "dashboard.last_updated": { vi: "Cập nhật lúc", en: "Last updated" },
+  "dashboard.play": { vi: "Phát", en: "Play" },
+  "dashboard.pause": { vi: "Tạm dừng", en: "Pause" },
+  "dashboard.view_all": { vi: "Xem tất cả", en: "View all" },
+  "dashboard.total_orders": { vi: "Tổng số lệnh", en: "Total Orders" },
+  "dashboard.win_rate": { vi: "Tỷ lệ thắng", en: "Win Rate" },
+  "dashboard.net_pnl": { vi: "P&L ròng (USD)", en: "Net P&L (USD)" },
+  "dashboard.today_usd": { vi: "Hôm nay (USD)", en: "Today (USD)" },
+  "dashboard.net_pips": { vi: "Pips ròng", en: "Net Pips" },
+  "dashboard.eligible": { vi: "Đủ điều kiện", en: "Eligible" },
+  "dashboard.executed": { vi: "Đã thực thi", en: "Executed" },
+  "dashboard.blocked": { vi: "Bị chặn", en: "Blocked" },
+  "dashboard.tech_failed": { vi: "Lỗi kỹ thuật", en: "Technical failed" },
+  "dashboard.risk.daily_loss": { vi: "Giới hạn lỗ trong ngày", en: "Daily loss limit" },
+  "dashboard.risk.drawdown": { vi: "Giới hạn drawdown", en: "Drawdown limit" },
+  "dashboard.risk.margin": { vi: "Đệm ký quỹ", en: "Margin buffer" },
+  "dashboard.risk.budget": { vi: "Ngân sách rủi ro", en: "Risk budget" },
 
-  // Route stub description
+  // Route stub description (kept for compat — no page uses it as final content)
   "route.stub.title": { vi: "Sẵn sàng để kết nối", en: "Ready to be wired" },
   "route.stub.desc": {
     vi: "Kiến trúc trang, control và trạng thái đã sẵn sàng. Nội dung sẽ hiển thị khi Codex kết nối adapter SignalOps.",
@@ -222,9 +253,101 @@ export const dictionary = {
   // Accounts / Sources tabs
   "accounts.tab.active": { vi: "Đang sử dụng", en: "Active" },
   "accounts.tab.archive": { vi: "Lưu trữ", en: "Archive" },
+  "accounts.add": { vi: "Thêm tài khoản", en: "Add account" },
+  "accounts.verify": { vi: "Xác minh danh tính", en: "Verify identity" },
+  "accounts.pin": { vi: "Ghim mặc định", en: "Pin as default" },
+  "accounts.native_balance": { vi: "Số dư native", en: "Native balance" },
+  "accounts.native_equity": { vi: "Vốn native", en: "Native equity" },
+  "accounts.reporting_equivalent": { vi: "Quy đổi báo cáo", en: "Reporting equivalent" },
+  "accounts.native_risk": { vi: "Cỡ rủi ro native (không quy đổi)", en: "Native risk size (never converted)" },
+  "accounts.hermes_activation": { vi: "Kích hoạt qua Hermes", en: "Activate via Hermes" },
   "sources.tab.active": { vi: "Đang sử dụng", en: "Active" },
   "sources.tab.performance": { vi: "Hiệu suất", en: "Performance" },
   "sources.tab.archive": { vi: "Lưu trữ", en: "Archive" },
+  "sources.add": { vi: "Thêm nguồn", en: "Add source" },
+  "sources.import": { vi: "Nhập nguồn", en: "Import sources" },
+  "sources.last_signal": { vi: "Tín hiệu cuối", en: "Last signal" },
+  "sources.parser": { vi: "Parser", en: "Parser" },
+  "sources.symbols": { vi: "Bộ symbol", en: "Symbol profile" },
+  "sources.identity": { vi: "Định danh Telegram", en: "Telegram identity" },
+  "sources.disabled_note": {
+    vi: "Nguồn đã tắt vẫn nằm trong Đang sử dụng nhưng ngừng tiếp nhận tín hiệu mới.",
+    en: "Disabled sources remain in Active but stop accepting new signals.",
+  },
+  "sources.archived_note": {
+    vi: "Cấu hình đã đóng băng. Lịch sử bất biến vẫn được giữ lại.",
+    en: "Configuration frozen. Immutable history is preserved.",
+  },
+
+  // Signals
+  "signals.detail": { vi: "Chi tiết tín hiệu", en: "Signal detail" },
+  "signals.original": { vi: "Văn bản gốc", en: "Original text" },
+  "signals.parsed_fields": { vi: "Trường đã phân tích", en: "Parsed fields" },
+  "signals.destination": { vi: "Tài khoản đích", en: "Destination accounts" },
+  "signals.related_orders": { vi: "Lệnh liên quan", en: "Related orders" },
+  "signals.reason": { vi: "Lý do", en: "Reason" },
+  "signals.correlation": { vi: "Correlation ID", en: "Correlation ID" },
+  "signals.side.buy": { vi: "Mua", en: "Buy" },
+  "signals.side.sell": { vi: "Bán", en: "Sell" },
+
+  // Positions
+  "positions.entry": { vi: "Giá vào", en: "Entry" },
+  "positions.current": { vi: "Giá hiện tại", en: "Current" },
+  "positions.native_volume": { vi: "Khối lượng native", en: "Native volume" },
+  "positions.floating_pnl": { vi: "P&L nổi (USD)", en: "Floating P&L (USD)" },
+  "positions.pending": { vi: "Lệnh chờ", en: "Pending" },
+
+  // Orders
+  "orders.time_of_day": { vi: "Giờ trong ngày", en: "Time of day" },
+  "orders.page_size": { vi: "Số dòng", en: "Page size" },
+  "orders.export.csv": { vi: "Xuất CSV", en: "Export CSV" },
+  "orders.export.json": { vi: "Xuất JSON", en: "Export JSON" },
+
+  // Risk
+  "risk.effective": { vi: "Chính sách hiệu lực", en: "Effective policy" },
+  "risk.version": { vi: "Phiên bản", en: "Version" },
+  "risk.edit_draft": { vi: "Chỉnh sửa bản nháp", en: "Edit draft" },
+  "risk.preview_impact": { vi: "Xem tác động", en: "Preview impact" },
+  "risk.compare_versions": { vi: "So sánh phiên bản", en: "Compare versions" },
+  "risk.apply": { vi: "Áp dụng chính sách", en: "Apply policy" },
+  "risk.restore": { vi: "Khôi phục phiên bản", en: "Restore version" },
+  "risk.export": { vi: "Xuất bằng chứng", en: "Export evidence" },
+  "risk.native_amount": { vi: "Cỡ rủi ro native", en: "Native risk amount" },
+  "risk.daily_loss": { vi: "Giới hạn lỗ ngày", en: "Daily loss limit" },
+  "risk.drawdown": { vi: "Giới hạn drawdown", en: "Drawdown limit" },
+  "risk.margin_buffer": { vi: "Đệm ký quỹ (%)", en: "Margin buffer (%)" },
+  "risk.budget": { vi: "Ngân sách rủi ro", en: "Risk budget" },
+  "risk.notes": { vi: "Ghi chú", en: "Notes" },
+
+  // Telegram
+  "telegram.title": { vi: "Telegram", en: "Telegram" },
+  "telegram.api_id": { vi: "API ID", en: "API ID" },
+  "telegram.api_hash": { vi: "API Hash", en: "API Hash" },
+  "telegram.save_config": { vi: "Lưu cấu hình", en: "Save configuration" },
+  "telegram.send_code": { vi: "Gửi mã", en: "Send code" },
+  "telegram.otp": { vi: "Mã OTP", en: "OTP code" },
+  "telegram.otp.submit": { vi: "Gửi mã OTP", en: "Submit OTP" },
+  "telegram.twofa": { vi: "Mật khẩu 2FA", en: "2FA password" },
+  "telegram.twofa.submit": { vi: "Gửi 2FA", en: "Submit 2FA" },
+  "telegram.cancel": { vi: "Hủy xác thực", en: "Cancel authentication" },
+  "telegram.test": { vi: "Kiểm thử chỉ đọc", en: "Read-only test" },
+  "telegram.reconnect": { vi: "Kết nối lại", en: "Reconnect" },
+  "telegram.revoke": { vi: "Thu hồi/Đăng xuất", en: "Revoke / Logout" },
+  "telegram.identity": { vi: "Danh tính Telegram", en: "Telegram identity" },
+  "telegram.open_sources": { vi: "Mở Nguồn tín hiệu", en: "Open Signal Sources" },
+  "telegram.open_inbox": { vi: "Mở Hộp xử lý", en: "Open Processing Inbox" },
+  "telegram.state.config_missing": { vi: "Chưa có cấu hình API", en: "API configuration missing" },
+  "telegram.state.api_id_missing": { vi: "Thiếu API ID", en: "API ID missing" },
+  "telegram.state.api_hash_missing": { vi: "Thiếu API Hash", en: "API Hash missing" },
+  "telegram.state.auth_required": { vi: "Cần xác thực", en: "Authentication required" },
+  "telegram.state.code_sent": { vi: "Đã gửi mã", en: "Code sent" },
+  "telegram.state.otp_required": { vi: "Cần nhập OTP", en: "OTP required" },
+  "telegram.state.invalid_otp": { vi: "OTP không hợp lệ", en: "Invalid OTP" },
+  "telegram.state.twofa_required": { vi: "Cần mật khẩu 2FA", en: "2FA required" },
+  "telegram.state.ready": { vi: "Sẵn sàng", en: "Ready" },
+  "telegram.state.degraded": { vi: "Suy giảm", en: "Degraded" },
+  "telegram.state.disconnected": { vi: "Đã ngắt kết nối", en: "Disconnected" },
+  "telegram.state.revoked": { vi: "Đã thu hồi", en: "Revoked" },
 
   // Runtime / Hermes tabs
   "runtime.tab.overview": { vi: "Tổng quan", en: "Overview" },
@@ -232,16 +355,84 @@ export const dictionary = {
   "runtime.tab.providers": { vi: "Providers", en: "Providers" },
   "runtime.tab.versions": { vi: "Phiên bản & cập nhật", en: "Versions & Updates" },
   "runtime.tab.logs": { vi: "Nhật ký", en: "Logs" },
+  "runtime.self_test": { vi: "Tự kiểm tra", en: "Self-test" },
+  "runtime.restart": { vi: "Khởi động lại", en: "Restart" },
+  "runtime.update": { vi: "Cập nhật", en: "Update" },
+  "runtime.rollback": { vi: "Rollback", en: "Roll back" },
+  "runtime.route_gates": { vi: "Cổng route", en: "Route gates" },
+  "runtime.exec_gates": { vi: "Cổng thực thi", en: "Execution gates" },
+  "runtime.last_restart": { vi: "Khởi động lại lần cuối", en: "Last restart" },
+  "runtime.last_healthy": { vi: "Bình thường lần cuối", en: "Last healthy" },
+  "runtime.version": { vi: "Phiên bản runtime", en: "Runtime version" },
+
+  "provider.state.inactive": { vi: "Không hoạt động", en: "Inactive" },
+  "provider.state.testing": { vi: "Đang kiểm thử", en: "Testing" },
+  "provider.state.ready": { vi: "Sẵn sàng", en: "Ready" },
+  "provider.state.active": { vi: "Đang hoạt động", en: "Active" },
+  "provider.state.degraded": { vi: "Suy giảm", en: "Degraded" },
+  "provider.state.archived": { vi: "Đã lưu trữ", en: "Archived" },
+  "provider.add": { vi: "Thêm provider", en: "Add provider" },
+  "provider.test": { vi: "Kiểm thử", en: "Test" },
+  "provider.switch_preview": { vi: "Xem trước chuyển", en: "Preview switch" },
+  "provider.activate": { vi: "Kích hoạt", en: "Activate" },
+  "provider.deactivate": { vi: "Ngừng kích hoạt", en: "Deactivate" },
+  "provider.note_inactive_default": {
+    vi: "Provider mới luôn ở trạng thái Không hoạt động. Provider B không tự động kích hoạt.",
+    en: "New providers always default to Inactive. Provider B never auto-activates.",
+  },
+
   "hermes.tab.overview": { vi: "Tổng quan", en: "Overview" },
   "hermes.tab.accounts": { vi: "Tài khoản & kích hoạt", en: "Accounts & Activation" },
   "hermes.tab.sources": { vi: "Hiệu suất nguồn", en: "Source Performance" },
-  "hermes.tab.decisions": {
-    vi: "Quyết định & khuyến nghị",
-    en: "Decisions & Recommendations",
-  },
+  "hermes.tab.decisions": { vi: "Quyết định & khuyến nghị", en: "Decisions & Recommendations" },
   "hermes.tab.learning": { vi: "Dữ liệu học tập", en: "Learning Data" },
   "hermes.tab.policies": { vi: "Policy & phiên bản", en: "Policies & Versions" },
   "hermes.tab.trace": { vi: "Truy vết", en: "Trace" },
+  "hermes.activation.preview": { vi: "Xem trước kích hoạt", en: "Preview activation" },
+  "hermes.activation.open": { vi: "Mở luồng kích hoạt", en: "Open activation flow" },
+  "hermes.recommendation.confidence": { vi: "Độ tin cậy", en: "Confidence" },
+
+  // Inbox
+  "inbox.filter.severity": { vi: "Mức độ", en: "Severity" },
+  "inbox.filter.component": { vi: "Thành phần", en: "Component" },
+  "inbox.filter.state": { vi: "Trạng thái", en: "State" },
+  "inbox.provide_input": { vi: "Cung cấp đầu vào", en: "Provide input" },
+  "inbox.recheck": { vi: "Kiểm tra lại", en: "Recheck" },
+  "inbox.copy_correlation": { vi: "Sao chép correlation", en: "Copy correlation" },
+  "inbox.export_evidence": { vi: "Xuất bằng chứng", en: "Export evidence" },
+
+  // Trace
+  "trace.timeline": { vi: "Dòng thời gian", en: "Timeline" },
+  "trace.payload_redacted": { vi: "Payload đã che", en: "Redacted payload" },
+  "trace.step.telegram": { vi: "Telegram", en: "Telegram" },
+  "trace.step.parser": { vi: "Parser", en: "Parser" },
+  "trace.step.normalized": { vi: "Chuẩn hóa", en: "Normalized" },
+  "trace.step.dedupe": { vi: "Khử trùng lặp", en: "Dedupe" },
+  "trace.step.risk": { vi: "Rủi ro", en: "Risk" },
+  "trace.step.sizing": { vi: "Sizing", en: "Sizing" },
+  "trace.step.gate": { vi: "Cổng thực thi", en: "Execution gate" },
+  "trace.step.broker": { vi: "Broker", en: "Broker" },
+  "trace.step.lifecycle": { vi: "Vòng đời", en: "Lifecycle" },
+  "trace.step.final": { vi: "P&L cuối", en: "Final P&L" },
+
+  // Table headers used across pages
+  "col.account": { vi: "Tài khoản", en: "Account" },
+  "col.source": { vi: "Nguồn", en: "Source" },
+  "col.symbol": { vi: "Symbol", en: "Symbol" },
+  "col.side": { vi: "Hướng", en: "Side" },
+  "col.status": { vi: "Trạng thái", en: "Status" },
+  "col.result": { vi: "Kết quả", en: "Result" },
+  "col.time": { vi: "Thời gian", en: "Time" },
+  "col.ticket": { vi: "Ticket", en: "Ticket" },
+  "col.entry": { vi: "Giá vào", en: "Entry" },
+  "col.close": { vi: "Giá đóng", en: "Close" },
+  "col.pnl": { vi: "P&L (USD)", en: "P&L (USD)" },
+  "col.pips": { vi: "Pips", en: "Pips" },
+  "col.volume": { vi: "Volume", en: "Volume" },
+  "col.actions": { vi: "Hành động", en: "Actions" },
+
+  // Privacy
+  "privacy.masked": { vi: "••••", en: "••••" },
 } satisfies Dict;
 
 export type TKey = keyof typeof dictionary;
