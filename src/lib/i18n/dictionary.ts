@@ -699,14 +699,8 @@ export const dictionary = {
   "dashboard.risk.margin": { vi: "Mức sử dụng ký quỹ", en: "Margin usage" },
   "risk.margin_buffer": { vi: "Đệm ký quỹ (%) — deprecated", en: "Margin buffer (%) — deprecated" },
   "provider.switch_preview": { vi: "Xem trước chuyển", en: "Preview switch" },
-  "provider.test": { vi: "Kiểm thử", en: "Test provider" },
-  "provider.add": { vi: "Thêm provider", en: "Add provider" },
-  "provider.activate": { vi: "Kích hoạt", en: "Activate" },
-  "provider.deactivate": { vi: "Ngừng kích hoạt", en: "Deactivate" },
-  "provider.note_inactive_default": {
-    vi: "Provider mới luôn khởi tạo ở trạng thái Inactive. Không có auto-activate.",
-    en: "New providers always start Inactive. There is no auto-activate.",
-  },
+  // (provider.* base keys defined earlier in dictionary)
+
 
   // Analysis API Slots
   "runtime.tab.slots": { vi: "Analysis API Slots", en: "Analysis API Slots" },
