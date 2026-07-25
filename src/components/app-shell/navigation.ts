@@ -26,11 +26,16 @@ export type NavGroup = {
   items: NavItem[];
 };
 
+/**
+ * SignalOps IA — final grouping (Daily / Configuration / System).
+ * See CONTINUE_AND_COMPLETE_THE_EXISTING_FRONTEND_WAVE — decision final.
+ */
 export const NAV: NavGroup[] = [
   {
-    labelKey: "nav.primary",
+    labelKey: "nav.group.daily",
     items: [
       { to: "/", labelKey: "nav.dashboard", icon: Gauge },
+      { to: "/inbox", labelKey: "nav.inbox", icon: Inbox },
       { to: "/accounts", labelKey: "nav.accounts", icon: Boxes },
       { to: "/signals", labelKey: "nav.signals", icon: Radio },
       { to: "/positions", labelKey: "nav.positions", icon: Activity },
@@ -38,23 +43,19 @@ export const NAV: NavGroup[] = [
     ],
   },
   {
-    labelKey: "nav.operations",
+    labelKey: "nav.group.configuration",
     items: [
       { to: "/sources", labelKey: "nav.sources", icon: ListTree },
       { to: "/risk", labelKey: "nav.risk", icon: ShieldCheck },
-      { to: "/telegram", labelKey: "nav.telegram", icon: Send },
+      { to: "/telegram", labelKey: "nav.telegram_ai", icon: Send },
+      { to: "/hermes", labelKey: "nav.hermes", icon: Sparkles },
     ],
   },
   {
-    labelKey: "nav.intelligence",
-    items: [{ to: "/hermes", labelKey: "nav.hermes", icon: Sparkles }],
-  },
-  {
-    labelKey: "nav.system",
+    labelKey: "nav.group.system",
     items: [
       { to: "/runtime", labelKey: "nav.runtime", icon: LineChart },
-      { to: "/inbox", labelKey: "nav.inbox", icon: Inbox },
-      { to: "/trace", labelKey: "nav.trace", icon: Compass },
+      { to: "/trace", labelKey: "nav.trace_audit", icon: Compass },
     ],
   },
 ];
