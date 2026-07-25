@@ -70,7 +70,7 @@ export const controls = {
     toggle: "sources.toggle",
     archive: "sources.archive",
     restore: "sources.restore",
-    deletePermanent: "sources.delete_permanent",
+    
     accountMatrixOpen: "sources.account_matrix.open",
   },
   signals: {
