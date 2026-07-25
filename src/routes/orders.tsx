@@ -97,30 +97,35 @@ function OrdersPage() {
           data-control-id={controls.orders.search} className="max-w-xs" />
         <select className="h-8 rounded-md border border-input bg-background px-2 text-xs"
           data-control-id={controls.orders.filterAccount} value={account} onChange={(e) => setAccount(e.target.value)}>
-          <option value="all">All accounts</option>
+          <option value="all">{t("orders.filter.all_accounts")}</option>
           {(accountsQ.data ?? []).map((a) => <option key={a.id} value={a.id}>{a.displayName}</option>)}
         </select>
         <select className="h-8 rounded-md border border-input bg-background px-2 text-xs"
           data-control-id={controls.orders.filterSymbol} value={symbol} onChange={(e) => setSymbol(e.target.value)}>
-          <option value="all">All symbols</option>
+          <option value="all">{t("orders.filter.all_symbols")}</option>
           {symbols.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
         <select className="h-8 rounded-md border border-input bg-background px-2 text-xs"
           data-control-id={controls.orders.filterSide} value={side} onChange={(e) => setSide(e.target.value as never)}>
-          <option value="all">Any side</option><option value="buy">Buy</option><option value="sell">Sell</option>
+          <option value="all">{t("orders.filter.any_side")}</option>
+          <option value="buy">{t("orders.side.buy")}</option>
+          <option value="sell">{t("orders.side.sell")}</option>
         </select>
         <select className="h-8 rounded-md border border-input bg-background px-2 text-xs"
           data-control-id={controls.orders.filterResult} value={result} onChange={(e) => setResult(e.target.value as never)}>
-          <option value="all">Any result</option>
-          <option value="win">Win</option><option value="loss">Loss</option>
-          <option value="break_even">Break-even</option><option value="pending">Pending</option>
+          <option value="all">{t("orders.filter.any_result")}</option>
+          <option value="win">{t("orders.result.win")}</option>
+          <option value="loss">{t("orders.result.loss")}</option>
+          <option value="break_even">{t("orders.result.break_even")}</option>
+          <option value="pending">{t("orders.result.pending")}</option>
         </select>
         <select className="h-8 rounded-md border border-input bg-background px-2 text-xs ml-auto"
           data-control-id={controls.orders.pageSize} value={pageSize}
           onChange={(e) => { setPageSize(Number(e.target.value) as never); setPage(1); }}>
-          <option value={25}>25</option><option value={50}>50</option><option value={100}>100</option>
+          <option value={25}>25</option><option value={50}>100</option><option value={100}>100</option>
         </select>
       </FilterBar>
+
 
       {q.isPending ? <LoadingState /> : filtered.length === 0 ? <EmptyState /> : (
         <Card><CardContent className="overflow-x-auto p-0">
@@ -165,12 +170,13 @@ function OrdersPage() {
             </tbody>
           </table>
           <div className="flex items-center justify-between border-t border-border p-2 text-xs text-muted-foreground">
-            <span>{filtered.length} {t("dashboard.total_orders").toLowerCase()}</span>
+            <span>{filtered.length} {t("common.results").toLowerCase()}</span>
             <div className="flex items-center gap-2">
-              <Button size="sm" variant="ghost" disabled={page === 1} onClick={() => setPage((p) => p - 1)}>Prev</Button>
-              <span>Page {page} / {totalPages}</span>
-              <Button size="sm" variant="ghost" disabled={page === totalPages} onClick={() => setPage((p) => p + 1)}>Next</Button>
+              <Button size="sm" variant="ghost" disabled={page === 1} onClick={() => setPage((p) => p - 1)}>{t("common.prev")}</Button>
+              <span>{t("common.page")} {page} / {totalPages}</span>
+              <Button size="sm" variant="ghost" disabled={page === totalPages} onClick={() => setPage((p) => p + 1)}>{t("common.next")}</Button>
             </div>
+
           </div>
         </CardContent></Card>
       )}
