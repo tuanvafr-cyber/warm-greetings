@@ -90,8 +90,7 @@ for (const f of files) {
     backendRefs.add(`${m[1]}.${m[2]}`);
   for (const m of src.matchAll(/data-control-id=\{controls\.(\w+)\.(\w+)\}/g))
     frontendRefs.add(`${m[1]}.${m[2]}`);
-  for (const m of src.matchAll(/controls\.(\w+)\.(\w+)/g))
-    anyRefs.add(`${m[1]}.${m[2]}`);
+  for (const m of src.matchAll(/controls\.(\w+)\.(\w+)/g)) anyRefs.add(`${m[1]}.${m[2]}`);
 }
 
 const registeredKeys = new Set(activeEntries.map((e) => `${e.area}.${e.key}`));
@@ -120,8 +119,7 @@ const plannedCount = plannedEntries.length;
 
 const failures = [];
 if (missing.length) failures.push(`missing (${missing.length}): ${missing.join(", ")}`);
-if (duplicated.length)
-  failures.push(`duplicated (${duplicated.length}): ${duplicated.join(", ")}`);
+if (duplicated.length) failures.push(`duplicated (${duplicated.length}): ${duplicated.join(", ")}`);
 if (dead.length) failures.push(`dead (${dead.length}): ${dead.join(", ")}`);
 if (categorized.mixed.length)
   failures.push(`mixed categories (${categorized.mixed.length}): ${categorized.mixed.join(", ")}`);
