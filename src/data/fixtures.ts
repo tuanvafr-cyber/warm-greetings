@@ -946,7 +946,7 @@ export const providerSlots: ProviderSlot[] = [
   {
     slot: 2,
     label: "Analysis API Slot 2",
-    role: "failover",
+    role: "secondary",
     assignedProviderId: "prov-b",
     state: "ready",
     attempts: 0,
@@ -964,7 +964,7 @@ export const providerSlots: ProviderSlot[] = [
   {
     slot: 3,
     label: "Analysis API Slot 3",
-    role: "diagnostic",
+    role: "tertiary",
     assignedProviderId: "prov-c",
     state: "cooldown",
     attempts: 3,
@@ -983,7 +983,7 @@ export const providerSlots: ProviderSlot[] = [
 
 export const routingPolicy: RoutingPolicy = {
   version: 4,
-  strategy: "primary_then_failover",
+  strategy: "ordered_primary_secondary_tertiary",
   failoverAfterAttempts: 5,
   failbackWhen: "probe_ok",
   recoveryProbeSeconds: 60,
