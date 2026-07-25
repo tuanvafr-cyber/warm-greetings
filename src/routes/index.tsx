@@ -101,37 +101,6 @@ function DashboardPage() {
           </div>
 
 
-      {loading || !kpis.data ? (
-        <LoadingState />
-      ) : (
-        <>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            <StatCard
-              label={t("dashboard.trading_pnl")}
-              value={<MoneyUsd value={kpis.data.tradingPnlUsd} colorize />}
-              delta={t("dashboard.executed") + ": " + kpis.data.executedSignals}
-              icon={<TrendingUp className="h-4 w-4" />}
-            />
-            <StatCard
-              label={t("dashboard.total_income")}
-              value={<MoneyUsd value={kpis.data.totalIncomeUsd} colorize />}
-              delta="Trading + other income"
-              icon={<Gauge className="h-4 w-4" />}
-            />
-            <StatCard
-              label={t("dashboard.active_exposure")}
-              value={<MoneyUsd value={kpis.data.activeExposureUsd} />}
-              delta={`${kpis.data.openPositions} open · ${kpis.data.pendingOrders} pending`}
-              icon={<Activity className="h-4 w-4" />}
-            />
-            <StatCard
-              label={t("dashboard.signal_execution_rate")}
-              value={<Pct value={kpis.data.executionRate} />}
-              delta={`${t("dashboard.eligible")}: ${kpis.data.eligibleSignals} · ${t("dashboard.blocked")}: ${kpis.data.blockedSignals} · ${t("dashboard.tech_failed")}: ${kpis.data.technicalFailedSignals}`}
-              icon={<Zap className="h-4 w-4" />}
-            />
-          </div>
-
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="lg:col-span-2">
               <AnalyticsCarousel
