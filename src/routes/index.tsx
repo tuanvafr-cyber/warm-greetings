@@ -3,7 +3,7 @@ import { Activity, Boxes, Gauge, PlayCircle, TrendingUp, Zap } from "lucide-reac
 import { PageHeader } from "@/components/shared/PageHeader";
 import { StatCard } from "@/components/shared/StatCard";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
-import { TimeRangePicker, type TimeRange } from "@/components/shared/TimeRangePicker";
+import { TimeRangePicker } from "@/components/shared/TimeRangePicker";
 import { LoadingState } from "@/components/shared/StateViews";
 import { MoneyUsd, Pct, TimeAgo } from "@/components/shared/MoneyText";
 import { AnalyticsCarousel } from "@/features/dashboard/AnalyticsCarousel";
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
 
 function DashboardPage() {
   const t = useT();
-  const [range, setRange] = useState<TimeRange>("7d");
+  // time range persists via URL through <TimeRangePicker />.
   const kpis = useDashboardKpis();
   const pnl = usePnlSeries();
   const heatmap = useHeatmap();
@@ -58,7 +58,8 @@ function DashboardPage() {
             <span className="text-xs text-muted-foreground">
               {t("dashboard.last_updated")} <TimeAgo iso={new Date().toISOString()} />
             </span>
-            <TimeRangePicker value={range} onChange={setRange} controlPrefix="dashboard" />
+            <TimeRangePicker />
+            <span className="sr-only">{/* setRange placeholder — historical */}</span>
           </div>
         }
       />

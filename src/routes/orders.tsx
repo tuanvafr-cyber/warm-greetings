@@ -6,7 +6,7 @@ import { LoadingState, EmptyState } from "@/components/shared/StateViews";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
 import { MoneyUsd, Sensitive } from "@/components/shared/MoneyText";
 import { FilterBar } from "@/components/shared/FilterBar";
-import { TimeRangePicker, type TimeRange } from "@/components/shared/TimeRangePicker";
+import { TimeRangePicker } from "@/components/shared/TimeRangePicker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -45,7 +45,7 @@ function OrdersPage() {
   const search = Route.useSearch();
   const q = useOrders();
   const accountsQ = useAccounts();
-  const [range, setRange] = useState<TimeRange>("30d");
+  // time range persists via URL through <TimeRangePicker />.
   const [account, setAccount] = useState("all");
   const [symbol, setSymbol] = useState("all");
   const [side, setSide] = useState<"all" | "buy" | "sell">("all");
@@ -87,7 +87,7 @@ function OrdersPage() {
       />
       <FixtureBanner />
 
-      <TimeRangePicker value={range} onChange={setRange} controlPrefix="orders" />
+      <TimeRangePicker />
 
       <FilterBar>
         <Input placeholder={t("common.search")} value={txt} onChange={(e) => setTxt(e.target.value)}
