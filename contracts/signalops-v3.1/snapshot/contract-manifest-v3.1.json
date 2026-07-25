@@ -1,0 +1,9 @@
+{
+  "contractVersion": "3.1.0",
+  "openapi": "openapi.yaml",
+  "typescript": "signalops-v3.d.ts",
+  "capabilities": "capabilities.json",
+  "locales": ["locales/vi-VN.json", "locales/en-US.json"],
+  "parityReport": "locale-parity-v3.1.json",
+  "authority": { "hermes": "OBSERVE_ONLY", "brokerWrite": false, "execution": false, "routeArmed": false }
+}

@@ -13,9 +13,10 @@
  *   data-control-id={controls.X.Y}   → frontend-functional
  */
 import { readFileSync, readdirSync, statSync } from "node:fs";
-import { join, extname } from "node:path";
+import { join, extname, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const ROOT = new URL("..", import.meta.url).pathname;
+const ROOT = dirname(fileURLToPath(new URL("..", import.meta.url)));
 const SRC = join(ROOT, "src");
 const REG = join(SRC, "lib", "control-registry.ts");
 

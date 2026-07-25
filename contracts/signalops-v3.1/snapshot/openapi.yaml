@@ -1,0 +1,100 @@
+openapi: 3.1.0
+info:
+  title: SignalOps Backend Control Plane V3
+  version: 3.1.0
+  description: English machine contract for Account Line, AI Provider, Prompt Registry and Hermes observe-only configuration.
+servers:
+  - url: /
+paths:
+  /api/account-line-templates:
+    get: { operationId: template.list, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+    post: { operationId: template.create, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/TemplateInput' } } } }, responses: { '201': { $ref: '#/components/responses/Envelope' } } }
+  /api/account-lines/preview:
+    post: { operationId: account.previewAdd, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/AccountLineInput' } } } }, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/account-lines/apply:
+    post: { operationId: account.applyAdd, requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/AccountLineInput' } } } }, responses: { '201': { $ref: '#/components/responses/Envelope' } } }
+  /api/account-lines/{accountId}/readiness:
+    get: { operationId: account.getReadiness, parameters: [{ $ref: '#/components/parameters/AccountId' }], responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/account-lines/{accountId}/status:
+    get: { operationId: account.getProvisioningStatus, parameters: [{ $ref: '#/components/parameters/AccountId' }], responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/account-lines/{accountId}/{action}:
+    post: { operationId: account.reconcileOrCancel, parameters: [{ $ref: '#/components/parameters/AccountId' }, { name: action, in: path, required: true, schema: { type: string, enum: [resume, reconcile, cancel] } }], responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/resolver/test:
+    post: { operationId: resolver.testText, requestBody: { required: true, content: { application/json: { schema: { type: object, required: [value], properties: { value: { type: string }, sourceId: { type: string }, accountId: { type: string } } } } } }, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/source-policies:
+    post: { operationId: sourcePolicy.set, requestBody: { required: true, content: { application/json: { schema: { type: object, required: [sourceId, instrumentId], properties: { sourceId: { type: string }, instrumentId: { type: string }, allowed: { type: boolean }, reasonCode: { type: string } } } } } }, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/accounts/{accountId}/matrix:
+    get: { operationId: matrix.inspect, parameters: [{ $ref: '#/components/parameters/AccountId' }], responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/ai/models:
+    get: { operationId: aiModel.list, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+    post: { operationId: aiModel.createManual, requestBody: { required: true, content: { application/json: { schema: { type: object } } } }, responses: { '201': { $ref: '#/components/responses/Envelope' } } }
+  /api/ai/models/discover:
+    post: { operationId: aiModel.discover, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/ai/routing-profiles:
+    get: { operationId: aiRouting.list, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/ai/prompts:
+    get: { operationId: prompt.listProfiles, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+    post: { operationId: prompt.createProfile, responses: { '201': { $ref: '#/components/responses/Envelope' } } }
+  /api/ai/prompts/versions/activate:
+    post: { operationId: prompt.activateVersion, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/hermes/configs:
+    get: { operationId: hermes.listConfigs, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+    post: { operationId: hermes.createConfig, responses: { '201': { $ref: '#/components/responses/Envelope' } } }
+  /api/signals:
+    get: { operationId: signal.list, parameters: [{ name: cursor, in: query, schema: { type: string } }, { name: limit, in: query, schema: { type: integer, minimum: 1, maximum: 200 } }], responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/analytics/summary:
+    get: { operationId: analytics.getSummary, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+  /api/analytics/trade-heatmap:
+    get: { operationId: analytics.getTradeHeatmap, responses: { '200': { $ref: '#/components/responses/Envelope' } } }
+components:
+  parameters:
+    AccountId: { name: accountId, in: path, required: true, schema: { type: string } }
+  responses:
+    Envelope:
+      description: Canonical response envelope
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Envelope' }
+  schemas:
+    Envelope:
+      type: object
+      required: [ok, data, reasons, meta]
+      properties:
+        ok: { type: boolean }
+        data: {}
+        reasons: { type: array, items: { $ref: '#/components/schemas/Reason' } }
+        meta: { type: object, required: [requestId, serverTime], properties: { requestId: { type: string }, serverTime: { type: string, format: date-time }, configRevision: { type: integer } } }
+    Reason:
+      type: object
+      required: [code, messageKey, severity, params]
+      properties:
+        code: { type: string }
+        messageKey: { type: string }
+        severity: { type: string, enum: [INFO, WARNING, ERROR, CRITICAL] }
+        params: { type: object }
+        objectType: { type: string }
+        objectId: { type: string }
+    TemplateInput:
+      type: object
+      required: [templateId, version, sourceIds, instrumentIds, riskAmountPerOrder]
+      properties:
+        templateId: { type: string }
+        version: { type: string }
+        displayName: { type: string }
+        sourceIds: { type: array, items: { type: string } }
+        instrumentIds: { type: array, items: { type: string } }
+        riskAmountPerOrder: { type: number, exclusiveMinimum: 0 }
+    AccountLineInput:
+      type: object
+      required: [login, server, terminalFingerprint]
+      properties:
+        accountId: { type: string }
+        login: { type: string }
+        server: { type: string }
+        terminalFingerprint: { type: string }
+        terminalId: { type: string }
+        templateId: { type: string }
+        templateVersion: { type: string }
+        sourceIds: { type: array, items: { type: string } }
+        instrumentIds: { type: array, items: { type: string } }
+        riskAmountPerOrder: { type: number, exclusiveMinimum: 0 }

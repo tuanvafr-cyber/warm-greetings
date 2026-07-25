@@ -1,0 +1,29 @@
+{
+  "contractVersion": "3.1.0",
+  "localeNeutral": true,
+  "commands": [
+    {"id":"account.previewAdd","authority":"operator","mutability":"read","idempotency":false,"labelKey":"action.account.previewAdd"},
+    {"id":"account.applyAdd","authority":"operator","mutability":"write","idempotency":true,"labelKey":"action.account.applyAdd"},
+    {"id":"account.resumeProvisioning","authority":"operator","mutability":"write","idempotency":true,"labelKey":"action.account.resumeProvisioning"},
+    {"id":"account.reconcile","authority":"operator","mutability":"write","idempotency":true,"labelKey":"action.account.reconcile"},
+    {"id":"account.activate","authority":"separate_operator_gate","mutability":"write","idempotency":true,"labelKey":"action.account.activate"},
+    {"id":"template.create","authority":"operator","mutability":"write","idempotency":true,"labelKey":"action.account.saveAsTemplate"},
+    {"id":"resolver.testText","authority":"operator","mutability":"read","idempotency":false,"labelKey":"action.resolver.testText"},
+    {"id":"sourcePolicy.set","authority":"operator","mutability":"write","idempotency":true,"labelKey":"action.matrix.inspect"},
+    {"id":"matrix.inspect","authority":"operator","mutability":"read","idempotency":false,"labelKey":"action.matrix.inspect"},
+    {"id":"aiProvider.previewCreate","authority":"admin","mutability":"read","idempotency":false,"labelKey":"action.aiProvider.create"},
+    {"id":"aiProvider.create","authority":"admin","mutability":"write","idempotency":true,"labelKey":"action.aiProvider.create"},
+    {"id":"aiProvider.testConnection","authority":"admin","mutability":"read","idempotency":false,"labelKey":"action.aiProvider.testConnection"},
+    {"id":"aiModel.discover","authority":"admin","mutability":"write","idempotency":true,"labelKey":"action.aiModel.addManual"},
+    {"id":"aiModel.createManual","authority":"admin","mutability":"write","idempotency":true,"labelKey":"action.aiModel.addManual"},
+    {"id":"aiRouting.create","authority":"admin","mutability":"write","idempotency":true,"labelKey":"action.aiRouting.create"},
+    {"id":"aiRouting.testFailover","authority":"admin","mutability":"read","idempotency":false,"labelKey":"action.aiRouting.testFailover"},
+    {"id":"prompt.createProfile","authority":"admin","mutability":"write","idempotency":true,"labelKey":"action.prompt.createProfile"},
+    {"id":"prompt.activateVersion","authority":"admin","mutability":"write","idempotency":true,"labelKey":"action.prompt.activateVersion"},
+    {"id":"prompt.rollbackVersion","authority":"admin","mutability":"write","idempotency":true,"labelKey":"action.prompt.rollbackVersion"},
+    {"id":"hermes.createConfig","authority":"admin","mutability":"write","idempotency":true,"labelKey":"action.hermes.createConfig"},
+    {"id":"analytics.getSummary","authority":"viewer","mutability":"read","idempotency":false,"labelKey":"field.analytics.summary"},
+    {"id":"analytics.getTradeHeatmap","authority":"viewer","mutability":"read","idempotency":false,"labelKey":"field.analytics.heatmap"}
+  ],
+  "forbidden": ["signal.replay","broker.resend","broker.forceSuccess","readiness.force","database.directRepair","account1.activate"]
+}

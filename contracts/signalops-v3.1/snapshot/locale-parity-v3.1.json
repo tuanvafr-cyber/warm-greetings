@@ -1,0 +1,9 @@
+{
+  "contractVersion": "3.1.0",
+  "viLocale": "vi-VN",
+  "enLocale": "en-US",
+  "keyParity": true,
+  "placeholderParity": true,
+  "literalTokensPreserved": ["BUY", "SELL", "SL", "TP", "P&L", "MT5", "Telegram"],
+  "generatedFrom": "SIGNALOPS_FRONTEND_I18N_CONTRACT_V3_1"
+}
