@@ -94,13 +94,10 @@ export function AnalyticsCarousel({
     if (!resizingRef.current) return;
     resizingRef.current = false;
     (e.target as HTMLElement).releasePointerCapture(e.pointerId);
-    try {
-      window.localStorage.setItem(HEIGHT_KEY, JSON.stringify(startHRef.current));
-    } catch {
-      /* ignore */
-    }
+    // Note: do NOT write startHRef.current here — that would persist the
+    // pre-drag height instead of the final dragged height. The effect
+    // below persists the clamped `height` state after every change.
   }, []);
-  // Persist height on change (after resize ends we snapshot latest)
   useEffect(() => {
     if (isMobile) return;
     try {
