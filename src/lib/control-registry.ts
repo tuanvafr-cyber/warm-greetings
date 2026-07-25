@@ -105,6 +105,10 @@ export const controls = {
 
   signals: {
     filterStatus: "signals.filter.status",
+    filterAccount: "signals.filter.account",
+    filterSource: "signals.filter.source",
+    filterSymbol: "signals.filter.symbol",
+    filterSide: "signals.filter.side",
     search: "signals.search",
     openDetail: "signals.open_detail",
     openTrace: "signals.open_trace",
