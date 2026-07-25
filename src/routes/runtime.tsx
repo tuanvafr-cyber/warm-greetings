@@ -67,7 +67,10 @@ function RuntimePage() {
   const providers = useProviders();
   const slots = useProviderSlots();
   const policy = useRoutingPolicy();
-  useTopBar({ title: t("nav.runtime"), lastUpdatedIso: useLastUpdatedFromQueries(runtime, providers, slots, policy) });
+  useTopBar({
+    title: t("nav.runtime"),
+    lastUpdatedIso: useLastUpdatedFromQueries(runtime, providers, slots, policy),
+  });
 
   return (
     <div className="flex flex-col gap-4">

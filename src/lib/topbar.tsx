@@ -64,7 +64,6 @@ export function useTopBar(state: TopBarState) {
     if (!c) return;
     c.set(latest.current);
     return () => c.set({});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serialised]);
 }
 

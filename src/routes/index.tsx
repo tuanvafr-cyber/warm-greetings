@@ -63,7 +63,15 @@ function DashboardPage() {
   );
 
   const lastUpdated = useLastUpdatedFromQueries(
-    kpis, pnl, heatmap, sources, orders, positions, risk, runtime, inbox,
+    kpis,
+    pnl,
+    heatmap,
+    sources,
+    orders,
+    positions,
+    risk,
+    runtime,
+    inbox,
   );
   useTopBar({
     title: t("dashboard.title"),
@@ -97,7 +105,6 @@ function DashboardPage() {
   useEffect(() => {
     void 0;
   }, []);
-
 
   return (
     <div className="flex flex-col gap-4">
@@ -147,10 +154,7 @@ function DashboardPage() {
             <div className="lg:col-span-2">
               <AnalyticsCarousel slides={slides} onHeightChange={setAnalyticsHeight} />
             </div>
-            <div
-              className="flex flex-col gap-4 lg:h-full"
-              style={{ minHeight: analyticsHeight }}
-            >
+            <div className="flex flex-col gap-4 lg:h-full" style={{ minHeight: analyticsHeight }}>
               <div className="flex-1 min-h-0">
                 <RiskTodayCard version={risk.data?.[0]} marginUsagePct={kpis.data.marginUsagePct} />
               </div>
@@ -159,7 +163,6 @@ function DashboardPage() {
               </div>
             </div>
           </div>
-
 
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="lg:col-span-2">
@@ -217,7 +220,6 @@ function RiskTodayCard({
   );
 }
 
-
 function Metric({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div>
@@ -239,7 +241,6 @@ function RuntimeInboxCard({
   const open = inbox.filter((i) => i.state === "open");
   return (
     <Card className="flex h-full flex-col">
-
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center justify-between text-sm">
           {t("dashboard.runtime_inbox")}
