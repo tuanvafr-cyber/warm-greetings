@@ -414,3 +414,36 @@ export type SourceAccountCell = {
   blockerReason: string | null;
   updatedAt: string;
 };
+
+// ============================================================
+// Backend-ready query DTOs. Passed as the sole argument to
+// PanelDataAdapter methods so the fixture adapter and any future
+// SignalOps API adapter share the same input surface.
+// ============================================================
+export type QueryScope = {
+  account?: string | "all";
+  range?: string;
+  from?: string | null;
+  to?: string | null;
+  filters?: Record<string, unknown>;
+  cursor?: string | number | null;
+};
+
+export type DashboardQuery = QueryScope;
+export type HeatmapQuery = QueryScope & { granularityHours?: 1 | 2 };
+export type SignalsQuery = QueryScope & {
+  status?: string | "all";
+  sourceId?: string | "all";
+  symbol?: string | "all";
+  q?: string;
+};
+export type OrdersQuery = QueryScope & {
+  symbol?: string | "all";
+  side?: "all" | "buy" | "sell";
+  result?: "all" | OrderResult;
+  q?: string;
+};
+export type PositionsQuery = QueryScope & {
+  symbol?: string | "all";
+  side?: "all" | "buy" | "sell";
+};
