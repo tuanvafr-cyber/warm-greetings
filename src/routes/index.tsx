@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { controls } from "@/lib/control-registry";
-import { useTopBar } from "@/lib/topbar";
+import { useTopBar, useLastUpdatedFromQueries } from "@/lib/topbar";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,7 +62,9 @@ function DashboardPage() {
     (q) => q.isPending,
   );
 
-  const lastUpdated = useMemo(() => new Date().toISOString(), []);
+  const lastUpdated = useLastUpdatedFromQueries(
+    kpis, pnl, heatmap, sources, orders, positions, risk, runtime, inbox,
+  );
   useTopBar({
     title: t("dashboard.title"),
     lastUpdatedIso: lastUpdated,
