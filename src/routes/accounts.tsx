@@ -1,6 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Pin, Plus, RefreshCw, ShieldCheck } from "lucide-react";
+import { Pin, Plus, RefreshCw } from "lucide-react";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { useTopBar, useLastUpdatedFromQueries } from "@/lib/topbar";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
