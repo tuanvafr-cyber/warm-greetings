@@ -158,7 +158,8 @@ export function TradeActivityHeatmap({ buckets }: { buckets: HeatmapBucket[] }) 
                             {t("dashboard.total_orders")}: {b.orderCount}
                           </div>
                           <div>
-                            Win: {b.winCount} · Loss: {b.lossCount} · —: {b.unresolvedCount}
+                            {t("heat.win")}: {b.winCount} · {t("heat.loss")}: {b.lossCount} · —:{" "}
+                            {b.unresolvedCount}
                           </div>
                           <div>
                             {t("dashboard.net_pnl")}: {b.netPnlUsd.toFixed(2)}
@@ -167,10 +168,13 @@ export function TradeActivityHeatmap({ buckets }: { buckets: HeatmapBucket[] }) 
                             {t("dashboard.net_pips")}: {b.netPips.toFixed(0)}
                           </div>
                           <div className="text-muted-foreground">
-                            Best: {b.best.toFixed(2)} · Worst: {b.worst.toFixed(2)}
+                            {t("heat.best_order")}: {b.bestOrderPnlUsd.toFixed(2)} ·{" "}
+                            {t("heat.worst_order")}: {b.worstOrderPnlUsd.toFixed(2)}
                           </div>
                           {b.topSource ? (
-                            <div className="text-muted-foreground">Top: {b.topSource}</div>
+                            <div className="text-muted-foreground">
+                              {t("heat.top_source")}: {b.topSource}
+                            </div>
                           ) : null}
                         </TooltipContent>
                       </Tooltip>
@@ -183,15 +187,18 @@ export function TradeActivityHeatmap({ buckets }: { buckets: HeatmapBucket[] }) 
         </div>
         <div className="mt-2 flex flex-wrap items-center gap-4 text-[11px] text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-[oklch(0.72_0.15_150)]" /> Win
+            <span className="h-2 w-2 rounded-full bg-[oklch(0.72_0.15_150)]" /> {t("heat.win")}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-[oklch(0.66_0.19_25)]" /> Loss
+            <span className="h-2 w-2 rounded-full bg-[oklch(0.66_0.19_25)]" /> {t("heat.loss")}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-muted-foreground/30" /> Even / unresolved
+            <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />{" "}
+            {t("heat.legend_even")}
           </span>
-          <span className="ml-auto">Dot size = {t("dashboard.total_orders")}</span>
+          <span className="ml-auto">
+            {t("heat.dot_size")} = {t("dashboard.total_orders")}
+          </span>
         </div>
       </div>
     </TooltipProvider>
