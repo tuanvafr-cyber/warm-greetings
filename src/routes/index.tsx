@@ -148,7 +148,7 @@ function RiskTodayCard({ version }: { version: import("@/data/contracts").RiskPo
       <CardContent className="grid grid-cols-2 gap-3 text-sm">
         <Metric label={t("dashboard.risk.daily_loss")} value={<MoneyUsd value={version?.dailyLossLimitUsd ?? 0} />} />
         <Metric label={t("dashboard.risk.drawdown")} value={<MoneyUsd value={version?.drawdownLimitUsd ?? 0} />} />
-        <Metric label={t("dashboard.risk.margin")} value={`${version?.marginBufferPct ?? 0}%`} />
+        <Metric label={t("dashboard.risk.margin_usage")} value={`${version?.marginBufferPct ?? 0}%`} />
         <Metric label={t("dashboard.risk.budget")} value={<MoneyUsd value={version?.riskBudgetUsd ?? 0} />} />
       </CardContent>
     </Card>
