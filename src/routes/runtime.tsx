@@ -10,11 +10,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useRuntimeComponents, useProviders } from "@/data/hooks";
+import { useRuntimeComponents, useProviders, useProviderSlots, useRoutingPolicy } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
 import { controls } from "@/lib/control-registry";
 import type { ComponentHealth, ProviderState } from "@/data/contracts";
+import { ProviderSlotCard, RoutingPolicyPanel } from "@/components/shared/ProviderSlotCard";
 import { Plus, RefreshCw } from "lucide-react";
+
 
 export const Route = createFileRoute("/runtime")({
   head: () => ({
@@ -44,6 +46,9 @@ function RuntimePage() {
   useTopBar({ title: t("nav.runtime"), lastUpdatedIso: new Date().toISOString() });
   const runtime = useRuntimeComponents();
   const providers = useProviders();
+  const slots = useProviderSlots();
+  const policy = useRoutingPolicy();
+
 
   return (
     <div className="flex flex-col gap-4">
@@ -69,10 +74,26 @@ function RuntimePage() {
         <TabsList>
           <TabsTrigger value="overview" data-control-id={controls.runtime.tabOverview}>{t("runtime.tab.overview")}</TabsTrigger>
           <TabsTrigger value="components" data-control-id={controls.runtime.tabComponents}>{t("runtime.tab.components")}</TabsTrigger>
+          <TabsTrigger value="slots">{t("runtime.tab.slots")}</TabsTrigger>
           <TabsTrigger value="providers" data-control-id={controls.runtime.tabProviders}>{t("runtime.tab.providers")}</TabsTrigger>
           <TabsTrigger value="versions" data-control-id={controls.runtime.tabVersions}>{t("runtime.tab.versions")}</TabsTrigger>
           <TabsTrigger value="logs" data-control-id={controls.runtime.tabLogs}>{t("runtime.tab.logs")}</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="slots" className="mt-4">
+          <div className="mb-3">
+            <h2 className="text-sm font-semibold">{t("runtime.slots.title")}</h2>
+            <p className="text-xs text-muted-foreground">{t("runtime.slots.desc")}</p>
+          </div>
+          {slots.isPending || policy.isPending ? <LoadingState /> : (
+            <div className="grid gap-3 lg:grid-cols-2 xl:grid-cols-3">
+              {(slots.data ?? []).map((s) => <ProviderSlotCard key={s.slot} slot={s} />)}
+              {policy.data ? <RoutingPolicyPanel policy={policy.data} /> : null}
+            </div>
+          )}
+        </TabsContent>
+
+
 
         <TabsContent value="overview" className="mt-4">
           {runtime.isPending ? <LoadingState /> : (

@@ -13,10 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useSources } from "@/data/hooks";
+import { useSources, useAccounts, useSourceAccountMatrix } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
 import { controls } from "@/lib/control-registry";
-import type { Source, SourceLifecycle } from "@/data/contracts";
+import type { Source, SourceLifecycle, SourceAccountCell, Account } from "@/data/contracts";
+
 
 export const Route = createFileRoute("/sources")({
   head: () => ({
@@ -85,8 +86,10 @@ function SourcesPage() {
         <TabsList>
           <TabsTrigger value="active" data-control-id={controls.sources.tabActive}>{t("sources.tab.active")}</TabsTrigger>
           <TabsTrigger value="perf" data-control-id={controls.sources.tabPerformance}>{t("sources.tab.performance")}</TabsTrigger>
+          <TabsTrigger value="matrix" data-control-id={controls.sources.tabMatrix}>{t("sources.tab.matrix")}</TabsTrigger>
           <TabsTrigger value="archive" data-control-id={controls.sources.tabArchive}>{t("sources.tab.archive")}</TabsTrigger>
         </TabsList>
+
 
         <div className="mt-3">
           <Input
@@ -113,7 +116,12 @@ function SourcesPage() {
           )}
         </TabsContent>
 
+        <TabsContent value="matrix" className="mt-4">
+          <SourceAccountMatrixView />
+        </TabsContent>
+
         <TabsContent value="archive" className="mt-4">
+
           <p className="mb-2 text-xs text-muted-foreground">{t("sources.archived_note")}</p>
           {q.isPending ? <LoadingState /> : archive.length === 0 ? <EmptyState /> : (
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -258,5 +266,92 @@ function PerformanceTable({ sources }: { sources: Source[] }) {
         </table>
       </CardContent>
     </Card>
+  );
+}
+
+function SourceAccountMatrixView() {
+  const t = useT();
+  const cells = useSourceAccountMatrix();
+  const srcQ = useSources();
+  const accQ = useAccounts();
+
+  if (cells.isPending || srcQ.isPending || accQ.isPending) return <LoadingState />;
+  const rows: SourceAccountCell[] = cells.data ?? [];
+  if (rows.length === 0) return <EmptyState />;
+  const sources: Source[] = (srcQ.data ?? []).filter((s: Source) => s.lifecycle !== "archived");
+  const accounts: Account[] = (accQ.data ?? []).filter((a: Account) => a.lifecycle !== "archived");
+
+  const cellFor = (sid: string, aid: string) =>
+    rows.find((c) => c.sourceId === sid && c.accountId === aid);
+
+  return (
+    <div className="space-y-3">
+      <p className="text-xs text-muted-foreground">{t("matrix.canonical_note")}</p>
+      <Card>
+        <CardContent className="overflow-x-auto p-0">
+          <table className="w-full text-sm">
+            <thead className="border-b border-border text-left text-xs text-muted-foreground">
+              <tr>
+                <th className="px-3 py-2">{t("matrix.col.source")}</th>
+                {accounts.map((a) => (
+                  <th key={a.id} className="px-2 py-2 text-center font-medium">
+                    <div className="truncate">{a.displayName}</div>
+                    <div className="text-[10px] text-muted-foreground">{a.currency}</div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {sources.map((s) => (
+                <tr key={s.id} className="border-b border-border/60 last:border-none">
+                  <td className="px-3 py-2 font-medium">
+                    <div className="truncate">{s.displayName}</div>
+                    <div className="text-[10px] text-muted-foreground">{s.telegramIdentity}</div>
+                  </td>
+                  {accounts.map((a) => {
+                    const c = cellFor(s.id, a.id);
+                    if (!c) return <td key={a.id} className="px-2 py-2 text-center text-muted-foreground">—</td>;
+                    const tone = c.blockerReason ? "border-destructive/40 bg-destructive/10 text-destructive"
+                      : c.effectiveEnabled ? "border-success/40 bg-success/10 text-success"
+                      : c.effectiveState === "draining" ? "border-warning/40 bg-warning/10 text-warning-foreground"
+                      : "border-border bg-muted text-muted-foreground";
+                    const label = c.effectiveEnabled ? t("matrix.legend.active")
+                      : c.effectiveState === "draining" ? t("matrix.legend.draining")
+                      : c.effectiveState === "archived" ? t("matrix.legend.archived")
+                      : t("matrix.legend.disabled");
+                    return (
+                      <td key={a.id} className="px-2 py-1.5 text-center">
+                        <BackendRequiredDialog
+                          controlId={controls.sources.accountMatrixOpen}
+                          trigger={
+                            <button
+                              className={`w-full rounded-md border px-2 py-1 text-[11px] ${tone}`}
+                              title={c.blockerReason ?? undefined}
+                            >
+                              {label}
+                              {c.pendingChange !== "none" && (
+                                <span className="ml-1 rounded bg-info/20 px-1 text-[9px] text-info">
+                                  {t("matrix.legend.pending")}
+                                </span>
+                              )}
+                            </button>
+                          }
+                          title={`${s.displayName} × ${a.displayName}`}
+                          description={c.blockerReason ?? t("sources.matrix.desc")}
+                          payloadPreview={{
+                            intent: c.effectiveEnabled ? "source_account.disable" : "source_account.enable",
+                            source_id: s.id, account_id: a.id, revision: c.revision,
+                          }}
+                        />
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

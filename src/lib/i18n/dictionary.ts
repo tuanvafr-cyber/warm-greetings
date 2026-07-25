@@ -699,6 +699,89 @@ export const dictionary = {
   "dashboard.risk.margin": { vi: "Mức sử dụng ký quỹ", en: "Margin usage" },
   "risk.margin_buffer": { vi: "Đệm ký quỹ (%) — deprecated", en: "Margin buffer (%) — deprecated" },
   "provider.switch_preview": { vi: "Xem trước chuyển", en: "Preview switch" },
+  // (provider.* base keys defined earlier in dictionary)
+
+
+  // Analysis API Slots
+  "runtime.tab.slots": { vi: "Analysis API Slots", en: "Analysis API Slots" },
+  "runtime.slots.title": { vi: "Analysis API Slots", en: "Analysis API Slots" },
+  "runtime.slots.desc": {
+    vi: "Ba slot cố định: Slot 1 chính, Slot 2 dự phòng, Slot 3 chẩn đoán. Không có chuyển đổi giả lập.",
+    en: "Three fixed slots: Slot 1 primary, Slot 2 failover, Slot 3 diagnostic. No simulated switching.",
+  },
+  "slot.role.primary": { vi: "Chính", en: "Primary" },
+  "slot.role.failover": { vi: "Dự phòng", en: "Failover" },
+  "slot.role.diagnostic": { vi: "Chẩn đoán", en: "Diagnostic" },
+  "slot.state.empty": { vi: "Trống", en: "Empty" },
+  "slot.state.ready": { vi: "Sẵn sàng", en: "Ready" },
+  "slot.state.active": { vi: "Đang hoạt động", en: "Active" },
+  "slot.state.cooldown": { vi: "Đang hạ nhiệt", en: "Cooldown" },
+  "slot.state.circuit_open": { vi: "Ngắt mạch", en: "Circuit open" },
+  "slot.state.probing": { vi: "Đang thăm dò phục hồi", en: "Recovery probing" },
+  "slot.state.degraded": { vi: "Suy giảm", en: "Degraded" },
+  "slot.state.failed": { vi: "Thất bại", en: "Failed" },
+  "slot.assigned": { vi: "Provider gán", en: "Assigned provider" },
+  "slot.attempts": { vi: "Số lần thử (tối đa 5)", en: "Attempts (max 5)" },
+  "slot.last_attempt": { vi: "Lần thử cuối", en: "Last attempt" },
+  "slot.recovery_probe": { vi: "Thăm dò phục hồi (60s)", en: "Recovery probe (60s)" },
+  "slot.cooldown": { vi: "Kết thúc hạ nhiệt", en: "Cooldown ends" },
+  "slot.circuit": { vi: "Trạng thái ngắt mạch", en: "Circuit state" },
+  "slot.last_failover": { vi: "Failover gần nhất", en: "Last failover" },
+  "slot.last_failback": { vi: "Failback gần nhất", en: "Last failback" },
+  "slot.assign": { vi: "Gán slot", en: "Assign slot" },
+  "slot.no_fake_switch": {
+    vi: "Panel không chuyển đổi giả lập. Yêu cầu sẽ gửi tới backend để thực thi.",
+    en: "The panel never fake-switches. The request will be sent to the backend to execute.",
+  },
+
+  // Routing policy
+  "routing.title": { vi: "Chính sách định tuyến provider", en: "Provider routing policy" },
+  "routing.strategy": { vi: "Chiến lược", en: "Strategy" },
+  "routing.strategy.primary_then_failover": { vi: "Chính rồi dự phòng", en: "Primary then failover" },
+  "routing.strategy.primary_only": { vi: "Chỉ dùng chính", en: "Primary only" },
+  "routing.strategy.diagnostic_only": { vi: "Chỉ dùng chẩn đoán", en: "Diagnostic only" },
+  "routing.failover_after": { vi: "Failover sau số lần thử", en: "Failover after attempts" },
+  "routing.failback_when": { vi: "Failback khi", en: "Failback when" },
+  "routing.failback.probe_ok": { vi: "Thăm dò thành công", en: "Probe succeeds" },
+  "routing.failback.manual_only": { vi: "Chỉ thủ công", en: "Manual only" },
+  "routing.recovery_probe": { vi: "Thăm dò phục hồi", en: "Recovery probe" },
+  "routing.cooldown": { vi: "Thời gian hạ nhiệt", en: "Cooldown" },
+  "routing.circuit_reset": { vi: "Reset ngắt mạch", en: "Circuit reset" },
+  "routing.updated_by": { vi: "Cập nhật bởi", en: "Updated by" },
+  "routing.edit": { vi: "Chỉnh sửa chính sách", en: "Edit policy" },
+
+  // Native currency review
+  "acccy.title": { vi: "Xem lại đơn vị tiền native", en: "Review native currency" },
+  "acccy.configured": { vi: "Cấu hình hiện tại", en: "Configured" },
+  "acccy.reported": { vi: "Broker báo", en: "Broker reports" },
+  "acccy.state.verified": { vi: "Đã xác minh", en: "Verified" },
+  "acccy.state.mismatch": { vi: "Không khớp", en: "Mismatch" },
+  "acccy.state.input_required": { vi: "Cần đầu vào", en: "Input required" },
+  "acccy.state.unknown": { vi: "Chưa xác định", en: "Unknown" },
+  "acccy.warn_no_convert": {
+    vi: "Panel không quy đổi cỡ rủi ro native đã cấu hình. Đổi mã tiền sẽ chuyển tài khoản sang trạng thái Cần đầu vào.",
+    en: "The panel never converts the configured native risk size. Changing the currency code moves the account to Input required.",
+  },
+  "acccy.action.confirm_same": { vi: "Xác nhận giữ nguyên", en: "Confirm keep configured" },
+  "acccy.action.change_code": { vi: "Đổi mã tiền (chuyển sang Cần đầu vào)", en: "Change code (move to Input required)" },
+
+  // Source × Account matrix
+  "matrix.title": { vi: "Ma trận Nguồn × Tài khoản", en: "Source × Account matrix" },
+  "matrix.legend.active": { vi: "Đang hoạt động", en: "Active" },
+  "matrix.legend.disabled": { vi: "Đã tắt", en: "Disabled" },
+  "matrix.legend.draining": { vi: "Đang hoàn tất", en: "Draining" },
+  "matrix.legend.archived": { vi: "Đã lưu trữ", en: "Archived" },
+  "matrix.legend.pending": { vi: "Chờ áp dụng", en: "Pending" },
+  "matrix.legend.blocker": { vi: "Có blocker", en: "Blocked" },
+  "matrix.col.source": { vi: "Nguồn", en: "Source" },
+  "matrix.cell.enable": { vi: "Bật", en: "Enable" },
+  "matrix.cell.disable": { vi: "Tắt", en: "Disable" },
+  "matrix.canonical_note": {
+    vi: "Cùng trạng thái với chế độ xem theo tài khoản. Revision và pending giống hệt.",
+    en: "Shares canonical state with the account-centric view. Revision and pending are identical.",
+  },
 } satisfies Dict;
 
 export type TKey = keyof typeof dictionary;
+
+

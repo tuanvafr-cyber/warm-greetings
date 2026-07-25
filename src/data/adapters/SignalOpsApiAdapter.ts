@@ -3,7 +3,10 @@ import type {
   Account, DashboardKpis, HeatmapBucket, HermesRecommendation, InboxItem,
   Order, PnlPoint, Position, Provider, RiskPolicyVersion, RuntimeComponent,
   Signal, Source, TelegramSession, TraceRecord,
+  ProviderSlot, RoutingPolicy, PromptProfile, NativeCurrencyReview,
+  AccountLine, AccountReadiness, InstrumentMappingRow, SourceAccountCell,
 } from "../contracts";
+
 
 /**
  * Explicit boundary for a real SignalOps backend adapter. This class
@@ -38,4 +41,13 @@ export class SignalOpsApiAdapter implements PanelDataAdapter {
   inboxItems(): Promise<InboxItem[]> { return this.nc("inboxItems"); }
   traces(): Promise<TraceRecord[]> { return this.nc("traces"); }
   hermesRecommendations(): Promise<HermesRecommendation[]> { return this.nc("hermesRecommendations"); }
+  providerSlots(): Promise<ProviderSlot[]> { return this.nc("providerSlots"); }
+  routingPolicy(): Promise<RoutingPolicy> { return this.nc("routingPolicy"); }
+  promptProfiles(): Promise<PromptProfile[]> { return this.nc("promptProfiles"); }
+  nativeCurrencyReviews(): Promise<NativeCurrencyReview[]> { return this.nc("nativeCurrencyReviews"); }
+  accountLines(): Promise<AccountLine[]> { return this.nc("accountLines"); }
+  accountReadiness(): Promise<AccountReadiness[]> { return this.nc("accountReadiness"); }
+  instrumentMapping(): Promise<InstrumentMappingRow[]> { return this.nc("instrumentMapping"); }
+  sourceAccountMatrix(): Promise<SourceAccountCell[]> { return this.nc("sourceAccountMatrix"); }
 }
+
