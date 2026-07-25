@@ -219,6 +219,7 @@ export const plannedControls = {
     performanceOpen: "sources.performance.open",
     historyOpen: "sources.history.open",
     instrumentMatrixOpen: "sources.instrument_matrix.open",
+    deletePermanent: "sources.delete_permanent",
   },
   signals: {
     filterDate: "signals.filter.date",
