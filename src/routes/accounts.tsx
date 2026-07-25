@@ -154,15 +154,15 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
-                <div>Login</div>
+                <div>{t("accounts.col.login")}</div>
                 <div className="text-right">
                   <Sensitive value={a.login} />
                 </div>
-                <div>Server</div>
+                <div>{t("accounts.col.server")}</div>
                 <div className="text-right">
                   <Sensitive value={a.server} />
                 </div>
-                <div>Broker</div>
+                <div>{t("accounts.col.broker")}</div>
                 <div className="text-right">{a.broker}</div>
                 <div>{t("accounts.native_balance")}</div>
                 <div className="text-right">
@@ -197,11 +197,12 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
                     </span>
                   )}
                 </div>
-                <div>Last sync</div>
+                <div>{t("accounts.col.last_sync")}</div>
                 <div className="text-right">
                   <TimeAgo iso={a.lastSyncAt} />
                 </div>
               </div>
+
               <div className="flex flex-wrap items-center gap-2 border-t border-border pt-2">
                 {!isArchive && (
                   <>
