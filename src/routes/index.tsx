@@ -206,7 +206,7 @@ function RiskTodayCard({
         />
         <Metric
           label={t("dashboard.risk.margin_usage")}
-          value={<Pct value={(useDashboardKpisMarginUsage())} />}
+          value={<Pct value={marginUsagePct / 100} />}
         />
         <Metric
           label={t("dashboard.risk.budget")}
