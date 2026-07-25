@@ -256,7 +256,7 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
                 </>
               )}
             </div>
-            </div>
+
           </CardContent>
         </Card>
         );
