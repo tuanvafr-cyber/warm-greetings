@@ -157,6 +157,10 @@ export type DashboardKpis = {
   pendingOrders: number;
   floatingPnlUsd: number;
   marginUsedUsd: number;
+  // Truthful read-only margin fields (no execution gate).
+  marginUsagePct: number;
+  freeMarginNative: number;
+  freeMarginReportingUsd: number;
   eligibleSignals: number;
   executedSignals: number;
   blockedSignals: number;
