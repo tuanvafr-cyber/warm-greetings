@@ -194,6 +194,39 @@ function HermesPage() {
             </div>
           )}
         </TabsContent>
+
+        <TabsContent value="prompts" className="mt-4">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm">{t("hermes.prompts.title")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <p className="text-xs text-muted-foreground">
+                {t("hermes.prompts.problem_type")}: parse, classify, extract, dedupe, adjudicate.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <BackendRequiredDialog controlId="hermes.prompts.add"
+                  trigger={<Button size="sm">{t("hermes.prompts.add")}</Button>}
+                  title={t("hermes.prompts.add")} payloadPreview={{ intent: "hermes.prompts.add" }} />
+                <BackendRequiredDialog controlId="hermes.prompts.duplicate"
+                  trigger={<Button size="sm" variant="outline">{t("hermes.prompts.duplicate")}</Button>}
+                  title={t("hermes.prompts.duplicate")} payloadPreview={{ intent: "hermes.prompts.duplicate" }} />
+                <BackendRequiredDialog controlId="hermes.prompts.evaluate"
+                  trigger={<Button size="sm" variant="outline">{t("hermes.prompts.evaluate")}</Button>}
+                  title={t("hermes.prompts.evaluate")} payloadPreview={{ intent: "hermes.prompts.evaluate" }} />
+                <BackendRequiredDialog controlId="hermes.prompts.compare"
+                  trigger={<Button size="sm" variant="ghost">{t("hermes.prompts.compare")}</Button>}
+                  title={t("hermes.prompts.compare")} payloadPreview={{ intent: "hermes.prompts.compare" }} />
+                <BackendRequiredDialog controlId="hermes.prompts.publish"
+                  trigger={<Button size="sm" variant="ghost">{t("hermes.prompts.publish")}</Button>}
+                  title={t("hermes.prompts.publish")} payloadPreview={{ intent: "hermes.prompts.publish" }} />
+                <BackendRequiredDialog controlId="hermes.prompts.export"
+                  trigger={<Button size="sm" variant="ghost">{t("hermes.prompts.export")}</Button>}
+                  title={t("hermes.prompts.export")} payloadPreview={{ intent: "hermes.prompts.export" }} />
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
     </div>
   );
