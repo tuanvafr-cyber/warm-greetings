@@ -13,10 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useAccounts } from "@/data/hooks";
+import { useAccounts, useNativeCurrencyReviews } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
 import { controls } from "@/lib/control-registry";
-import type { Account } from "@/data/contracts";
+import type { Account, NativeCurrencyReview } from "@/data/contracts";
+
 
 export const Route = createFileRoute("/accounts")({
   head: () => ({
@@ -119,10 +120,16 @@ function lifecycleToTone(l: Account["lifecycle"]): StatusTone {
 
 function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean }) {
   const t = useT();
+  const reviewsQ = useNativeCurrencyReviews();
+  const reviews = reviewsQ.data ?? [];
+  const reviewFor = (id: string): NativeCurrencyReview | undefined =>
+    reviews.find((r) => r.accountId === id);
   if (list.length === 0) return <EmptyState />;
   return (
     <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-      {list.map((a) => (
+      {list.map((a) => {
+        const rev = reviewFor(a.id);
+
         <Card key={a.id}>
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center justify-between text-sm">
