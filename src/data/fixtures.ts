@@ -670,7 +670,7 @@ export const providers: Provider[] = [
   {
     id: "prov-c",
     name: "Provider C",
-    kind: "diagnostic",
+    kind: "tertiary",
     state: "testing",
     endpointMasked: "wss://c•••••/panel",
     addedAt: new Date(Date.now() - 2 * 86400_000).toISOString(),
