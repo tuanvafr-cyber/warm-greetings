@@ -175,8 +175,10 @@ function DashboardPage() {
 
 function RiskTodayCard({
   version,
+  marginUsagePct,
 }: {
   version: import("@/data/contracts").RiskPolicyVersion | undefined;
+  marginUsagePct: number;
 }) {
   const t = useT();
   return (
