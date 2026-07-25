@@ -52,15 +52,32 @@ export const controls = {
     pin: "accounts.pin",
     archive: "accounts.archive",
     restore: "accounts.restore",
-    
+
     activationOpen: "accounts.activation.open",
     nativeCurrencyReview: "accounts.native_currency.review",
+    // Add-account wizard
+    addWizardDetect: "accounts.add_wizard.detect",
+    addWizardSelect: "accounts.add_wizard.select",
+    addWizardPreview: "accounts.add_wizard.preview",
+    addWizardApply: "accounts.add_wizard.apply",
+    // Lifecycle actions on account cards
+    resume: "accounts.resume",
+    reconcile: "accounts.reconcile",
+    verifyIdentity: "accounts.verify_identity",
+    activate: "accounts.activate",
+    pause: "accounts.pause",
+    drainThenPause: "accounts.drain_then_pause",
   },
   sources: {
     tabActive: "sources.tab.active",
     tabPerformance: "sources.tab.performance",
     tabArchive: "sources.tab.archive",
     tabMatrix: "sources.tab.matrix",
+    tabTelegram: "sources.tab.telegram",
+    tabInstruments: "sources.tab.instruments",
+    tabAliases: "sources.tab.aliases",
+    tabBrokerMappings: "sources.tab.broker_mappings",
+    tabEffectiveMatrix: "sources.tab.effective_matrix",
     search: "sources.search",
     add: "sources.add",
     import: "sources.import",
@@ -70,9 +87,22 @@ export const controls = {
     toggle: "sources.toggle",
     archive: "sources.archive",
     restore: "sources.restore",
-    
+
     accountMatrixOpen: "sources.account_matrix.open",
+    // Instruments / aliases / broker mappings
+    instrumentAdd: "sources.instrument.add",
+    instrumentEdit: "sources.instrument.edit",
+    instrumentArchive: "sources.instrument.archive",
+    aliasAdd: "sources.alias.add",
+    aliasEdit: "sources.alias.edit",
+    aliasDisable: "sources.alias.disable",
+    aliasResolverTest: "sources.alias.resolver_test",
+    brokerScan: "sources.broker.scan",
+    brokerSelect: "sources.broker.select",
+    brokerVerify: "sources.broker.verify",
+    effectiveOpenReason: "sources.effective.open_reason",
   },
+
   signals: {
     filterStatus: "signals.filter.status",
     search: "signals.search",
