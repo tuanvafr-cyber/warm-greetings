@@ -50,9 +50,11 @@ export function useTopBar(state: TopBarState) {
   latest.current = state;
   const serialised = JSON.stringify({
     title: state.title,
-    lastUpdatedIso: state.lastUpdatedIso,
     showTimeRange: state.showTimeRange,
     hasActions: state.extraActions != null,
+    // lastUpdatedIso intentionally excluded — routes commonly pass
+    // `new Date().toISOString()`, which would otherwise re-fire the effect
+    // on every render and cause an infinite update loop.
   });
   const ctxRef = useRef(ctx);
   ctxRef.current = ctx;
