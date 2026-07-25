@@ -1092,8 +1092,6 @@ export const dictionary = {
   "signals.filter.all_sources": { vi: "Mọi nguồn", en: "All sources" },
   "signals.filter.all_instruments": { vi: "Mọi mã", en: "All instruments" },
   "signals.filter.all_sides": { vi: "Cả hai hướng", en: "Both sides" },
-  "signals.side.buy": { vi: "MUA", en: "BUY" },
-  "signals.side.sell": { vi: "BÁN", en: "SELL" },
 
   // Hermes localized bits
   "hermes.recommendation.open": { vi: "Mở đề xuất", en: "Open recommendation" },
