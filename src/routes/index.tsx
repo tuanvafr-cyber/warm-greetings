@@ -244,7 +244,7 @@ function RuntimeInboxCard({
           </Link>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="flex-1 space-y-2 overflow-hidden">
         <div className="text-xs text-muted-foreground">
           {degraded.length} components need attention · {open.length} open inbox items
         </div>
