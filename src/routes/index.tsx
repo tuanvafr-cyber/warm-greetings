@@ -152,7 +152,7 @@ function DashboardPage() {
               style={{ minHeight: analyticsHeight }}
             >
               <div className="flex-1 min-h-0">
-                <RiskTodayCard version={risk.data?.[0]} />
+                <RiskTodayCard version={risk.data?.[0]} marginUsagePct={kpis.data.marginUsagePct} />
               </div>
               <div className="flex-1 min-h-0">
                 <RuntimeInboxCard runtime={runtime.data ?? []} inbox={inbox.data ?? []} />
