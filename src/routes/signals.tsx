@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { PageHeader } from "@/components/shared/PageHeader";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState, EmptyState } from "@/components/shared/StateViews";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
@@ -12,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useSignals } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
+import { useTopBar } from "@/lib/topbar";
 import { controls } from "@/lib/control-registry";
 import type { Signal, SignalStatus } from "@/data/contracts";
 import { Copy, ExternalLink } from "lucide-react";
@@ -51,6 +51,12 @@ function SignalsPage() {
   const [status, setStatus] = useState<SignalStatus | "all">("all");
   const [openId, setOpenId] = useState<string | null>(null);
 
+  useTopBar({
+    title: t("nav.signals"),
+    lastUpdatedIso: new Date().toISOString(),
+    showTimeRange: true,
+  });
+
   const filtered = useMemo(() => {
     return (q.data ?? []).filter((s) =>
       (status === "all" || s.status === status) &&
@@ -65,7 +71,6 @@ function SignalsPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <PageHeader title={t("nav.signals")} description={t("route.header.signals")} />
       <FixtureBanner />
 
       <FilterBar>
@@ -80,11 +85,12 @@ function SignalsPage() {
           {STATUS_OPTIONS.map((s) => (
             <Button key={s} size="sm" variant={status === s ? "default" : "ghost"}
               className="h-7 px-2 text-xs" onClick={() => setStatus(s)}>
-              {s === "all" ? "All" : t(`status.${s}` as never) ?? s}
+              {s === "all" ? t("common.all") : t(`status.${s}` as never)}
             </Button>
           ))}
         </div>
       </FilterBar>
+
 
       {q.isPending ? <LoadingState /> : filtered.length === 0 ? <EmptyState /> : (
         <Card>

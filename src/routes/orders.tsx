@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { PageHeader } from "@/components/shared/PageHeader";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState, EmptyState } from "@/components/shared/StateViews";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
@@ -13,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Download } from "lucide-react";
 import { useAccounts, useOrders } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
+import { useTopBar } from "@/lib/topbar";
 import { controls } from "@/lib/control-registry";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
@@ -54,6 +54,22 @@ function OrdersPage() {
   const [pageSize, setPageSize] = useState<25 | 50 | 100>(25);
   const [page, setPage] = useState(1);
 
+  useTopBar({
+    title: t("nav.orders"),
+    lastUpdatedIso: new Date().toISOString(),
+    showTimeRange: true,
+    extraActions: (
+      <>
+        <Button size="sm" variant="outline" data-control-id={controls.orders.exportCsv} className="h-8 gap-1.5">
+          <Download className="h-3.5 w-3.5" />{t("orders.export.csv")}
+        </Button>
+        <Button size="sm" variant="outline" data-control-id={controls.orders.exportJson} className="h-8 gap-1.5">
+          <Download className="h-3.5 w-3.5" />{t("orders.export.json")}
+        </Button>
+      </>
+    ),
+  });
+
   const symbols = Array.from(new Set((q.data ?? []).map((o) => o.symbol)));
 
   const filtered = useMemo(() => (q.data ?? []).filter((o) =>
@@ -71,21 +87,8 @@ function OrdersPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <PageHeader
-        title={t("nav.orders")}
-        description={t("route.header.orders")}
-        actions={
-          <>
-            <Button size="sm" variant="outline" data-control-id={controls.orders.exportCsv} className="gap-1.5">
-              <Download className="h-3.5 w-3.5" />{t("orders.export.csv")}
-            </Button>
-            <Button size="sm" variant="outline" data-control-id={controls.orders.exportJson} className="gap-1.5">
-              <Download className="h-3.5 w-3.5" />{t("orders.export.json")}
-            </Button>
-          </>
-        }
-      />
       <FixtureBanner />
+
 
       <TimeRangePicker />
 
