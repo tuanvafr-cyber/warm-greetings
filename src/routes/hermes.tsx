@@ -36,7 +36,10 @@ function HermesPage() {
   const sources = useSources();
   const risk = useRiskPolicyVersions();
   const traces = useTraces();
-  useTopBar({ title: t("nav.hermes"), lastUpdatedIso: useLastUpdatedFromQueries(recs, sources, risk, traces) });
+  useTopBar({
+    title: t("nav.hermes"),
+    lastUpdatedIso: useLastUpdatedFromQueries(recs, sources, risk, traces),
+  });
 
   return (
     <div className="flex flex-col gap-4">

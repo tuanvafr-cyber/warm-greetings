@@ -193,8 +193,7 @@ export function TradeActivityHeatmap({ buckets }: { buckets: HeatmapBucket[] }) 
             <span className="h-2 w-2 rounded-full bg-[oklch(0.66_0.19_25)]" /> {t("heat.loss")}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-muted-foreground/30" />{" "}
-            {t("heat.legend_even")}
+            <span className="h-2 w-2 rounded-full bg-muted-foreground/30" /> {t("heat.legend_even")}
           </span>
           <span className="ml-auto">
             {t("heat.dot_size")} = {t("dashboard.total_orders")}
