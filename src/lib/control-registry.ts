@@ -165,7 +165,7 @@ export const controls = {
   prompts: {
     newProfile: "prompts.new_profile",
     selectProfile: "prompts.select_profile",
-    selectVersion: "prompts.select_version",
+    
     activate: "prompts.activate",
     rollback: "prompts.rollback",
     duplicate: "prompts.duplicate",
