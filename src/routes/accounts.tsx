@@ -129,8 +129,9 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
     <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
       {list.map((a) => {
         const rev = reviewFor(a.id);
-
+        return (
         <Card key={a.id}>
+
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center justify-between text-sm">
               <div className="flex min-w-0 items-center gap-2">
@@ -153,7 +154,21 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
               <div className="text-right"><MoneyUsd value={a.currency === "USC" ? a.nativeEquity / 100 : a.nativeEquity} /></div>
               <div>{t("accounts.native_risk")}</div>
               <div className="text-right"><NativeAmount amount={a.configuredNativeRiskAmount} currency={a.currency} /></div>
+              <div>{t("accounts.native_currency")}</div>
+              <div className="text-right">
+                {a.currency}
+                {rev && (
+                  <span className={`ml-1 rounded px-1 text-[10px] ${
+                    rev.state === "verified" ? "bg-success/20 text-success"
+                    : rev.state === "mismatch" ? "bg-destructive/20 text-destructive"
+                    : "bg-info/20 text-info"
+                  }`}>
+                    {t(`acccy.state.${rev.state}` as import("@/lib/i18n/dictionary").TKey)}
+                  </span>
+                )}
+              </div>
               <div>Last sync</div><div className="text-right"><TimeAgo iso={a.lastSyncAt} /></div>
+
             </div>
             <div className="flex flex-wrap items-center gap-2 border-t border-border pt-2">
               {!isArchive && (
@@ -186,6 +201,36 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
                     description={t("backend.desc")}
                     payloadPreview={{ intent: "account.archive", id: a.id }}
                   />
+                  <BackendRequiredDialog
+                    controlId={controls.accounts.nativeCurrencyReview}
+                    trigger={
+                      <Button
+                        size="sm"
+                        variant={rev?.state === "mismatch" ? "destructive" : "ghost"}
+                      >
+                        {t("accounts.native_currency.review")}
+                      </Button>
+                    }
+                    title={t("acccy.title")}
+                    description={t("acccy.warn_no_convert")}
+                    payloadPreview={{
+                      intent: "account.native_currency.review",
+                      id: a.id,
+                      configured: a.currency,
+                      broker_reported: rev?.brokerReportedCurrency ?? null,
+                    }}
+                  >
+                    <div className="grid gap-2 py-2 text-sm">
+                      <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+                        <div>{t("acccy.configured")}</div>
+                        <div className="text-right font-mono">{a.currency}</div>
+                        <div>{t("acccy.reported")}</div>
+                        <div className="text-right font-mono">{rev?.brokerReportedCurrency ?? "—"}</div>
+                      </div>
+                      <p className="text-xs text-muted-foreground">{rev?.note}</p>
+                    </div>
+                  </BackendRequiredDialog>
+
                   <Button asChild size="sm" variant="ghost" className="ml-auto gap-1"
                     data-control-id={controls.accounts.activationOpen}>
                     <Link to="/hermes"><ShieldCheck className="h-3.5 w-3.5" />{t("accounts.hermes_activation")}</Link>
@@ -211,9 +256,12 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
                 </>
               )}
             </div>
+            </div>
           </CardContent>
         </Card>
-      ))}
+        );
+      })}
     </div>
   );
 }
+
