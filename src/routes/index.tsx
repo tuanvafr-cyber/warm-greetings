@@ -178,7 +178,7 @@ function RiskTodayCard({
 }) {
   const t = useT();
   return (
-    <Card>
+    <Card className="flex h-full flex-col">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center justify-between text-sm">
           {t("dashboard.risk_today")}
@@ -191,7 +191,7 @@ function RiskTodayCard({
           </Link>
         </CardTitle>
       </CardHeader>
-      <CardContent className="grid grid-cols-2 gap-3 text-sm">
+      <CardContent className="grid flex-1 grid-cols-2 content-start gap-3 text-sm">
         <Metric
           label={t("dashboard.risk.daily_loss")}
           value={<MoneyUsd value={version?.dailyLossLimitUsd ?? 0} />}
@@ -212,6 +212,7 @@ function RiskTodayCard({
     </Card>
   );
 }
+
 
 function Metric({ label, value }: { label: string; value: React.ReactNode }) {
   return (
