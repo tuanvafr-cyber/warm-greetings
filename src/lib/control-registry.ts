@@ -1,7 +1,15 @@
 /**
- * Stable control_id registry. Every user-actionable control emits
- * `data-control-id={controls.<area>.<name>}` so backend reconciliation
- * is unambiguous.
+ * SignalOps active control_id registry.
+ *
+ * Every entry in `controls` maps to a rendered, user-actionable control in
+ * the frontend today. IDs used only for planned/future backend integration
+ * live in `plannedControls` and MUST NOT be counted as active, missing or
+ * dead by the reconciliation checker (`scripts/check-controls.mjs`).
+ *
+ * Each active control belongs to exactly one category, determined by how
+ * it is wired at its call site:
+ *   - `controlId={controls.X.Y}` on <BackendRequiredDialog> → backend-required-truthful
+ *   - `data-control-id={controls.X.Y}` on a rendered element → frontend-functional
  */
 
 export const controls = {
@@ -14,7 +22,6 @@ export const controls = {
     languageToggle: "shell.language.toggle",
     privacyToggle: "shell.privacy.toggle",
     inboxOpen: "shell.inbox.open",
-    healthOpen: "shell.health.open",
     refresh: "shell.refresh",
     exportOpen: "shell.export.open",
     shareOpen: "shell.share.open",
@@ -25,19 +32,12 @@ export const controls = {
     overflow: "shell.overflow",
   },
   dashboard: {
-    kpiPnl: "dashboard.kpi.pnl.open",
-    kpiIncome: "dashboard.kpi.income.open",
-    kpiExposure: "dashboard.kpi.exposure.open",
-    kpiExecution: "dashboard.kpi.execution.open",
     carouselPrev: "dashboard.carousel.prev",
     carouselNext: "dashboard.carousel.next",
     carouselPlayPause: "dashboard.carousel.play_pause",
     carouselScrub: "dashboard.carousel.scrub",
     heatmapBucketOpen: "dashboard.heatmap.bucket_open",
-    heatmapResize: "dashboard.heatmap.resize",
-    heatmapDensity: "dashboard.heatmap.density",
     riskOpen: "dashboard.risk.open",
-    sourcesSort: "dashboard.sources.sort",
     sourcesViewAll: "dashboard.sources.view_all",
     ordersViewAll: "dashboard.orders.view_all",
   },
@@ -53,13 +53,8 @@ export const controls = {
     archive: "accounts.archive",
     restore: "accounts.restore",
     deletePermanent: "accounts.delete_permanent",
-    openDetails: "accounts.open_details",
     activationOpen: "accounts.activation.open",
-    riskAmountEdit: "accounts.risk_amount_per_order.edit",
     nativeCurrencyReview: "accounts.native_currency.review",
-    sourceMatrixOpen: "accounts.source_matrix.open",
-    accountLineOpen: "accounts.account_line.open",
-    instrumentMappingOpen: "accounts.instrument_mapping.open",
   },
   sources: {
     tabActive: "sources.tab.active",
@@ -67,9 +62,6 @@ export const controls = {
     tabArchive: "sources.tab.archive",
     tabMatrix: "sources.tab.matrix",
     search: "sources.search",
-    filterGroup: "sources.filter.group",
-    filterState: "sources.filter.state",
-    filterSymbol: "sources.filter.symbol",
     add: "sources.add",
     import: "sources.import",
     export: "sources.export",
@@ -79,22 +71,12 @@ export const controls = {
     archive: "sources.archive",
     restore: "sources.restore",
     deletePermanent: "sources.delete_permanent",
-    performanceOpen: "sources.performance.open",
-    historyOpen: "sources.history.open",
     accountMatrixOpen: "sources.account_matrix.open",
-    instrumentMatrixOpen: "sources.instrument_matrix.open",
   },
   signals: {
-    filterDate: "signals.filter.date",
-    filterAccount: "signals.filter.account",
-    filterSource: "signals.filter.source",
-    filterSymbol: "signals.filter.symbol",
     filterStatus: "signals.filter.status",
-    filterParser: "signals.filter.parser",
     search: "signals.search",
-    timeRangeOpen: "signals.time_range.open",
     openDetail: "signals.open_detail",
-    openOriginal: "signals.open_original",
     openTrace: "signals.open_trace",
     copyCorrelation: "signals.copy_correlation",
     openOrders: "signals.open_orders",
@@ -103,35 +85,25 @@ export const controls = {
   positions: {
     refresh: "positions.refresh",
     filterAccount: "positions.filter.account",
-    filterSource: "positions.filter.source",
     filterSymbol: "positions.filter.symbol",
     filterSide: "positions.filter.side",
-    openDetail: "positions.open_detail",
     openSignal: "positions.open_signal",
     openTrace: "positions.open_trace",
     export: "positions.export",
   },
   orders: {
-    filterHour: "orders.filter.hour",
     filterAccount: "orders.filter.account",
-    filterSource: "orders.filter.source",
     filterSymbol: "orders.filter.symbol",
     filterSide: "orders.filter.side",
     filterResult: "orders.filter.result",
-    filterStatus: "orders.filter.status",
     search: "orders.search",
     pageSize: "orders.page_size",
-    openDetail: "orders.open_detail",
-    openSignal: "orders.open_signal",
     openTrace: "orders.open_trace",
-    copyTicket: "orders.copy_ticket",
-    copyCorrelation: "orders.copy_correlation",
     exportCsv: "orders.export_csv",
     exportJson: "orders.export_json",
   },
   risk: {
     accountScope: "risk.account_scope",
-    editDraft: "risk.edit_draft",
     previewImpact: "risk.preview_impact",
     compareVersions: "risk.compare_versions",
     apply: "risk.apply",
@@ -142,7 +114,6 @@ export const controls = {
     apiIdEdit: "telegram.api_id.edit",
     apiHashEdit: "telegram.api_hash.edit",
     configSave: "telegram.config.save",
-    configChange: "telegram.config.change",
     sendCode: "telegram.send_code",
     otpSubmit: "telegram.otp.submit",
     twoFaSubmit: "telegram.2fa.submit",
@@ -164,39 +135,22 @@ export const controls = {
     selfTest: "runtime.self_test",
     logsOpen: "runtime.logs.open",
     componentRestart: "runtime.component.restart",
-    inboxOpen: "runtime.inbox.open",
     updateOpen: "runtime.update.open",
     rollbackOpen: "runtime.rollback.open",
-    reconcilerOpen: "runtime.reconciler.open",
-    readinessReducerOpen: "runtime.readiness_reducer.open",
-    accountLineFactoryOpen: "runtime.account_line_factory.open",
-  },
-  // Legacy alias for existing usage. Prefer `analysisProviders` in new code.
-  providers: {
-    add: "analysis_providers.add",
-    edit: "analysis_providers.edit",
-    test: "analysis_providers.test",
-    switchPreview: "analysis_providers.switch_preview",
-    activate: "analysis_providers.activate",
-    deactivate: "analysis_providers.disable",
-    archive: "analysis_providers.archive",
-    restore: "analysis_providers.restore",
-    deletePermanent: "analysis_providers.delete_permanent",
   },
   analysisProviders: {
     add: "analysis_providers.add",
     edit: "analysis_providers.edit",
     test: "analysis_providers.test",
     assignSlot: "analysis_providers.assign_slot",
-    reorder: "analysis_providers.reorder",
     enable: "analysis_providers.enable",
     disable: "analysis_providers.disable",
     archive: "analysis_providers.archive",
     restore: "analysis_providers.restore",
     deletePermanent: "analysis_providers.delete_permanent",
     routingPolicy: "analysis_providers.routing_policy",
-    logs: "analysis_providers.logs",
-    inbox: "analysis_providers.inbox",
+    switchPreview: "analysis_providers.switch_preview",
+    activate: "analysis_providers.activate",
   },
   hermes: {
     tabOverview: "hermes.tab.overview",
@@ -210,8 +164,102 @@ export const controls = {
     activationPreview: "hermes.activation.preview",
     activationOpen: "hermes.activation.open",
     recommendationOpen: "hermes.recommendation.open",
-    evidenceOpen: "hermes.evidence.open",
     datasetOpen: "hermes.dataset.open",
+  },
+  inbox: {
+    filterSeverity: "inbox.filter.severity",
+    filterComponent: "inbox.filter.component",
+    filterState: "inbox.filter.state",
+    openDetail: "inbox.open_detail",
+    provideInput: "inbox.provide_input",
+    recheck: "inbox.recheck",
+    copyCorrelation: "inbox.copy_correlation",
+    exportEvidence: "inbox.export_evidence",
+  },
+  trace: {
+    search: "trace.search",
+    copyId: "trace.copy_id",
+    openSignal: "trace.open_signal",
+    openOrder: "trace.open_order",
+    exportJson: "trace.export_json",
+    exportCsv: "trace.export_csv",
+  },
+} as const;
+
+/**
+ * Reserved for planned backend integration. NOT rendered today. The
+ * reconciliation checker must not count these as active/missing/dead.
+ * Preserved so Codex can wire concrete backend endpoints later.
+ */
+export const plannedControls = {
+  shell: {
+    healthOpen: "shell.health.open",
+  },
+  dashboard: {
+    kpiPnl: "dashboard.kpi.pnl.open",
+    kpiIncome: "dashboard.kpi.income.open",
+    kpiExposure: "dashboard.kpi.exposure.open",
+    kpiExecution: "dashboard.kpi.execution.open",
+    heatmapResize: "dashboard.heatmap.resize",
+    heatmapDensity: "dashboard.heatmap.density",
+    sourcesSort: "dashboard.sources.sort",
+  },
+  accounts: {
+    openDetails: "accounts.open_details",
+    riskAmountEdit: "accounts.risk_amount_per_order.edit",
+    sourceMatrixOpen: "accounts.source_matrix.open",
+    accountLineOpen: "accounts.account_line.open",
+    instrumentMappingOpen: "accounts.instrument_mapping.open",
+  },
+  sources: {
+    filterGroup: "sources.filter.group",
+    filterState: "sources.filter.state",
+    filterSymbol: "sources.filter.symbol",
+    performanceOpen: "sources.performance.open",
+    historyOpen: "sources.history.open",
+    instrumentMatrixOpen: "sources.instrument_matrix.open",
+  },
+  signals: {
+    filterDate: "signals.filter.date",
+    filterAccount: "signals.filter.account",
+    filterSource: "signals.filter.source",
+    filterSymbol: "signals.filter.symbol",
+    filterParser: "signals.filter.parser",
+    timeRangeOpen: "signals.time_range.open",
+    openOriginal: "signals.open_original",
+  },
+  positions: {
+    filterSource: "positions.filter.source",
+    openDetail: "positions.open_detail",
+  },
+  orders: {
+    filterHour: "orders.filter.hour",
+    filterSource: "orders.filter.source",
+    filterStatus: "orders.filter.status",
+    openDetail: "orders.open_detail",
+    openSignal: "orders.open_signal",
+    copyTicket: "orders.copy_ticket",
+    copyCorrelation: "orders.copy_correlation",
+  },
+  risk: {
+    editDraft: "risk.edit_draft",
+  },
+  telegram: {
+    configChange: "telegram.config.change",
+  },
+  runtime: {
+    inboxOpen: "runtime.inbox.open",
+    reconcilerOpen: "runtime.reconciler.open",
+    readinessReducerOpen: "runtime.readiness_reducer.open",
+    accountLineFactoryOpen: "runtime.account_line_factory.open",
+  },
+  analysisProviders: {
+    reorder: "analysis_providers.reorder",
+    logs: "analysis_providers.logs",
+    inbox: "analysis_providers.inbox",
+  },
+  hermes: {
+    evidenceOpen: "hermes.evidence.open",
     modelSelect: "hermes.model.select",
     sourcesSelect: "hermes.sources.select",
     datasetsSelect: "hermes.datasets.select",
@@ -229,34 +277,20 @@ export const controls = {
     promptTrace: "hermes.prompts.trace",
   },
   inbox: {
-    filterSeverity: "inbox.filter.severity",
-    filterComponent: "inbox.filter.component",
     filterAccount: "inbox.filter.account",
     filterSource: "inbox.filter.source",
     filterDate: "inbox.filter.date",
-    filterState: "inbox.filter.state",
-    openDetail: "inbox.open_detail",
     openEntity: "inbox.open_entity",
-    provideInput: "inbox.provide_input",
-    recheck: "inbox.recheck",
     openTrace: "inbox.open_trace",
-    copyCorrelation: "inbox.copy_correlation",
-    exportEvidence: "inbox.export_evidence",
   },
   trace: {
-    search: "trace.search",
     filterAccount: "trace.filter.account",
     filterSource: "trace.filter.source",
     filterSignal: "trace.filter.signal",
     filterOrder: "trace.filter.order",
     filterComponent: "trace.filter.component",
     filterDate: "trace.filter.date",
-    copyId: "trace.copy_id",
     openAccount: "trace.open_account",
     openSource: "trace.open_source",
-    openSignal: "trace.open_signal",
-    openOrder: "trace.open_order",
-    exportJson: "trace.export_json",
-    exportCsv: "trace.export_csv",
   },
 } as const;

@@ -242,7 +242,7 @@ function RuntimePage() {
           </Alert>
           <div className="mb-3">
             <BackendRequiredDialog
-              controlId={controls.providers.add}
+              controlId={controls.analysisProviders.add}
               trigger={
                 <Button size="sm" className="gap-1.5">
                   <Plus className="h-3.5 w-3.5" />
@@ -283,7 +283,7 @@ function RuntimePage() {
                     </div>
                     <div className="flex flex-wrap gap-1.5 border-t border-border pt-2">
                       <BackendRequiredDialog
-                        controlId={controls.providers.test}
+                        controlId={controls.analysisProviders.test}
                         trigger={
                           <Button size="sm" variant="outline">
                             {t("provider.test")}
@@ -293,7 +293,7 @@ function RuntimePage() {
                         payloadPreview={{ intent: "provider.test", id: p.id }}
                       />
                       <BackendRequiredDialog
-                        controlId={controls.providers.edit}
+                        controlId={controls.analysisProviders.edit}
                         trigger={
                           <Button size="sm" variant="ghost">
                             {t("common.edit")}
@@ -303,7 +303,7 @@ function RuntimePage() {
                         payloadPreview={{ intent: "provider.edit", id: p.id }}
                       />
                       <BackendRequiredDialog
-                        controlId={controls.providers.switchPreview}
+                        controlId={controls.analysisProviders.switchPreview}
                         trigger={
                           <Button size="sm" variant="ghost">
                             {t("provider.switch_preview")}
@@ -314,7 +314,7 @@ function RuntimePage() {
                       />
                       {p.state === "active" ? (
                         <BackendRequiredDialog
-                          controlId={controls.providers.deactivate}
+                          controlId={controls.analysisProviders.disable}
                           trigger={
                             <Button size="sm" variant="outline">
                               {t("provider.deactivate")}
@@ -326,7 +326,7 @@ function RuntimePage() {
                       ) : p.state === "archived" ? (
                         <>
                           <BackendRequiredDialog
-                            controlId={controls.providers.restore}
+                            controlId={controls.analysisProviders.restore}
                             trigger={
                               <Button size="sm" variant="outline">
                                 {t("common.restore")}
@@ -336,7 +336,7 @@ function RuntimePage() {
                             payloadPreview={{ intent: "provider.restore", id: p.id }}
                           />
                           <BackendRequiredDialog
-                            controlId={controls.providers.deletePermanent}
+                            controlId={controls.analysisProviders.deletePermanent}
                             trigger={
                               <Button size="sm" variant="destructive">
                                 {t("common.delete_permanent")}
@@ -348,7 +348,7 @@ function RuntimePage() {
                         </>
                       ) : (
                         <BackendRequiredDialog
-                          controlId={controls.providers.activate}
+                          controlId={controls.analysisProviders.activate}
                           trigger={<Button size="sm">{t("provider.activate")}</Button>}
                           title={t("provider.activate")}
                           payloadPreview={{
@@ -359,7 +359,7 @@ function RuntimePage() {
                         />
                       )}
                       <BackendRequiredDialog
-                        controlId={controls.providers.archive}
+                        controlId={controls.analysisProviders.archive}
                         trigger={
                           <Button size="sm" variant="ghost">
                             {t("common.archive")}
