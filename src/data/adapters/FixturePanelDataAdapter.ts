@@ -25,4 +25,13 @@ export class FixturePanelDataAdapter implements PanelDataAdapter {
   async inboxItems() { return [...fx.inboxItems]; }
   async traces() { return [...fx.traces]; }
   async hermesRecommendations() { return [...fx.hermesRecommendations]; }
+
+  async providerSlots() { return fx.providerSlots.map((s) => ({ ...s })); }
+  async routingPolicy() { return { ...fx.routingPolicy }; }
+  async promptProfiles() { return [...fx.promptProfiles]; }
+  async nativeCurrencyReviews() { return [...fx.nativeCurrencyReviews]; }
+  async accountLines() { return [...fx.accountLines]; }
+  async accountReadiness() { return [...fx.accountReadiness]; }
+  async instrumentMapping() { return [...fx.instrumentMapping]; }
+  async sourceAccountMatrix() { return [...fx.sourceAccountMatrix]; }
 }

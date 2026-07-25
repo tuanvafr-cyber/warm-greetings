@@ -2,12 +2,13 @@ import type {
   Account, DashboardKpis, HeatmapBucket, HermesRecommendation, InboxItem,
   Order, PnlPoint, Position, Provider, RiskPolicyVersion, RuntimeComponent,
   Signal, Source, TelegramSession, TraceRecord,
+  ProviderSlot, RoutingPolicy, PromptProfile, NativeCurrencyReview,
+  AccountLine, AccountReadiness, InstrumentMappingRow, SourceAccountCell,
 } from "../contracts";
 
 /**
  * Boundary between UI and any real SignalOps backend. UI code MUST NOT
- * import fixture arrays directly. Implementations live in ./FixturePanelDataAdapter
- * (visual review) and ./SignalOpsApiAdapter (Codex wires the real backend).
+ * import fixture arrays directly.
  */
 export interface PanelDataAdapter {
   readonly isConnected: boolean;
@@ -28,4 +29,14 @@ export interface PanelDataAdapter {
   inboxItems(): Promise<InboxItem[]>;
   traces(): Promise<TraceRecord[]>;
   hermesRecommendations(): Promise<HermesRecommendation[]>;
+
+  // New surfaces
+  providerSlots(): Promise<ProviderSlot[]>;
+  routingPolicy(): Promise<RoutingPolicy>;
+  promptProfiles(): Promise<PromptProfile[]>;
+  nativeCurrencyReviews(): Promise<NativeCurrencyReview[]>;
+  accountLines(): Promise<AccountLine[]>;
+  accountReadiness(): Promise<AccountReadiness[]>;
+  instrumentMapping(): Promise<InstrumentMappingRow[]>;
+  sourceAccountMatrix(): Promise<SourceAccountCell[]>;
 }

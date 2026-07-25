@@ -26,3 +26,12 @@ export const useProviders = () => q("providers", () => adapter.providers());
 export const useInboxItems = () => q("inbox", () => adapter.inboxItems());
 export const useTraces = () => q("traces", () => adapter.traces());
 export const useHermesRecommendations = () => q("hermes", () => adapter.hermesRecommendations());
+
+export const useProviderSlots = () => q("provider_slots", () => adapter.providerSlots());
+export const useRoutingPolicy = () => q("routing_policy", () => adapter.routingPolicy());
+export const usePromptProfiles = () => q("prompt_profiles", () => adapter.promptProfiles());
+export const useNativeCurrencyReviews = () => q("native_ccy_reviews", () => adapter.nativeCurrencyReviews());
+export const useAccountLines = () => q("account_lines", () => adapter.accountLines());
+export const useAccountReadiness = () => q("account_readiness", () => adapter.accountReadiness());
+export const useInstrumentMapping = () => q("instrument_mapping", () => adapter.instrumentMapping());
+export const useSourceAccountMatrix = () => q("source_account_matrix", () => adapter.sourceAccountMatrix());
