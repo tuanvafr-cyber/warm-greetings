@@ -873,6 +873,143 @@ export const dictionary = {
   },
   "risk.all_accounts": { vi: "Tất cả tài khoản", en: "All accounts" },
   "risk.account_scope": { vi: "Phạm vi tài khoản", en: "Account scope" },
+
+  // IA groups (final decision — Daily / Configuration / System)
+  "nav.group.daily": { vi: "Hằng ngày", en: "Daily" },
+  "nav.group.configuration": { vi: "Cấu hình", en: "Configuration" },
+  "nav.group.system": { vi: "Hệ thống", en: "System" },
+  "nav.telegram_ai": { vi: "Telegram & AI", en: "Telegram & AI" },
+  "nav.trace_audit": { vi: "Truy vết & Nhật ký", en: "Trace & Audit" },
+
+  // Telegram & AI merged page
+  "telegram_ai.title": { vi: "Telegram & AI", en: "Telegram & AI" },
+  "telegram_ai.header.desc": {
+    vi: "Phiên Telegram, nguồn, nhà cung cấp AI, định tuyến và prompt.",
+    en: "Telegram session, sources, AI providers, routing and prompts.",
+  },
+  "telegram_ai.tab.sessions": { vi: "Phiên Telegram", en: "Sessions" },
+  "telegram_ai.tab.sources": { vi: "Nguồn Telegram", en: "Telegram sources" },
+  "telegram_ai.tab.providers": { vi: "Nhà cung cấp AI", en: "AI providers" },
+  "telegram_ai.tab.routing": { vi: "Định tuyến AI", en: "AI routing" },
+  "telegram_ai.tab.prompts": { vi: "Prompt", en: "Prompts" },
+  "telegram_ai.routing.order": {
+    vi: "Thứ tự cố định: Chính → Phụ → Ba. Bỏ vai trò chẩn đoán.",
+    en: "Fixed order: Primary → Secondary → Tertiary. Diagnostic role removed.",
+  },
+  "telegram_ai.routing.slot.primary": { vi: "Chính", en: "Primary" },
+  "telegram_ai.routing.slot.secondary": { vi: "Phụ", en: "Secondary" },
+  "telegram_ai.routing.slot.tertiary": { vi: "Ba", en: "Tertiary" },
+  "telegram_ai.routing.no_backend": {
+    vi: "React không thực thi retry, cooldown, health probe hay failover.",
+    en: "React does not execute retries, cooldowns, health probes or failover.",
+  },
+  "telegram_ai.prompts.desc": {
+    vi: "Thư viện Prompt Profile — dữ liệu mẫu, chưa gắn backend.",
+    en: "Prompt Profile library — fixture data, not backend-bound.",
+  },
+  "telegram_ai.prompts.new": { vi: "Tạo profile mới", en: "New profile" },
+  "telegram_ai.prompts.versions": { vi: "Phiên bản", en: "Versions" },
+  "telegram_ai.prompts.active_version": { vi: "Phiên bản đang dùng", en: "Active version" },
+  "telegram_ai.prompts.draft_version": { vi: "Phiên bản nháp", en: "Draft version" },
+  "telegram_ai.prompts.task_type": { vi: "Loại tác vụ", en: "Task type" },
+  "telegram_ai.prompts.input_schema": { vi: "Schema đầu vào", en: "Input schema" },
+  "telegram_ai.prompts.output_schema": { vi: "Schema đầu ra", en: "Output schema" },
+  "telegram_ai.prompts.source_scope": { vi: "Phạm vi nguồn", en: "Source scope" },
+  "telegram_ai.prompts.provider_scope": {
+    vi: "Provider/model tương thích",
+    en: "Provider/model compatibility",
+  },
+  "telegram_ai.prompts.test_input": { vi: "Đầu vào thử nghiệm", en: "Test input" },
+  "telegram_ai.prompts.test_output": { vi: "Đầu ra JSON có cấu trúc", en: "Structured JSON output" },
+  "telegram_ai.prompts.activate": { vi: "Kích hoạt phiên bản", en: "Activate version" },
+  "telegram_ai.prompts.rollback": { vi: "Quay lại phiên bản trước", en: "Rollback" },
+  "telegram_ai.prompts.duplicate": { vi: "Nhân bản làm nháp", en: "Duplicate as draft" },
+  "telegram_ai.prompts.archive": { vi: "Lưu trữ", en: "Archive" },
+  "telegram_ai.prompts.audit": { vi: "Lịch sử & audit", en: "Version & audit history" },
+
+  // Sources — extended tabs
+  "sources.tab.telegram": { vi: "Nguồn Telegram", en: "Telegram sources" },
+  "sources.tab.instruments": { vi: "Công cụ chuẩn", en: "Canonical instruments" },
+  "sources.tab.aliases": { vi: "Alias", en: "Aliases" },
+  "sources.tab.broker_mappings": { vi: "Ánh xạ broker", en: "Broker mappings" },
+  "sources.tab.effective_matrix": { vi: "Ma trận hiệu lực", en: "Effective matrix" },
+  "sources.instruments.desc": {
+    vi: "Danh mục công cụ chuẩn (canonical) dùng chung giữa parser, risk và broker mapping.",
+    en: "Canonical instrument catalogue shared by parser, risk and broker mapping.",
+  },
+  "sources.instruments.add": { vi: "Thêm công cụ chuẩn", en: "Add canonical instrument" },
+  "sources.instruments.edit": { vi: "Chỉnh sửa", en: "Edit" },
+  "sources.aliases.desc": {
+    vi: "Alias giúp parser nhận diện các cách viết khác nhau của cùng một công cụ.",
+    en: "Aliases let the parser recognise alternate spellings of the same instrument.",
+  },
+  "sources.aliases.add": { vi: "Thêm alias", en: "Add alias" },
+  "sources.aliases.scope": { vi: "Phạm vi alias", en: "Alias scope" },
+  "sources.aliases.resolver_test": { vi: "Thử resolver", en: "Resolver test" },
+  "sources.broker.desc": {
+    vi: "Quét symbol trên broker và chọn symbol chính xác cho từng công cụ chuẩn.",
+    en: "Scan broker symbols and pick the exact match per canonical instrument.",
+  },
+  "sources.broker.scan": { vi: "Quét symbol", en: "Scan symbols" },
+  "sources.broker.verify_mapping": { vi: "Xác thực ánh xạ", en: "Verify mapping" },
+  "sources.effective.desc": {
+    vi: "Ma trận eligibility hiệu lực với chuỗi lý do khi bị chặn.",
+    en: "Effective eligibility matrix with reason chain when blocked.",
+  },
+
+  // Accounts — add-account journey
+  "accounts.add.title": { vi: "Thêm tài khoản MT5", en: "Add MT5 account" },
+  "accounts.add.step.detect": { vi: "Phát hiện terminal", en: "Detect terminal" },
+  "accounts.add.step.select": { vi: "Chọn terminal", en: "Select terminal" },
+  "accounts.add.step.preview": { vi: "Xem trước", en: "Preview" },
+  "accounts.add.step.confirm": { vi: "Xác nhận áp dụng", en: "Confirm apply" },
+  "accounts.add.step.provisioning": { vi: "Đang khởi tạo", en: "Provisioning" },
+  "accounts.add.step.result": { vi: "Kết quả (READY_PAUSED)", en: "Result (READY_PAUSED)" },
+  "accounts.add.detect.hint": {
+    vi: "Panel Next quét các terminal có thể nối. React không tự phát hiện thật.",
+    en: "Panel Next scans available terminals. React does not truly detect.",
+  },
+  "accounts.add.next": { vi: "Tiếp tục", en: "Next" },
+  "accounts.add.back": { vi: "Quay lại", en: "Back" },
+  "accounts.add.apply": { vi: "Áp dụng", en: "Apply" },
+  "accounts.add.result.ready_paused": {
+    vi: "Sẵn sàng nhưng đang tạm dừng — cần thao tác kích hoạt của người vận hành.",
+    en: "Ready but paused — operator activation is required next.",
+  },
+  "accounts.action.resume": { vi: "Tiếp tục", en: "Resume" },
+  "accounts.action.reconcile": { vi: "Đối soát", en: "Reconcile" },
+  "accounts.action.verify_identity": { vi: "Xác thực danh tính", en: "Verify identity" },
+  "accounts.action.activate": { vi: "Kích hoạt", en: "Activate" },
+  "accounts.action.pause": { vi: "Tạm dừng", en: "Pause" },
+  "accounts.action.drain_pause": { vi: "Rút dần rồi tạm dừng", en: "Drain then pause" },
+  "accounts.readiness.title": { vi: "Sẵn sàng vận hành", en: "Operational readiness" },
+  "accounts.readiness.desired": { vi: "Trạng thái mong muốn", en: "Desired state" },
+  "accounts.readiness.observed": { vi: "Trạng thái quan sát", en: "Observed state" },
+  "accounts.readiness.next_safe": { vi: "Hành động an toàn kế tiếp", en: "Safe next action" },
+  "accounts.readiness.blockers": { vi: "Yếu tố chặn", en: "Blockers" },
+  "accounts.readiness.no_blockers": { vi: "Không có yếu tố chặn", en: "No blockers" },
+
+  // Shared command lifecycle labels
+  "cmd.phase.idle": { vi: "Chưa bắt đầu", en: "Idle" },
+  "cmd.phase.previewing": { vi: "Đang xem trước", en: "Previewing" },
+  "cmd.phase.preview_ready": { vi: "Đã có bản xem trước", en: "Preview ready" },
+  "cmd.phase.confirming": { vi: "Chờ xác nhận", en: "Awaiting confirmation" },
+  "cmd.phase.submitting": { vi: "Đang gửi", en: "Submitting" },
+  "cmd.phase.success": { vi: "Backend xác nhận thành công", en: "Authoritative success" },
+  "cmd.phase.rejection": { vi: "Backend từ chối", en: "Authoritative rejection" },
+  "cmd.phase.transport_error": { vi: "Lỗi truyền tải", en: "Transport error" },
+  "cmd.backend_required.title": { vi: "Cần backend để hoàn tất", en: "Backend required to complete" },
+  "cmd.backend_required.desc": {
+    vi: "Bản xem trước phía React được ghi lại; không có thay đổi thực tế nào được gửi cho tới khi adapter thật được nối.",
+    en: "The React preview has been captured; no authoritative change is submitted until the real adapter is connected.",
+  },
+  "cmd.fixture_result": { vi: "Kết quả mẫu (fixture)", en: "Fixture result (demo)" },
+
+  // Empty / capability
+  "state.capability_unavailable": {
+    vi: "Chức năng chưa khả dụng — chờ backend nối vào adapter.",
+    en: "Capability unavailable — pending backend adapter binding.",
+  },
 } satisfies Dict;
 
 export type TKey = keyof typeof dictionary;
