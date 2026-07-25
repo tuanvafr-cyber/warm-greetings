@@ -250,7 +250,8 @@ function RuntimeInboxCard({
       </CardHeader>
       <CardContent className="flex-1 space-y-2 overflow-hidden">
         <div className="text-xs text-muted-foreground">
-          {degraded.length} components need attention · {open.length} open inbox items
+          {t("dashboard.runtime.components_attn").replace("{n}", String(degraded.length))} ·{" "}
+          {t("dashboard.runtime.open_items").replace("{n}", String(open.length))}
         </div>
         <ul className="space-y-1.5 text-sm">
           {degraded.slice(0, 3).map((c) => (
