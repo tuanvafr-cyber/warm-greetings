@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { controls } from "@/lib/control-registry";
-import { useTopBar } from "@/lib/topbar";
+import { useTopBar, useLastUpdatedFromQueries } from "@/lib/topbar";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,7 +62,9 @@ function DashboardPage() {
     (q) => q.isPending,
   );
 
-  const lastUpdated = useMemo(() => new Date().toISOString(), []);
+  const lastUpdated = useLastUpdatedFromQueries(
+    kpis, pnl, heatmap, sources, orders, positions, risk, runtime, inbox,
+  );
   useTopBar({
     title: t("dashboard.title"),
     lastUpdatedIso: lastUpdated,
@@ -150,7 +152,7 @@ function DashboardPage() {
               style={{ minHeight: analyticsHeight }}
             >
               <div className="flex-1 min-h-0">
-                <RiskTodayCard version={risk.data?.[0]} />
+                <RiskTodayCard version={risk.data?.[0]} marginUsagePct={kpis.data.marginUsagePct} />
               </div>
               <div className="flex-1 min-h-0">
                 <RuntimeInboxCard runtime={runtime.data ?? []} inbox={inbox.data ?? []} />
@@ -173,8 +175,10 @@ function DashboardPage() {
 
 function RiskTodayCard({
   version,
+  marginUsagePct,
 }: {
   version: import("@/data/contracts").RiskPolicyVersion | undefined;
+  marginUsagePct: number;
 }) {
   const t = useT();
   return (
@@ -202,7 +206,7 @@ function RiskTodayCard({
         />
         <Metric
           label={t("dashboard.risk.margin_usage")}
-          value={`${version?.marginBufferPct ?? 0}%`}
+          value={<Pct value={marginUsagePct / 100} />}
         />
         <Metric
           label={t("dashboard.risk.budget")}
@@ -246,7 +250,8 @@ function RuntimeInboxCard({
       </CardHeader>
       <CardContent className="flex-1 space-y-2 overflow-hidden">
         <div className="text-xs text-muted-foreground">
-          {degraded.length} components need attention · {open.length} open inbox items
+          {t("dashboard.runtime.components_attn").replace("{n}", String(degraded.length))} ·{" "}
+          {t("dashboard.runtime.open_items").replace("{n}", String(open.length))}
         </div>
         <ul className="space-y-1.5 text-sm">
           {degraded.slice(0, 3).map((c) => (

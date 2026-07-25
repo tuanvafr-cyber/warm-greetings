@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useRiskPolicyVersions, useAccounts } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
-import { useTopBar } from "@/lib/topbar";
+import { useTopBar, useLastUpdatedFromQueries } from "@/lib/topbar";
 import { controls } from "@/lib/control-registry";
 import { Download, Info } from "lucide-react";
 
@@ -52,7 +52,7 @@ function RiskPage() {
 
   useTopBar({
     title: t("nav.risk"),
-    lastUpdatedIso: new Date().toISOString(),
+    lastUpdatedIso: useLastUpdatedFromQueries(q, accountsQ),
     extraActions: (
       <Button
         size="sm"

@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Pin, Plus, RefreshCw, ShieldCheck } from "lucide-react";
 import { PageHeader } from "@/components/shared/PageHeader";
-import { useTopBar } from "@/lib/topbar";
+import { useTopBar, useLastUpdatedFromQueries } from "@/lib/topbar";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState, EmptyState } from "@/components/shared/StateViews";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
@@ -38,9 +38,9 @@ export const Route = createFileRoute("/accounts")({
 
 function AccountsPage() {
   const t = useT();
-  useTopBar({ title: t("nav.accounts"), lastUpdatedIso: new Date().toISOString() });
   const [search, setSearch] = useState("");
   const q = useAccounts();
+  useTopBar({ title: t("nav.accounts"), lastUpdatedIso: useLastUpdatedFromQueries(q) });
 
   const active = (q.data ?? []).filter((a) => a.lifecycle !== "archived");
   const archived = (q.data ?? []).filter((a) => a.lifecycle === "archived");

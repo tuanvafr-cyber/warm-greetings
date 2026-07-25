@@ -848,6 +848,31 @@ export const dictionary = {
     vi: "Cùng trạng thái với chế độ xem theo tài khoản. Revision và pending giống hệt.",
     en: "Shares canonical state with the account-centric view. Revision and pending are identical.",
   },
+
+  "dashboard.carousel.aria": { vi: "Băng chuyền phân tích", en: "Analytics carousel" },
+  "dashboard.carousel.scrubber": { vi: "Thanh trượt băng chuyền", en: "Carousel scrubber" },
+  "dashboard.carousel.resize": { vi: "Đổi kích thước phân tích", en: "Resize analytics" },
+  "heat.win": { vi: "Thắng", en: "Win" },
+  "heat.loss": { vi: "Thua", en: "Loss" },
+  "heat.best_order": { vi: "Lệnh tốt nhất", en: "Best order" },
+  "heat.worst_order": { vi: "Lệnh tệ nhất", en: "Worst order" },
+  "heat.top_source": { vi: "Nguồn tiêu biểu", en: "Top source" },
+  "heat.dot_size": { vi: "Kích thước điểm", en: "Dot size" },
+  "heat.legend_even": { vi: "Hòa vốn / chưa xác định", en: "Even / unresolved" },
+  "dashboard.runtime.components_attn": {
+    vi: "{n} thành phần cần chú ý",
+    en: "{n} components need attention",
+  },
+  "dashboard.runtime.open_items": {
+    vi: "{n} mục cần xử lý",
+    en: "{n} open inbox items",
+  },
+  "dashboard.risk.margin_usage_pct": {
+    vi: "Mức dùng ký quỹ",
+    en: "Margin usage",
+  },
+  "risk.all_accounts": { vi: "Tất cả tài khoản", en: "All accounts" },
+  "risk.account_scope": { vi: "Phạm vi tài khoản", en: "Account scope" },
 } satisfies Dict;
 
 export type TKey = keyof typeof dictionary;

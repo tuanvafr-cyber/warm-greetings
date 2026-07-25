@@ -23,6 +23,12 @@ import type {
   AccountReadiness,
   InstrumentMappingRow,
   SourceAccountCell,
+  QueryScope,
+  DashboardQuery,
+  HeatmapQuery,
+  SignalsQuery,
+  OrdersQuery,
+  PositionsQuery,
 } from "../contracts";
 
 /**
@@ -43,73 +49,96 @@ export class SignalOpsApiAdapter implements PanelDataAdapter {
     );
   }
 
-  listAccounts(): Promise<Account[]> {
+  listAccounts(_q?: QueryScope): Promise<Account[]> {
+    void _q;
     return this.nc("listAccounts");
   }
-  listSources(): Promise<Source[]> {
+  listSources(_q?: QueryScope): Promise<Source[]> {
+    void _q;
     return this.nc("listSources");
   }
-  listSignals(): Promise<Signal[]> {
+  listSignals(_q?: SignalsQuery): Promise<Signal[]> {
+    void _q;
     return this.nc("listSignals");
   }
-  listPositions(): Promise<Position[]> {
+  listPositions(_q?: PositionsQuery): Promise<Position[]> {
+    void _q;
     return this.nc("listPositions");
   }
-  listOrders(): Promise<Order[]> {
+  listOrders(_q?: OrdersQuery): Promise<Order[]> {
+    void _q;
     return this.nc("listOrders");
   }
-  dashboardKpis(): Promise<DashboardKpis> {
+  dashboardKpis(_q?: DashboardQuery): Promise<DashboardKpis> {
+    void _q;
     return this.nc("dashboardKpis");
   }
-  pnlSeries(): Promise<PnlPoint[]> {
+  pnlSeries(_q?: DashboardQuery): Promise<PnlPoint[]> {
+    void _q;
     return this.nc("pnlSeries");
   }
-  heatmap(): Promise<HeatmapBucket[]> {
+  heatmap(_q?: HeatmapQuery): Promise<HeatmapBucket[]> {
+    void _q;
     return this.nc("heatmap");
   }
-  riskPolicyVersions(): Promise<RiskPolicyVersion[]> {
+  riskPolicyVersions(_q?: QueryScope): Promise<RiskPolicyVersion[]> {
+    void _q;
     return this.nc("riskPolicyVersions");
   }
-  telegramSession(): Promise<TelegramSession> {
+  telegramSession(_q?: QueryScope): Promise<TelegramSession> {
+    void _q;
     return this.nc("telegramSession");
   }
-  runtimeComponents(): Promise<RuntimeComponent[]> {
+  runtimeComponents(_q?: QueryScope): Promise<RuntimeComponent[]> {
+    void _q;
     return this.nc("runtimeComponents");
   }
-  providers(): Promise<Provider[]> {
+  providers(_q?: QueryScope): Promise<Provider[]> {
+    void _q;
     return this.nc("providers");
   }
-  inboxItems(): Promise<InboxItem[]> {
+  inboxItems(_q?: QueryScope): Promise<InboxItem[]> {
+    void _q;
     return this.nc("inboxItems");
   }
-  traces(): Promise<TraceRecord[]> {
+  traces(_q?: QueryScope): Promise<TraceRecord[]> {
+    void _q;
     return this.nc("traces");
   }
-  hermesRecommendations(): Promise<HermesRecommendation[]> {
+  hermesRecommendations(_q?: QueryScope): Promise<HermesRecommendation[]> {
+    void _q;
     return this.nc("hermesRecommendations");
   }
-  providerSlots(): Promise<ProviderSlot[]> {
+  providerSlots(_q?: QueryScope): Promise<ProviderSlot[]> {
+    void _q;
     return this.nc("providerSlots");
   }
-  routingPolicy(): Promise<RoutingPolicy> {
+  routingPolicy(_q?: QueryScope): Promise<RoutingPolicy> {
+    void _q;
     return this.nc("routingPolicy");
   }
-  promptProfiles(): Promise<PromptProfile[]> {
+  promptProfiles(_q?: QueryScope): Promise<PromptProfile[]> {
+    void _q;
     return this.nc("promptProfiles");
   }
-  nativeCurrencyReviews(): Promise<NativeCurrencyReview[]> {
+  nativeCurrencyReviews(_q?: QueryScope): Promise<NativeCurrencyReview[]> {
+    void _q;
     return this.nc("nativeCurrencyReviews");
   }
-  accountLines(): Promise<AccountLine[]> {
+  accountLines(_q?: QueryScope): Promise<AccountLine[]> {
+    void _q;
     return this.nc("accountLines");
   }
-  accountReadiness(): Promise<AccountReadiness[]> {
+  accountReadiness(_q?: QueryScope): Promise<AccountReadiness[]> {
+    void _q;
     return this.nc("accountReadiness");
   }
-  instrumentMapping(): Promise<InstrumentMappingRow[]> {
+  instrumentMapping(_q?: QueryScope): Promise<InstrumentMappingRow[]> {
+    void _q;
     return this.nc("instrumentMapping");
   }
-  sourceAccountMatrix(): Promise<SourceAccountCell[]> {
+  sourceAccountMatrix(_q?: QueryScope): Promise<SourceAccountCell[]> {
+    void _q;
     return this.nc("sourceAccountMatrix");
   }
 }

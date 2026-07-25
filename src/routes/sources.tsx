@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Plus, Upload, Download } from "lucide-react";
 import { PageHeader } from "@/components/shared/PageHeader";
-import { useTopBar } from "@/lib/topbar";
+import { useTopBar, useLastUpdatedFromQueries } from "@/lib/topbar";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState, EmptyState } from "@/components/shared/StateViews";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
@@ -47,9 +47,9 @@ function tone(l: SourceLifecycle): StatusTone {
 
 function SourcesPage() {
   const t = useT();
-  useTopBar({ title: t("nav.sources"), lastUpdatedIso: new Date().toISOString() });
   const [search, setSearch] = useState("");
   const q = useSources();
+  useTopBar({ title: t("nav.sources"), lastUpdatedIso: useLastUpdatedFromQueries(q) });
   const filter = (list: Source[]) =>
     list.filter(
       (s) =>

@@ -11,7 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useSignals } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
-import { useTopBar } from "@/lib/topbar";
+import { useTopBar, useLastUpdatedFromQueries } from "@/lib/topbar";
 import { controls } from "@/lib/control-registry";
 import type { Signal, SignalStatus } from "@/data/contracts";
 import { Copy, ExternalLink } from "lucide-react";
@@ -67,7 +67,7 @@ function SignalsPage() {
 
   useTopBar({
     title: t("nav.signals"),
-    lastUpdatedIso: new Date().toISOString(),
+    lastUpdatedIso: useLastUpdatedFromQueries(q),
     showTimeRange: true,
   });
 

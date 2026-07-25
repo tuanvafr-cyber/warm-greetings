@@ -476,6 +476,9 @@ export const kpis: DashboardKpis = {
   pendingOrders: 1,
   floatingPnlUsd: 218.4,
   marginUsedUsd: 1_120,
+  marginUsagePct: 12.4, // marginUsedUsd / equityUsd, read-only reporting only
+  freeMarginNative: 7_820,
+  freeMarginReportingUsd: 7_820,
   eligibleSignals: 128,
   executedSignals: 112,
   blockedSignals: 9,
@@ -506,6 +509,9 @@ export const heatmap: HeatmapBucket[] = (() => {
       const loss = orderCount - win - (Math.random() > 0.8 ? 1 : 0);
       const unresolved = Math.max(0, orderCount - win - loss);
       const net = (win - loss) * (10 + Math.random() * 40);
+      const per = 12 + Math.random() * 30;
+      const best = win > 0 ? per : Math.max(0, net);
+      const worst = loss > 0 ? -per * 0.9 : Math.min(0, net);
       buckets.push({
         date,
         hour: h,
@@ -515,6 +521,8 @@ export const heatmap: HeatmapBucket[] = (() => {
         unresolvedCount: unresolved,
         netPnlUsd: net,
         netPips: net * 0.9,
+        bestOrderPnlUsd: best,
+        worstOrderPnlUsd: worst,
         topSource: sources[Math.floor(Math.random() * 4)].displayName,
       });
     }

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/shared/PageHeader";
-import { useTopBar } from "@/lib/topbar";
+import { useTopBar, useLastUpdatedFromQueries } from "@/lib/topbar";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState, EmptyState } from "@/components/shared/StateViews";
 import { BackendRequiredDialog } from "@/components/shared/BackendRequiredDialog";
@@ -32,11 +32,11 @@ export const Route = createFileRoute("/hermes")({
 
 function HermesPage() {
   const t = useT();
-  useTopBar({ title: t("nav.hermes"), lastUpdatedIso: new Date().toISOString() });
   const recs = useHermesRecommendations();
   const sources = useSources();
   const risk = useRiskPolicyVersions();
   const traces = useTraces();
+  useTopBar({ title: t("nav.hermes"), lastUpdatedIso: useLastUpdatedFromQueries(recs, sources, risk, traces) });
 
   return (
     <div className="flex flex-col gap-4">
