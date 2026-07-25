@@ -251,6 +251,7 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
                       description={t("backend.desc")}
                       payloadPreview={{ intent: "account.archive", id: a.id }}
                     />
+                    <LifecycleActions account={a} />
                     <BackendRequiredDialog
                       controlId={controls.accounts.nativeCurrencyReview}
                       trigger={
