@@ -315,3 +315,112 @@ export type HermesRecommendation = {
   createdAt: string;
   state: "pending" | "reviewed" | "archived";
 };
+
+// ============================================================
+// Analysis API Provider Slots (Runtime)
+// Three fixed slots. Slot 1 = primary, Slot 2 = failover, Slot 3 = diagnostic.
+// Each attempt is bounded to 5 retries; Slot 1 gets a 60s recovery probe.
+// The panel NEVER performs a real provider call and never fakes a switch success.
+// ============================================================
+export type ProviderSlotId = 1 | 2 | 3;
+export type ProviderSlotState =
+  | "empty"
+  | "ready"
+  | "active"
+  | "cooldown"
+  | "circuit_open"
+  | "probing"
+  | "degraded"
+  | "failed";
+
+export type ProviderSlot = {
+  slot: ProviderSlotId;
+  label: string;                       // "Analysis API Slot 1/2/3"
+  role: "primary" | "failover" | "diagnostic";
+  assignedProviderId: string | null;
+  state: ProviderSlotState;
+  attempts: number;                    // 0..5 (per current window)
+  maxAttempts: 5;
+  lastAttemptAt: string | null;
+  lastRecoveryProbeAt: string | null;  // Slot 1 only
+  recoveryProbeSeconds: 60;
+  cooldownEndsAt: string | null;
+  circuitOpenedAt: string | null;
+  circuitResetSeconds: number;
+  lastFailoverAt: string | null;
+  lastFailbackAt: string | null;
+  note: string;
+};
+
+export type RoutingPolicy = {
+  version: number;
+  strategy: "primary_then_failover" | "primary_only" | "diagnostic_only";
+  failoverAfterAttempts: number;       // <= 5
+  failbackWhen: "probe_ok" | "manual_only";
+  recoveryProbeSeconds: number;        // 60 for slot 1
+  cooldownSeconds: number;             // backoff between attempts
+  circuitResetSeconds: number;
+  updatedAt: string;
+  updatedBy: string;
+};
+
+// Prompt profiles (Hermes)
+export type PromptProfile = {
+  id: string;
+  name: string;
+  version: number;
+  state: "draft" | "evaluated" | "published" | "archived";
+  purpose: string;
+  updatedAt: string;
+};
+
+// Account native-currency review workflow
+export type NativeCurrencyReview = {
+  accountId: string;
+  configuredCurrency: Currency;
+  brokerReportedCurrency: Currency | null;
+  state: "verified" | "mismatch" | "input_required" | "unknown";
+  detectedAt: string | null;
+  note: string;
+};
+
+// Account Line / Readiness / Instrument mapping
+export type AccountLine = {
+  accountId: string;
+  revision: number;
+  effectiveState: "connected" | "disconnected" | "draining" | "archived";
+  desiredState: "connected" | "disconnected" | "archived";
+  pendingChange: string | null;
+  workerOwner: string | null;
+  bridgeOwner: string | null;
+  terminalIdentity: string;
+  updatedAt: string;
+};
+
+export type AccountReadiness = {
+  accountId: string;
+  ready: boolean;
+  blockers: Array<{ code: string; reason: string }>;
+  updatedAt: string;
+};
+
+export type InstrumentMappingRow = {
+  accountId: string;
+  canonicalSymbol: string;
+  brokerSymbol: string | null;
+  state: "mapped" | "input_required" | "unknown";
+  reason: string | null;
+};
+
+// Source × Account matrix cell (shared canonical state with account-centric view)
+export type SourceAccountCell = {
+  sourceId: string;
+  accountId: string;
+  desiredEnabled: boolean;
+  effectiveEnabled: boolean;
+  effectiveState: "active" | "disabled" | "draining" | "archived";
+  pendingChange: "none" | "enable" | "disable" | "drain";
+  revision: number;
+  blockerReason: string | null;
+  updatedAt: string;
+};
