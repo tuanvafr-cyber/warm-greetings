@@ -259,6 +259,7 @@ export const plannedControls = {
     reorder: "analysis_providers.reorder",
     logs: "analysis_providers.logs",
     inbox: "analysis_providers.inbox",
+    deletePermanent: "analysis_providers.delete_permanent",
   },
   hermes: {
     evidenceOpen: "hermes.evidence.open",
