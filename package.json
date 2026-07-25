@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "typecheck": "tsgo --noEmit"
+    "typecheck": "tsgo --noEmit",
+    "controls:check": "node scripts/check-controls.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
