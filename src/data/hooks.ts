@@ -33,7 +33,8 @@ export const usePromptProfiles = () => useQ("prompt_profiles", () => adapter.pro
 export const useNativeCurrencyReviews = () =>
   useQ("native_ccy_reviews", () => adapter.nativeCurrencyReviews());
 export const useAccountLines = () => useQ("account_lines", () => adapter.accountLines());
-export const useAccountReadiness = () => useQ("account_readiness", () => adapter.accountReadiness());
+export const useAccountReadiness = () =>
+  useQ("account_readiness", () => adapter.accountReadiness());
 export const useInstrumentMapping = () =>
   useQ("instrument_mapping", () => adapter.instrumentMapping());
 export const useSourceAccountMatrix = () =>
