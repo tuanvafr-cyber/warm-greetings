@@ -8,6 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import type { UseQueryResult } from "@tanstack/react-query";
 
 /**
  * TopBar registration. Each route optionally registers a title override,
@@ -41,8 +42,10 @@ export function useTopBarState(): TopBarState {
 }
 
 /**
- * Register the page's TopBar contribution. Values reset on unmount so
- * routes don't leak state across navigation.
+ * Register the page's TopBar contribution. `lastUpdatedIso` MUST be a
+ * stable value derived from React Query's `dataUpdatedAt` (see
+ * `useLastUpdatedFromQueries`). Never pass `new Date().toISOString()`
+ * inline — it produces a fresh string on every render and would loop.
  */
 export function useTopBar(state: TopBarState) {
   const ctx = useContext(TopBarContext);
@@ -52,9 +55,7 @@ export function useTopBar(state: TopBarState) {
     title: state.title,
     showTimeRange: state.showTimeRange,
     hasActions: state.extraActions != null,
-    // lastUpdatedIso intentionally excluded — routes commonly pass
-    // `new Date().toISOString()`, which would otherwise re-fire the effect
-    // on every render and cause an infinite update loop.
+    lastUpdatedIso: state.lastUpdatedIso ?? null,
   });
   const ctxRef = useRef(ctx);
   ctxRef.current = ctx;
@@ -65,4 +66,17 @@ export function useTopBar(state: TopBarState) {
     return () => c.set({});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serialised]);
+}
+
+/**
+ * Derive a stable `lastUpdatedIso` from React Query results. The value
+ * only changes when the newest `dataUpdatedAt` across the given queries
+ * advances (after a refetch), so it can safely feed `useTopBar` without
+ * triggering render loops.
+ */
+export function useLastUpdatedFromQueries(
+  ...queries: Array<Pick<UseQueryResult<unknown>, "dataUpdatedAt">>
+): string | undefined {
+  const max = queries.reduce((acc, q) => (q?.dataUpdatedAt > acc ? q.dataUpdatedAt : acc), 0);
+  return useMemo(() => (max > 0 ? new Date(max).toISOString() : undefined), [max]);
 }
