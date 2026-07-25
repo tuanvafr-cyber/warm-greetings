@@ -8,7 +8,7 @@ const adapter: PanelDataAdapter = new FixturePanelDataAdapter();
 
 export const usePanelAdapter = () => adapter;
 
-const q = <T>(key: string, fn: () => Promise<T>) =>
+const useQ = <T>(key: string, fn: () => Promise<T>) =>
   useQuery({ queryKey: [key], queryFn: fn, staleTime: 30_000 });
 
 export const useAccounts = () => q("accounts", () => adapter.listAccounts());
