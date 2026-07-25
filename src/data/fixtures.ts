@@ -476,6 +476,9 @@ export const kpis: DashboardKpis = {
   pendingOrders: 1,
   floatingPnlUsd: 218.4,
   marginUsedUsd: 1_120,
+  marginUsagePct: 12.4, // marginUsedUsd / equityUsd, read-only reporting only
+  freeMarginNative: 7_820,
+  freeMarginReportingUsd: 7_820,
   eligibleSignals: 128,
   executedSignals: 112,
   blockedSignals: 9,
