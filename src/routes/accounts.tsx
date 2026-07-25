@@ -69,37 +69,8 @@ function AccountsPage() {
               <RefreshCw className="h-3.5 w-3.5" />
               {t("common.refresh")}
             </Button>
-            <BackendRequiredDialog
-              controlId={controls.accounts.add}
-              trigger={
-                <Button size="sm" className="gap-1.5">
-                  <Plus className="h-3.5 w-3.5" />
-                  {t("accounts.add")}
-                </Button>
-              }
-              title={t("accounts.add")}
-              description={t("backend.desc")}
-              payloadPreview={{ intent: "account.add", login: "", server: "", broker: "" }}
-            >
-              <div className="grid gap-3 py-2 sm:grid-cols-2">
-                <div>
-                  <Label>Login</Label>
-                  <Input placeholder="500 123 456" />
-                </div>
-                <div>
-                  <Label>Server</Label>
-                  <Input placeholder="Broker-Live-01" />
-                </div>
-                <div>
-                  <Label>Broker</Label>
-                  <Input placeholder="Exness / IC Markets" />
-                </div>
-                <div>
-                  <Label>Currency</Label>
-                  <Input placeholder="USD or USC" />
-                </div>
-              </div>
-            </BackendRequiredDialog>
+            <AddAccountWizard />
+
           </>
         }
       />
