@@ -312,6 +312,8 @@ export const plannedControls = {
     deletePermanent: "analysis_providers.delete_permanent",
   },
   hermes: {
+    activationPreview: "hermes.activation.preview",
+    activationOpen: "hermes.activation.open",
     evidenceOpen: "hermes.evidence.open",
     modelSelect: "hermes.model.select",
     sourcesSelect: "hermes.sources.select",
