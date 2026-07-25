@@ -810,8 +810,8 @@ export const dictionary = {
   "runtime.tab.slots": { vi: "Analysis API Slots", en: "Analysis API Slots" },
   "runtime.slots.title": { vi: "Analysis API Slots", en: "Analysis API Slots" },
   "runtime.slots.desc": {
-    vi: "Ba slot cố định: Slot 1 chính, Slot 2 dự phòng, Slot 3 chẩn đoán. Không có chuyển đổi giả lập.",
-    en: "Three fixed slots: Slot 1 primary, Slot 2 failover, Slot 3 diagnostic. No simulated switching.",
+    vi: "Ba slot có thứ tự: Chính → Phụ → Bậc ba. Panel không mô phỏng chuyển đổi.",
+    en: "Three ordered slots: Primary → Secondary → Tertiary. The panel never simulates switching.",
   },
   "slot.role.primary": { vi: "Chính", en: "Primary" },
   "slot.role.secondary": { vi: "Phụ", en: "Secondary" },
