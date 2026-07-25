@@ -284,18 +284,6 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
                       </div>
                     </BackendRequiredDialog>
 
-                    <Button
-                      asChild
-                      size="sm"
-                      variant="ghost"
-                      className="ml-auto gap-1"
-                      data-control-id={controls.accounts.activationOpen}
-                    >
-                      <Link to="/hermes">
-                        <ShieldCheck className="h-3.5 w-3.5" />
-                        {t("accounts.hermes_activation")}
-                      </Link>
-                    </Button>
                   </>
                 )}
                 {isArchive && (
