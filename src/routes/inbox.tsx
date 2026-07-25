@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageHeader } from "@/components/shared/PageHeader";
+import { useTopBar } from "@/lib/topbar";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState, EmptyState } from "@/components/shared/StateViews";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
@@ -34,6 +35,7 @@ function severityTone(s: InboxSeverity): StatusTone {
 
 function InboxPage() {
   const t = useT();
+  useTopBar({ title: t("nav.inbox"), lastUpdatedIso: new Date().toISOString() });
   const q = useInboxItems();
   const [severity, setSeverity] = useState<InboxSeverity | "all">("all");
   const [component, setComponent] = useState<string>("all");

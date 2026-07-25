@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageHeader } from "@/components/shared/PageHeader";
+import { useTopBar } from "@/lib/topbar";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState, EmptyState } from "@/components/shared/StateViews";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
@@ -34,6 +35,7 @@ function stepTone(s: TraceStep): StatusTone {
 
 function TracePage() {
   const t = useT();
+  useTopBar({ title: t("nav.trace"), lastUpdatedIso: new Date().toISOString() });
   const q = useTraces();
   const [txt, setTxt] = useState("");
   const [selected, setSelected] = useState<string | null>(null);

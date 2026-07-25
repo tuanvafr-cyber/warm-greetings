@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider } from "@/lib/i18n";
 import { PreferencesProvider } from "@/lib/preferences";
+import { TopBarProvider } from "@/lib/topbar";
 import { AppShell } from "@/components/app-shell/AppShell";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -142,10 +143,12 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
         <PreferencesProvider>
-          <AppShell>
-            <Outlet />
-          </AppShell>
-          <Toaster richColors position="top-right" />
+          <TopBarProvider>
+            <AppShell>
+              <Outlet />
+            </AppShell>
+            <Toaster richColors position="top-right" />
+          </TopBarProvider>
         </PreferencesProvider>
       </I18nProvider>
     </QueryClientProvider>

@@ -1,18 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { PageHeader } from "@/components/shared/PageHeader";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState, EmptyState } from "@/components/shared/StateViews";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
 import { MoneyUsd, Sensitive } from "@/components/shared/MoneyText";
 import { FilterBar } from "@/components/shared/FilterBar";
-import { TimeRangePicker, type TimeRange } from "@/components/shared/TimeRangePicker";
+import { TimeRangePicker } from "@/components/shared/TimeRangePicker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Download } from "lucide-react";
 import { useAccounts, useOrders } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
+import { useTopBar } from "@/lib/topbar";
 import { controls } from "@/lib/control-registry";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
@@ -45,7 +45,7 @@ function OrdersPage() {
   const search = Route.useSearch();
   const q = useOrders();
   const accountsQ = useAccounts();
-  const [range, setRange] = useState<TimeRange>("30d");
+  // time range persists via URL through <TimeRangePicker />.
   const [account, setAccount] = useState("all");
   const [symbol, setSymbol] = useState("all");
   const [side, setSide] = useState<"all" | "buy" | "sell">("all");
@@ -53,6 +53,22 @@ function OrdersPage() {
   const [txt, setTxt] = useState("");
   const [pageSize, setPageSize] = useState<25 | 50 | 100>(25);
   const [page, setPage] = useState(1);
+
+  useTopBar({
+    title: t("nav.orders"),
+    lastUpdatedIso: new Date().toISOString(),
+    showTimeRange: true,
+    extraActions: (
+      <>
+        <Button size="sm" variant="outline" data-control-id={controls.orders.exportCsv} className="h-8 gap-1.5">
+          <Download className="h-3.5 w-3.5" />{t("orders.export.csv")}
+        </Button>
+        <Button size="sm" variant="outline" data-control-id={controls.orders.exportJson} className="h-8 gap-1.5">
+          <Download className="h-3.5 w-3.5" />{t("orders.export.json")}
+        </Button>
+      </>
+    ),
+  });
 
   const symbols = Array.from(new Set((q.data ?? []).map((o) => o.symbol)));
 
@@ -71,53 +87,45 @@ function OrdersPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <PageHeader
-        title={t("nav.orders")}
-        description={t("route.header.orders")}
-        actions={
-          <>
-            <Button size="sm" variant="outline" data-control-id={controls.orders.exportCsv} className="gap-1.5">
-              <Download className="h-3.5 w-3.5" />{t("orders.export.csv")}
-            </Button>
-            <Button size="sm" variant="outline" data-control-id={controls.orders.exportJson} className="gap-1.5">
-              <Download className="h-3.5 w-3.5" />{t("orders.export.json")}
-            </Button>
-          </>
-        }
-      />
       <FixtureBanner />
 
-      <TimeRangePicker value={range} onChange={setRange} controlPrefix="orders" />
+
+      <TimeRangePicker />
 
       <FilterBar>
         <Input placeholder={t("common.search")} value={txt} onChange={(e) => setTxt(e.target.value)}
           data-control-id={controls.orders.search} className="max-w-xs" />
         <select className="h-8 rounded-md border border-input bg-background px-2 text-xs"
           data-control-id={controls.orders.filterAccount} value={account} onChange={(e) => setAccount(e.target.value)}>
-          <option value="all">All accounts</option>
+          <option value="all">{t("orders.filter.all_accounts")}</option>
           {(accountsQ.data ?? []).map((a) => <option key={a.id} value={a.id}>{a.displayName}</option>)}
         </select>
         <select className="h-8 rounded-md border border-input bg-background px-2 text-xs"
           data-control-id={controls.orders.filterSymbol} value={symbol} onChange={(e) => setSymbol(e.target.value)}>
-          <option value="all">All symbols</option>
+          <option value="all">{t("orders.filter.all_symbols")}</option>
           {symbols.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
         <select className="h-8 rounded-md border border-input bg-background px-2 text-xs"
           data-control-id={controls.orders.filterSide} value={side} onChange={(e) => setSide(e.target.value as never)}>
-          <option value="all">Any side</option><option value="buy">Buy</option><option value="sell">Sell</option>
+          <option value="all">{t("orders.filter.any_side")}</option>
+          <option value="buy">{t("orders.side.buy")}</option>
+          <option value="sell">{t("orders.side.sell")}</option>
         </select>
         <select className="h-8 rounded-md border border-input bg-background px-2 text-xs"
           data-control-id={controls.orders.filterResult} value={result} onChange={(e) => setResult(e.target.value as never)}>
-          <option value="all">Any result</option>
-          <option value="win">Win</option><option value="loss">Loss</option>
-          <option value="break_even">Break-even</option><option value="pending">Pending</option>
+          <option value="all">{t("orders.filter.any_result")}</option>
+          <option value="win">{t("orders.result.win")}</option>
+          <option value="loss">{t("orders.result.loss")}</option>
+          <option value="break_even">{t("orders.result.break_even")}</option>
+          <option value="pending">{t("orders.result.pending")}</option>
         </select>
         <select className="h-8 rounded-md border border-input bg-background px-2 text-xs ml-auto"
           data-control-id={controls.orders.pageSize} value={pageSize}
           onChange={(e) => { setPageSize(Number(e.target.value) as never); setPage(1); }}>
-          <option value={25}>25</option><option value={50}>50</option><option value={100}>100</option>
+          <option value={25}>25</option><option value={50}>100</option><option value={100}>100</option>
         </select>
       </FilterBar>
+
 
       {q.isPending ? <LoadingState /> : filtered.length === 0 ? <EmptyState /> : (
         <Card><CardContent className="overflow-x-auto p-0">
@@ -162,12 +170,13 @@ function OrdersPage() {
             </tbody>
           </table>
           <div className="flex items-center justify-between border-t border-border p-2 text-xs text-muted-foreground">
-            <span>{filtered.length} {t("dashboard.total_orders").toLowerCase()}</span>
+            <span>{filtered.length} {t("common.results").toLowerCase()}</span>
             <div className="flex items-center gap-2">
-              <Button size="sm" variant="ghost" disabled={page === 1} onClick={() => setPage((p) => p - 1)}>Prev</Button>
-              <span>Page {page} / {totalPages}</span>
-              <Button size="sm" variant="ghost" disabled={page === totalPages} onClick={() => setPage((p) => p + 1)}>Next</Button>
+              <Button size="sm" variant="ghost" disabled={page === 1} onClick={() => setPage((p) => p - 1)}>{t("common.prev")}</Button>
+              <span>{t("common.page")} {page} / {totalPages}</span>
+              <Button size="sm" variant="ghost" disabled={page === totalPages} onClick={() => setPage((p) => p + 1)}>{t("common.next")}</Button>
             </div>
+
           </div>
         </CardContent></Card>
       )}

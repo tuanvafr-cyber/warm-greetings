@@ -1,33 +1,26 @@
 import type { ReactNode } from "react";
-import { cn } from "@/lib/utils";
 
+/**
+ * DEPRECATED — the compact global TopBar (AppHeader) now owns the page title,
+ * last-updated indicator, time range and action cluster. PageHeader remains
+ * as a no-op wrapper only so unmigrated routes continue to type-check while
+ * their toolbars are lifted into the TopBar via `useTopBar`.
+ *
+ * If a route still passes `actions`, they are surfaced inline as a compact
+ * toolbar row so we never lose functionality during the migration.
+ */
 export function PageHeader({
-  title,
-  description,
   actions,
-  className,
 }: {
-  title: string;
+  title?: string;
   description?: string;
   actions?: ReactNode;
   className?: string;
 }) {
+  if (!actions) return null;
   return (
-    <div
-      className={cn(
-        "grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 pb-4 sm:flex sm:flex-wrap sm:items-center sm:justify-between",
-        className,
-      )}
-    >
-      <div className="min-w-0">
-        <h1 className="truncate text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          {title}
-        </h1>
-        {description ? (
-          <p className="mt-1 text-sm text-muted-foreground">{description}</p>
-        ) : null}
-      </div>
-      {actions ? <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div> : null}
+    <div className="flex flex-wrap items-center gap-2 pb-2">
+      {actions}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageHeader } from "@/components/shared/PageHeader";
+import { useTopBar } from "@/lib/topbar";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState } from "@/components/shared/StateViews";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
@@ -45,6 +46,11 @@ function TelegramPage() {
   const [apiHash, setApiHash] = useState("");
 
   const s = q.data;
+  useTopBar({
+    title: t("telegram.title"),
+    lastUpdatedIso: new Date().toISOString(),
+    extraActions: s ? <StatusBadge tone={stateToTone[s.state]} /> : null,
+  });
   if (q.isPending || !s) return (<div className="flex flex-col gap-4">
     <PageHeader title={t("telegram.title")} description={t("route.header.telegram")} />
     <LoadingState />

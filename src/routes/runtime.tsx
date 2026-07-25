@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/shared/PageHeader";
+import { useTopBar } from "@/lib/topbar";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState, EmptyState } from "@/components/shared/StateViews";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
@@ -40,6 +41,7 @@ function providerTone(s: ProviderState): StatusTone {
 
 function RuntimePage() {
   const t = useT();
+  useTopBar({ title: t("nav.runtime"), lastUpdatedIso: new Date().toISOString() });
   const runtime = useRuntimeComponents();
   const providers = useProviders();
 

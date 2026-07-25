@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { PageHeader } from "@/components/shared/PageHeader";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState } from "@/components/shared/StateViews";
 import { MoneyUsd, NativeAmount } from "@/components/shared/MoneyText";
@@ -9,10 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useRiskPolicyVersions, useAccounts } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
+import { useTopBar } from "@/lib/topbar";
 import { controls } from "@/lib/control-registry";
-import { Download } from "lucide-react";
+import { Download, Info } from "lucide-react";
 
 export const Route = createFileRoute("/risk")({
   head: () => ({
@@ -32,22 +33,31 @@ function RiskPage() {
   const accountsQ = useAccounts();
   const effective = q.data?.[0];
   const [scope, setScope] = useState("all");
-  const [draft, setDraft] = useState<{ risk: number; loss: number; dd: number; margin: number; budget: number; notes: string }>({
-    risk: 2000, loss: 120, dd: 400, margin: 25, budget: 260, notes: "",
+  const [draft, setDraft] = useState<{ risk: number; loss: number; dd: number; budget: number; notes: string }>({
+    risk: 2000, loss: 120, dd: 400, budget: 260, notes: "",
+  });
+
+  useTopBar({
+    title: t("nav.risk"),
+    lastUpdatedIso: new Date().toISOString(),
+    extraActions: (
+      <Button size="sm" variant="outline" data-control-id={controls.risk.export} className="h-8 gap-1.5">
+        <Download className="h-3.5 w-3.5" />{t("risk.export")}
+      </Button>
+    ),
   });
 
   return (
     <div className="flex flex-col gap-4">
-      <PageHeader
-        title={t("nav.risk")}
-        description={t("route.header.risk")}
-        actions={
-          <Button size="sm" variant="outline" data-control-id={controls.risk.export} className="gap-1.5">
-            <Download className="h-3.5 w-3.5" />{t("risk.export")}
-          </Button>
-        }
-      />
       <FixtureBanner />
+
+      <Alert>
+        <Info className="h-4 w-4" />
+        <AlertDescription className="text-xs">
+          {t("risk.margin_context.title")}: {t("risk.margin_context.desc")}
+        </AlertDescription>
+      </Alert>
+
 
       {q.isPending ? <LoadingState /> : (
         <div className="grid gap-4 lg:grid-cols-3">
@@ -85,8 +95,8 @@ function RiskPage() {
                 <NumField label={t("risk.native_amount")} v={draft.risk} onChange={(v) => setDraft({ ...draft, risk: v })} />
                 <NumField label={t("risk.daily_loss")} v={draft.loss} onChange={(v) => setDraft({ ...draft, loss: v })} />
                 <NumField label={t("risk.drawdown")} v={draft.dd} onChange={(v) => setDraft({ ...draft, dd: v })} />
-                <NumField label={t("risk.margin_buffer")} v={draft.margin} onChange={(v) => setDraft({ ...draft, margin: v })} />
                 <NumField label={t("risk.budget")} v={draft.budget} onChange={(v) => setDraft({ ...draft, budget: v })} />
+
               </div>
               <div>
                 <Label>{t("risk.notes")}</Label>

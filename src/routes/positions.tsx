@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageHeader } from "@/components/shared/PageHeader";
+import { useTopBar } from "@/lib/topbar";
 import { FixtureBanner } from "@/components/shared/FixtureBanner";
 import { LoadingState, EmptyState } from "@/components/shared/StateViews";
 import { StatusBadge } from "@/components/shared/StatusBadge";
@@ -28,6 +29,7 @@ export const Route = createFileRoute("/positions")({
 
 function PositionsPage() {
   const t = useT();
+  useTopBar({ title: t("nav.positions"), lastUpdatedIso: new Date().toISOString() });
   const q = usePositions();
   const accountsQ = useAccounts();
   const [side, setSide] = useState<"all" | "buy" | "sell">("all");
