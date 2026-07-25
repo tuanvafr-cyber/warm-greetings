@@ -21,7 +21,7 @@ import {
   useSources,
 } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -62,15 +62,40 @@ function DashboardPage() {
     (q) => q.isPending,
   );
 
+  const lastUpdated = useMemo(() => new Date().toISOString(), []);
   useTopBar({
     title: t("dashboard.title"),
-    lastUpdatedIso: new Date().toISOString(),
+    lastUpdatedIso: lastUpdated,
     showTimeRange: true,
   });
+
+  const [analyticsHeight, setAnalyticsHeight] = useState<number>(360);
+
+  const slides = useMemo(
+    () => [
+      {
+        key: "be",
+        label: t("dashboard.balance_equity"),
+        content: <BalanceEquityChart data={pnl.data ?? []} />,
+      },
+      {
+        key: "pnl",
+        label: t("dashboard.pnl_over_time"),
+        content: <PnlOverTimeChart data={pnl.data ?? []} />,
+      },
+      {
+        key: "heat",
+        label: t("dashboard.heatmap"),
+        content: <TradeActivityHeatmap buckets={heatmap.data ?? []} />,
+      },
+    ],
+    [pnl.data, heatmap.data, t],
+  );
   // suppress-unused
   useEffect(() => {
     void 0;
   }, []);
+
 
   return (
     <div className="flex flex-col gap-4">
@@ -118,31 +143,21 @@ function DashboardPage() {
 
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="lg:col-span-2">
-              <AnalyticsCarousel
-                slides={[
-                  {
-                    key: "be",
-                    label: t("dashboard.balance_equity"),
-                    content: <BalanceEquityChart data={pnl.data ?? []} />,
-                  },
-                  {
-                    key: "pnl",
-                    label: t("dashboard.pnl_over_time"),
-                    content: <PnlOverTimeChart data={pnl.data ?? []} />,
-                  },
-                  {
-                    key: "heat",
-                    label: t("dashboard.heatmap"),
-                    content: <TradeActivityHeatmap buckets={heatmap.data ?? []} />,
-                  },
-                ]}
-              />
+              <AnalyticsCarousel slides={slides} onHeightChange={setAnalyticsHeight} />
             </div>
-            <div className="flex flex-col gap-4">
-              <RiskTodayCard version={risk.data?.[0]} />
-              <RuntimeInboxCard runtime={runtime.data ?? []} inbox={inbox.data ?? []} />
+            <div
+              className="flex flex-col gap-4 lg:h-full"
+              style={{ minHeight: analyticsHeight }}
+            >
+              <div className="flex-1 min-h-0">
+                <RiskTodayCard version={risk.data?.[0]} />
+              </div>
+              <div className="flex-1 min-h-0">
+                <RuntimeInboxCard runtime={runtime.data ?? []} inbox={inbox.data ?? []} />
+              </div>
             </div>
           </div>
+
 
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="lg:col-span-2">
@@ -163,7 +178,7 @@ function RiskTodayCard({
 }) {
   const t = useT();
   return (
-    <Card>
+    <Card className="flex h-full flex-col">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center justify-between text-sm">
           {t("dashboard.risk_today")}
@@ -176,7 +191,7 @@ function RiskTodayCard({
           </Link>
         </CardTitle>
       </CardHeader>
-      <CardContent className="grid grid-cols-2 gap-3 text-sm">
+      <CardContent className="grid flex-1 grid-cols-2 content-start gap-3 text-sm">
         <Metric
           label={t("dashboard.risk.daily_loss")}
           value={<MoneyUsd value={version?.dailyLossLimitUsd ?? 0} />}
@@ -198,6 +213,7 @@ function RiskTodayCard({
   );
 }
 
+
 function Metric({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div>
@@ -218,7 +234,8 @@ function RuntimeInboxCard({
   const degraded = runtime.filter((c) => c.health !== "healthy");
   const open = inbox.filter((i) => i.state === "open");
   return (
-    <Card>
+    <Card className="flex h-full flex-col">
+
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center justify-between text-sm">
           {t("dashboard.runtime_inbox")}
@@ -227,7 +244,7 @@ function RuntimeInboxCard({
           </Link>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="flex-1 space-y-2 overflow-hidden">
         <div className="text-xs text-muted-foreground">
           {degraded.length} components need attention · {open.length} open inbox items
         </div>
