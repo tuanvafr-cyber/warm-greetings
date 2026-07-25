@@ -72,11 +72,11 @@ function InboxPage() {
           onChange={(e) => setSeverity(e.target.value as never)}
           data-control-id={controls.inbox.filterSeverity}
         >
-          <option value="all">All severities</option>
-          <option value="info">Info</option>
-          <option value="warning">Warning</option>
-          <option value="blocker">Blocker</option>
-          <option value="critical">Critical</option>
+          <option value="all">{t("inbox.filter.all_severities")}</option>
+          <option value="info">{t("inbox.severity.info")}</option>
+          <option value="warning">{t("inbox.severity.warning")}</option>
+          <option value="blocker">{t("inbox.severity.blocker")}</option>
+          <option value="critical">{t("inbox.severity.critical")}</option>
         </select>
         <select
           className="h-8 rounded-md border border-input bg-background px-2 text-xs"
@@ -84,7 +84,7 @@ function InboxPage() {
           onChange={(e) => setComponent(e.target.value)}
           data-control-id={controls.inbox.filterComponent}
         >
-          <option value="all">All components</option>
+          <option value="all">{t("inbox.filter.all_components")}</option>
           {components.map((c) => (
             <option key={c} value={c}>
               {c}
@@ -97,9 +97,9 @@ function InboxPage() {
           onChange={(e) => setState(e.target.value as never)}
           data-control-id={controls.inbox.filterState}
         >
-          <option value="all">All states</option>
-          <option value="open">Open</option>
-          <option value="acknowledged">Acknowledged</option>
+          <option value="all">{t("inbox.filter.all_states")}</option>
+          <option value="open">{t("inbox.state.open")}</option>
+          <option value="acknowledged">{t("inbox.state.acknowledged")}</option>
         </select>
       </FilterBar>
 
