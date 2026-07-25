@@ -14,7 +14,8 @@ import { useT } from "@/lib/i18n";
 
 export function BalanceEquityChart({ data }: { data: PnlPoint[] }) {
   return (
-    <div className="h-[280px] w-full">
+    <div className="h-full min-h-[240px] w-full">
+
       <ResponsiveContainer>
         <AreaChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 0 }}>
           <defs>
