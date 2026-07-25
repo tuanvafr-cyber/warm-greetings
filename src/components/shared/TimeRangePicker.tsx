@@ -22,6 +22,8 @@ import { useT } from "@/lib/i18n";
 import type { TKey } from "@/lib/i18n/dictionary";
 import { TIME_RANGES, useTimeRange, type TimeRange } from "@/lib/time-range";
 import { controls } from "@/lib/control-registry";
+
+export type { TimeRange };
 import { cn } from "@/lib/utils";
 
 const KEY: Record<TimeRange, TKey> = {

@@ -679,6 +679,12 @@ export const dictionary = {
 
   // Privacy
   "privacy.masked": { vi: "••••", en: "••••" },
+
+  // Legacy compat keys — kept so unmigrated components still resolve.
+  "dashboard.last_updated": { vi: "Cập nhật lúc", en: "Last updated" },
+  "dashboard.risk.margin": { vi: "Mức sử dụng ký quỹ", en: "Margin usage" },
+  "risk.margin_buffer": { vi: "Đệm ký quỹ (%) — deprecated", en: "Margin buffer (%) — deprecated" },
+  "provider.switch_preview": { vi: "Xem trước chuyển", en: "Preview switch" },
 } satisfies Dict;
 
 export type TKey = keyof typeof dictionary;

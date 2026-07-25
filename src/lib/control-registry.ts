@@ -171,6 +171,18 @@ export const controls = {
     readinessReducerOpen: "runtime.readiness_reducer.open",
     accountLineFactoryOpen: "runtime.account_line_factory.open",
   },
+  // Legacy alias for existing usage. Prefer `analysisProviders` in new code.
+  providers: {
+    add: "analysis_providers.add",
+    edit: "analysis_providers.edit",
+    test: "analysis_providers.test",
+    switchPreview: "analysis_providers.switch_preview",
+    activate: "analysis_providers.activate",
+    deactivate: "analysis_providers.disable",
+    archive: "analysis_providers.archive",
+    restore: "analysis_providers.restore",
+    deletePermanent: "analysis_providers.delete_permanent",
+  },
   analysisProviders: {
     add: "analysis_providers.add",
     edit: "analysis_providers.edit",
