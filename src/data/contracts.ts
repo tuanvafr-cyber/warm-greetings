@@ -142,6 +142,8 @@ export type HeatmapBucket = {
   unresolvedCount: number;
   netPnlUsd: number;
   netPips: number;
+  bestOrderPnlUsd: number; // highest single-order P&L (USD) in bucket
+  worstOrderPnlUsd: number; // lowest single-order P&L (USD) in bucket
   topSource: string | null;
 };
 
