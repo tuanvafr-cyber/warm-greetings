@@ -43,8 +43,8 @@ function stepTone(s: TraceStep): StatusTone {
 
 function TracePage() {
   const t = useT();
-  useTopBar({ title: t("nav.trace"), lastUpdatedIso: useLastUpdatedFromQueries(q) });
   const q = useTraces();
+  useTopBar({ title: t("nav.trace"), lastUpdatedIso: useLastUpdatedFromQueries(q) });
   const [txt, setTxt] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
 

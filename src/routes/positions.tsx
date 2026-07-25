@@ -29,9 +29,9 @@ export const Route = createFileRoute("/positions")({
 
 function PositionsPage() {
   const t = useT();
-  useTopBar({ title: t("nav.positions"), lastUpdatedIso: useLastUpdatedFromQueries(q, accountsQ) });
   const q = usePositions();
   const accountsQ = useAccounts();
+  useTopBar({ title: t("nav.positions"), lastUpdatedIso: useLastUpdatedFromQueries(q, accountsQ) });
   const [side, setSide] = useState<"all" | "buy" | "sell">("all");
   const [account, setAccount] = useState<string>("all");
   const [symbol, setSymbol] = useState<string>("all");

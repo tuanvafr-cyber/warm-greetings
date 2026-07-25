@@ -32,11 +32,11 @@ export const Route = createFileRoute("/hermes")({
 
 function HermesPage() {
   const t = useT();
-  useTopBar({ title: t("nav.hermes"), lastUpdatedIso: useLastUpdatedFromQueries(recs, sources, risk, traces) });
   const recs = useHermesRecommendations();
   const sources = useSources();
   const risk = useRiskPolicyVersions();
   const traces = useTraces();
+  useTopBar({ title: t("nav.hermes"), lastUpdatedIso: useLastUpdatedFromQueries(recs, sources, risk, traces) });
 
   return (
     <div className="flex flex-col gap-4">

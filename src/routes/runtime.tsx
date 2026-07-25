@@ -63,11 +63,11 @@ function providerTone(s: ProviderState): StatusTone {
 
 function RuntimePage() {
   const t = useT();
-  useTopBar({ title: t("nav.runtime"), lastUpdatedIso: useLastUpdatedFromQueries(runtime, providers, slots, policy) });
   const runtime = useRuntimeComponents();
   const providers = useProviders();
   const slots = useProviderSlots();
   const policy = useRoutingPolicy();
+  useTopBar({ title: t("nav.runtime"), lastUpdatedIso: useLastUpdatedFromQueries(runtime, providers, slots, policy) });
 
   return (
     <div className="flex flex-col gap-4">
