@@ -46,6 +46,7 @@ function HermesPage() {
           <TabsTrigger value="decisions" data-control-id={controls.hermes.tabDecisions}>{t("hermes.tab.decisions")}</TabsTrigger>
           <TabsTrigger value="learning" data-control-id={controls.hermes.tabLearning}>{t("hermes.tab.learning")}</TabsTrigger>
           <TabsTrigger value="policies" data-control-id={controls.hermes.tabPolicies}>{t("hermes.tab.policies")}</TabsTrigger>
+          <TabsTrigger value="prompts" data-control-id={controls.hermes.tabPrompts ?? "hermes.tab.prompts"}>{t("hermes.tab.prompts")}</TabsTrigger>
           <TabsTrigger value="trace" data-control-id={controls.hermes.tabTrace}>{t("hermes.tab.trace")}</TabsTrigger>
         </TabsList>
 
