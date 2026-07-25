@@ -841,12 +841,11 @@ export const dictionary = {
   // Routing policy
   "routing.title": { vi: "Chính sách định tuyến provider", en: "Provider routing policy" },
   "routing.strategy": { vi: "Chiến lược", en: "Strategy" },
-  "routing.strategy.primary_then_failover": {
-    vi: "Chính rồi dự phòng",
-    en: "Primary then failover",
+  "routing.strategy.ordered_primary_secondary_tertiary": {
+    vi: "Ưu tiên: Chính → Phụ → Bậc ba",
+    en: "Ordered: Primary → Secondary → Tertiary",
   },
   "routing.strategy.primary_only": { vi: "Chỉ dùng chính", en: "Primary only" },
-  "routing.strategy.diagnostic_only": { vi: "Chỉ dùng chẩn đoán", en: "Diagnostic only" },
   "routing.failover_after": { vi: "Failover sau số lần thử", en: "Failover after attempts" },
   "routing.failback_when": { vi: "Failback khi", en: "Failback when" },
   "routing.failback.probe_ok": { vi: "Thăm dò thành công", en: "Probe succeeds" },
