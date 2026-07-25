@@ -11,30 +11,30 @@ export const usePanelAdapter = () => adapter;
 const useQ = <T>(key: string, fn: () => Promise<T>) =>
   useQuery({ queryKey: [key], queryFn: fn, staleTime: 30_000 });
 
-export const useAccounts = () => q("accounts", () => adapter.listAccounts());
-export const useSources = () => q("sources", () => adapter.listSources());
-export const useSignals = () => q("signals", () => adapter.listSignals());
-export const usePositions = () => q("positions", () => adapter.listPositions());
-export const useOrders = () => q("orders", () => adapter.listOrders());
-export const useDashboardKpis = () => q("kpis", () => adapter.dashboardKpis());
-export const usePnlSeries = () => q("pnl", () => adapter.pnlSeries());
-export const useHeatmap = () => q("heatmap", () => adapter.heatmap());
-export const useRiskPolicyVersions = () => q("risk", () => adapter.riskPolicyVersions());
-export const useTelegramSession = () => q("telegram", () => adapter.telegramSession());
-export const useRuntimeComponents = () => q("runtime", () => adapter.runtimeComponents());
-export const useProviders = () => q("providers", () => adapter.providers());
-export const useInboxItems = () => q("inbox", () => adapter.inboxItems());
-export const useTraces = () => q("traces", () => adapter.traces());
-export const useHermesRecommendations = () => q("hermes", () => adapter.hermesRecommendations());
+export const useAccounts = () => useQ("accounts", () => adapter.listAccounts());
+export const useSources = () => useQ("sources", () => adapter.listSources());
+export const useSignals = () => useQ("signals", () => adapter.listSignals());
+export const usePositions = () => useQ("positions", () => adapter.listPositions());
+export const useOrders = () => useQ("orders", () => adapter.listOrders());
+export const useDashboardKpis = () => useQ("kpis", () => adapter.dashboardKpis());
+export const usePnlSeries = () => useQ("pnl", () => adapter.pnlSeries());
+export const useHeatmap = () => useQ("heatmap", () => adapter.heatmap());
+export const useRiskPolicyVersions = () => useQ("risk", () => adapter.riskPolicyVersions());
+export const useTelegramSession = () => useQ("telegram", () => adapter.telegramSession());
+export const useRuntimeComponents = () => useQ("runtime", () => adapter.runtimeComponents());
+export const useProviders = () => useQ("providers", () => adapter.providers());
+export const useInboxItems = () => useQ("inbox", () => adapter.inboxItems());
+export const useTraces = () => useQ("traces", () => adapter.traces());
+export const useHermesRecommendations = () => useQ("hermes", () => adapter.hermesRecommendations());
 
-export const useProviderSlots = () => q("provider_slots", () => adapter.providerSlots());
-export const useRoutingPolicy = () => q("routing_policy", () => adapter.routingPolicy());
-export const usePromptProfiles = () => q("prompt_profiles", () => adapter.promptProfiles());
+export const useProviderSlots = () => useQ("provider_slots", () => adapter.providerSlots());
+export const useRoutingPolicy = () => useQ("routing_policy", () => adapter.routingPolicy());
+export const usePromptProfiles = () => useQ("prompt_profiles", () => adapter.promptProfiles());
 export const useNativeCurrencyReviews = () =>
-  q("native_ccy_reviews", () => adapter.nativeCurrencyReviews());
-export const useAccountLines = () => q("account_lines", () => adapter.accountLines());
-export const useAccountReadiness = () => q("account_readiness", () => adapter.accountReadiness());
+  useQ("native_ccy_reviews", () => adapter.nativeCurrencyReviews());
+export const useAccountLines = () => useQ("account_lines", () => adapter.accountLines());
+export const useAccountReadiness = () => useQ("account_readiness", () => adapter.accountReadiness());
 export const useInstrumentMapping = () =>
-  q("instrument_mapping", () => adapter.instrumentMapping());
+  useQ("instrument_mapping", () => adapter.instrumentMapping());
 export const useSourceAccountMatrix = () =>
-  q("source_account_matrix", () => adapter.sourceAccountMatrix());
+  useQ("source_account_matrix", () => adapter.sourceAccountMatrix());
