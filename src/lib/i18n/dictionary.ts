@@ -785,4 +785,3 @@ export const dictionary = {
 export type TKey = keyof typeof dictionary;
 
 
-export type TKey = keyof typeof dictionary;
