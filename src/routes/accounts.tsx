@@ -451,53 +451,49 @@ function AddAccountWizard() {
                 <p className="text-sm">{t("accounts.wizard.confirm_desc")}</p>
                 <div className="rounded border border-dashed border-border p-2 text-xs">
                   <div>
-                    <Label className="text-xs">Login</Label> {chosen.login}
+                    <Label className="text-xs">{t("accounts.col.login")}</Label> {chosen.login}
                   </div>
                   <div>
-                    <Label className="text-xs">Broker</Label> {chosen.broker}
+                    <Label className="text-xs">{t("accounts.col.broker")}</Label> {chosen.broker}
                   </div>
                 </div>
-                <p className="text-xs text-warning-foreground">{t("backend.desc")}</p>
+                <div className="rounded-md border border-warning/40 bg-warning/10 p-2 text-xs">
+                  <p className="font-medium">{t("accounts.wizard.backend_required_title")}</p>
+                  <p className="text-muted-foreground">
+                    {t("accounts.wizard.backend_required_desc")}
+                  </p>
+                </div>
+                <div>
+                  <p className="mb-1 text-[11px] font-medium text-muted-foreground">
+                    {t("backend.will_submit")}
+                  </p>
+                  <pre className="max-h-32 overflow-auto rounded bg-muted p-2 font-mono text-[11px]">
+                    {JSON.stringify(
+                      {
+                        intent: "account.add.apply",
+                        terminal: chosen,
+                        target_lifecycle: "READY_PAUSED",
+                      },
+                      null,
+                      2,
+                    )}
+                  </pre>
+                </div>
                 <div className="flex justify-end gap-2 pt-1">
                   <Button size="sm" variant="ghost" onClick={() => setStep("preview")}>
                     {t("common.back")}
                   </Button>
                   <Button
                     size="sm"
-                    onClick={() => {
-                      setStep("provisioning");
-                      setTimeout(() => setStep("ready"), 800);
-                    }}
+                    onClick={() => setOpen(false)}
                     data-control-id={controls.accounts.addWizardApply}
                   >
-                    {t("accounts.wizard.simulate_submit")}
+                    {t("accounts.wizard.ack")}
                   </Button>
                 </div>
               </div>
             )}
 
-            {step === "provisioning" && (
-              <div className="space-y-2 text-sm">
-                <p>{t("accounts.wizard.provisioning")}</p>
-                <div className="h-1.5 w-full overflow-hidden rounded bg-muted">
-                  <div className="h-full w-2/3 animate-pulse bg-primary" />
-                </div>
-              </div>
-            )}
-
-            {step === "ready" && (
-              <div className="space-y-2 text-sm">
-                <p>
-                  {t("accounts.wizard.ready")}: <StatusBadge tone="disabled" />
-                </p>
-                <p className="text-xs text-muted-foreground">{t("accounts.wizard.ready_note")}</p>
-                <div className="flex justify-end pt-1">
-                  <Button size="sm" onClick={() => setOpen(false)}>
-                    {t("common.done")}
-                  </Button>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       )}
