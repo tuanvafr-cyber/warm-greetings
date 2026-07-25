@@ -509,6 +509,9 @@ export const heatmap: HeatmapBucket[] = (() => {
       const loss = orderCount - win - (Math.random() > 0.8 ? 1 : 0);
       const unresolved = Math.max(0, orderCount - win - loss);
       const net = (win - loss) * (10 + Math.random() * 40);
+      const per = 12 + Math.random() * 30;
+      const best = win > 0 ? per : Math.max(0, net);
+      const worst = loss > 0 ? -per * 0.9 : Math.min(0, net);
       buckets.push({
         date,
         hour: h,
@@ -518,6 +521,8 @@ export const heatmap: HeatmapBucket[] = (() => {
         unresolvedCount: unresolved,
         netPnlUsd: net,
         netPips: net * 0.9,
+        bestOrderPnlUsd: best,
+        worstOrderPnlUsd: worst,
         topSource: sources[Math.floor(Math.random() * 4)].displayName,
       });
     }
