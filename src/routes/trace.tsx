@@ -35,6 +35,7 @@ function stepTone(s: TraceStep): StatusTone {
 
 function TracePage() {
   const t = useT();
+  useTopBar({ title: t("nav.trace"), lastUpdatedIso: new Date().toISOString() });
   const q = useTraces();
   const [txt, setTxt] = useState("");
   const [selected, setSelected] = useState<string | null>(null);

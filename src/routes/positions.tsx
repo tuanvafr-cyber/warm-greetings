@@ -29,6 +29,7 @@ export const Route = createFileRoute("/positions")({
 
 function PositionsPage() {
   const t = useT();
+  useTopBar({ title: t("nav.positions"), lastUpdatedIso: new Date().toISOString() });
   const q = usePositions();
   const accountsQ = useAccounts();
   const [side, setSide] = useState<"all" | "buy" | "sell">("all");

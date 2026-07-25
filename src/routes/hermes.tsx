@@ -27,6 +27,7 @@ export const Route = createFileRoute("/hermes")({
 
 function HermesPage() {
   const t = useT();
+  useTopBar({ title: t("nav.hermes"), lastUpdatedIso: new Date().toISOString() });
   const recs = useHermesRecommendations();
   const sources = useSources();
   const risk = useRiskPolicyVersions();

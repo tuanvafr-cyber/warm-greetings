@@ -35,6 +35,7 @@ function severityTone(s: InboxSeverity): StatusTone {
 
 function InboxPage() {
   const t = useT();
+  useTopBar({ title: t("nav.inbox"), lastUpdatedIso: new Date().toISOString() });
   const q = useInboxItems();
   const [severity, setSeverity] = useState<InboxSeverity | "all">("all");
   const [component, setComponent] = useState<string>("all");

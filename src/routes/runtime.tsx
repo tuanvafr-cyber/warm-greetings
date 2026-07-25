@@ -41,6 +41,7 @@ function providerTone(s: ProviderState): StatusTone {
 
 function RuntimePage() {
   const t = useT();
+  useTopBar({ title: t("nav.runtime"), lastUpdatedIso: new Date().toISOString() });
   const runtime = useRuntimeComponents();
   const providers = useProviders();
 
