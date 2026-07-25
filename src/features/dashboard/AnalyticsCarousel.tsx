@@ -1,22 +1,42 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, GripHorizontal, Pause, Play } from "lucide-react";
 import { usePreferences } from "@/lib/preferences";
 import { useT } from "@/lib/i18n";
 import { controls } from "@/lib/control-registry";
 import { cn } from "@/lib/utils";
 
+const HEIGHT_KEY = "signalops.analyticsHeight";
+const DEFAULT_H = 360;
+const MIN_H = 320;
+const MAX_H = 520;
+const MOBILE_H = 320;
+
+function useIsMobile() {
+  const [m, setM] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 767px)");
+    const upd = () => setM(mql.matches);
+    upd();
+    mql.addEventListener("change", upd);
+    return () => mql.removeEventListener("change", upd);
+  }, []);
+  return m;
+}
+
 /**
- * Analytics carousel — draggable mouse/touch/touchpad via embla, keyboard
- * arrows, a draggable scrubber, auto-slide ~10s with pause-on-interaction,
- * pause-on-hidden-tab and remembered Play/Pause preference. Respects
- * prefers-reduced-motion (no auto-slide).
+ * Analytics carousel with a single shared viewport height. All slides
+ * fill the same height so switching never causes layout jumps. Desktop
+ * users can drag the bottom handle to resize (320–520 px, persisted).
+ * Mobile uses a fixed compact height without a resize handle.
  */
 export function AnalyticsCarousel({
   slides,
+  onHeightChange,
 }: {
   slides: { key: string; label: string; content: ReactNode }[];
+  onHeightChange?: (h: number) => void;
 }) {
   const t = useT();
   const { carouselAutoSlide, setCarouselAutoSlide } = usePreferences();
@@ -26,6 +46,69 @@ export function AnalyticsCarousel({
   const interactTimer = useRef<number | null>(null);
   const scrubberRef = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
+  const isMobile = useIsMobile();
+
+  const [height, setHeight] = useState<number>(DEFAULT_H);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const raw = window.localStorage.getItem(HEIGHT_KEY);
+      if (raw) {
+        const n = Number(JSON.parse(raw));
+        if (Number.isFinite(n)) setHeight(Math.min(MAX_H, Math.max(MIN_H, n)));
+      }
+    } catch {
+      /* ignore */
+    }
+  }, []);
+  useEffect(() => {
+    onHeightChange?.(isMobile ? MOBILE_H : height);
+  }, [height, isMobile, onHeightChange]);
+
+  // Resize handle with rAF throttling
+  const resizingRef = useRef(false);
+  const rafRef = useRef<number | null>(null);
+  const startYRef = useRef(0);
+  const startHRef = useRef(height);
+  const onResizeDown = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      if (isMobile) return;
+      resizingRef.current = true;
+      startYRef.current = e.clientY;
+      startHRef.current = height;
+      (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    },
+    [height, isMobile],
+  );
+  const onResizeMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (!resizingRef.current) return;
+    const delta = e.clientY - startYRef.current;
+    if (rafRef.current != null) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      const next = Math.min(MAX_H, Math.max(MIN_H, startHRef.current + delta));
+      setHeight(next);
+    });
+  }, []);
+  const onResizeUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (!resizingRef.current) return;
+    resizingRef.current = false;
+    (e.target as HTMLElement).releasePointerCapture(e.pointerId);
+    try {
+      window.localStorage.setItem(HEIGHT_KEY, JSON.stringify(startHRef.current));
+    } catch {
+      /* ignore */
+    }
+  }, []);
+  // Persist height on change (after resize ends we snapshot latest)
+  useEffect(() => {
+    if (isMobile) return;
+    try {
+      window.localStorage.setItem(HEIGHT_KEY, JSON.stringify(height));
+    } catch {
+      /* ignore */
+    }
+  }, [height, isMobile]);
 
   useEffect(() => {
     if (!embla) return;
@@ -37,7 +120,6 @@ export function AnalyticsCarousel({
     };
   }, [embla]);
 
-  // Auto-slide
   useEffect(() => {
     if (!embla || !carouselAutoSlide || interactPause) return;
     if (typeof window !== "undefined") {
@@ -57,7 +139,6 @@ export function AnalyticsCarousel({
     interactTimer.current = window.setTimeout(() => setInteractPause(false), 20_000);
   };
 
-  // Keyboard
   const onKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!embla) return;
     if (e.key === "ArrowLeft") {
@@ -70,7 +151,6 @@ export function AnalyticsCarousel({
     }
   };
 
-  // Scrubber drag
   const onScrubDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!embla) return;
     dragging.current = true;
@@ -89,9 +169,11 @@ export function AnalyticsCarousel({
     (e.target as HTMLElement).releasePointerCapture(e.pointerId);
   };
 
+  const bodyHeight = isMobile ? MOBILE_H : height;
+
   return (
     <div
-      className="rounded-xl border border-border bg-card"
+      className="flex flex-col rounded-xl border border-border bg-card"
       onMouseEnter={pauseAfterInteract}
       tabIndex={0}
       onKeyDown={onKey}
@@ -163,10 +245,10 @@ export function AnalyticsCarousel({
       </div>
 
       <div ref={emblaRef} className="overflow-hidden">
-        <div className="flex">
+        <div className="flex" style={{ height: bodyHeight }}>
           {slides.map((s) => (
-            <div key={s.key} className="min-w-0 flex-[0_0_100%] p-4">
-              {s.content}
+            <div key={s.key} className="min-w-0 flex-[0_0_100%] overflow-hidden p-4">
+              <div className="h-full w-full">{s.content}</div>
             </div>
           ))}
         </div>
@@ -179,7 +261,7 @@ export function AnalyticsCarousel({
         onPointerMove={onScrubMove}
         onPointerUp={onScrubUp}
         onPointerCancel={onScrubUp}
-        className="relative mx-4 mb-3 h-2 cursor-pointer rounded-full bg-muted"
+        className="relative mx-4 mb-2 mt-3 h-2 cursor-pointer rounded-full bg-muted"
         role="slider"
         aria-label="Carousel scrubber"
         aria-valuemin={0}
@@ -195,6 +277,21 @@ export function AnalyticsCarousel({
           style={{ left: `calc(${(selected / Math.max(1, slides.length - 1)) * 100}% - 8px)` }}
         />
       </div>
+
+      {!isMobile && (
+        <div
+          role="separator"
+          aria-orientation="horizontal"
+          aria-label="Resize analytics"
+          onPointerDown={onResizeDown}
+          onPointerMove={onResizeMove}
+          onPointerUp={onResizeUp}
+          onPointerCancel={onResizeUp}
+          className="flex h-3 cursor-ns-resize items-center justify-center border-t border-border/60 text-muted-foreground/60 hover:text-muted-foreground"
+        >
+          <GripHorizontal className="h-3 w-3" />
+        </div>
+      )}
     </div>
   );
 }
