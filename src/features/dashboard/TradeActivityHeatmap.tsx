@@ -24,16 +24,23 @@ export function TradeActivityHeatmap({ buckets }: { buckets: HeatmapBucket[] }) 
     <TooltipProvider delayDuration={80}>
       <div className="overflow-x-auto">
         <div className="min-w-[720px]">
-          <div className="grid text-[10px] text-muted-foreground"
-               style={{ gridTemplateColumns: `44px repeat(${dates.length}, minmax(28px, 1fr))` }}>
+          <div
+            className="grid text-[10px] text-muted-foreground"
+            style={{ gridTemplateColumns: `44px repeat(${dates.length}, minmax(28px, 1fr))` }}
+          >
             <div />
             {dates.map((d) => (
-              <div key={d} className="truncate px-1 text-center">{d.slice(5)}</div>
+              <div key={d} className="truncate px-1 text-center">
+                {d.slice(5)}
+              </div>
             ))}
           </div>
           {hours.map((h) => (
-            <div key={h} className="grid items-center"
-                 style={{ gridTemplateColumns: `44px repeat(${dates.length}, minmax(28px, 1fr))` }}>
+            <div
+              key={h}
+              className="grid items-center"
+              style={{ gridTemplateColumns: `44px repeat(${dates.length}, minmax(28px, 1fr))` }}
+            >
               <div className="pr-1 text-right text-[10px] text-muted-foreground">
                 {String(h).padStart(2, "0")}
               </div>
@@ -41,9 +48,11 @@ export function TradeActivityHeatmap({ buckets }: { buckets: HeatmapBucket[] }) 
                 const b = map.get(`${d}|${h}`);
                 if (!b) return <div key={d + h} className="h-6" />;
                 const tone =
-                  b.netPnlUsd > 5 ? "bg-[oklch(0.72_0.15_150)]"
-                  : b.netPnlUsd < -5 ? "bg-[oklch(0.66_0.19_25)]"
-                  : "bg-muted-foreground/30";
+                  b.netPnlUsd > 5
+                    ? "bg-[oklch(0.72_0.15_150)]"
+                    : b.netPnlUsd < -5
+                      ? "bg-[oklch(0.66_0.19_25)]"
+                      : "bg-muted-foreground/30";
                 const size = 8 + (b.orderCount / maxOrders) * 14; // 8..22
                 return (
                   <div key={d + h} className="grid h-6 place-items-center">
@@ -61,12 +70,24 @@ export function TradeActivityHeatmap({ buckets }: { buckets: HeatmapBucket[] }) 
                         />
                       </TooltipTrigger>
                       <TooltipContent side="top" className="text-xs">
-                        <div className="font-medium">{b.date} · {String(h).padStart(2, "0")}:00</div>
-                        <div>{t("dashboard.total_orders")}: {b.orderCount}</div>
-                        <div>Win: {b.winCount} · Loss: {b.lossCount} · —: {b.unresolvedCount}</div>
-                        <div>{t("dashboard.net_pnl")}: {b.netPnlUsd.toFixed(2)}</div>
-                        <div>{t("dashboard.net_pips")}: {b.netPips.toFixed(0)}</div>
-                        {b.topSource ? <div className="text-muted-foreground">Top: {b.topSource}</div> : null}
+                        <div className="font-medium">
+                          {b.date} · {String(h).padStart(2, "0")}:00
+                        </div>
+                        <div>
+                          {t("dashboard.total_orders")}: {b.orderCount}
+                        </div>
+                        <div>
+                          Win: {b.winCount} · Loss: {b.lossCount} · —: {b.unresolvedCount}
+                        </div>
+                        <div>
+                          {t("dashboard.net_pnl")}: {b.netPnlUsd.toFixed(2)}
+                        </div>
+                        <div>
+                          {t("dashboard.net_pips")}: {b.netPips.toFixed(0)}
+                        </div>
+                        {b.topSource ? (
+                          <div className="text-muted-foreground">Top: {b.topSource}</div>
+                        ) : null}
                       </TooltipContent>
                     </Tooltip>
                   </div>

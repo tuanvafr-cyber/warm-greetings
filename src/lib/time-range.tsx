@@ -1,18 +1,17 @@
 import { useCallback } from "react";
 import { useRouter, useRouterState } from "@tanstack/react-router";
 
-export type TimeRange =
-  | "today"
-  | "yesterday"
-  | "7d"
-  | "30d"
-  | "90d"
-  | "mtd"
-  | "ytd"
-  | "custom";
+export type TimeRange = "today" | "yesterday" | "7d" | "30d" | "90d" | "mtd" | "ytd" | "custom";
 
 export const TIME_RANGES: TimeRange[] = [
-  "today", "yesterday", "7d", "30d", "90d", "mtd", "ytd", "custom",
+  "today",
+  "yesterday",
+  "7d",
+  "30d",
+  "90d",
+  "mtd",
+  "ytd",
+  "custom",
 ];
 
 const DEFAULT: TimeRange = "7d";

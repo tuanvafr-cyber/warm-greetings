@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -45,23 +46,23 @@ export function useTopBarState(): TopBarState {
  */
 export function useTopBar(state: TopBarState) {
   const ctx = useContext(TopBarContext);
+  const latest = useRef(state);
+  latest.current = state;
   const serialised = JSON.stringify({
     title: state.title,
-    lastUpdatedIso: state.lastUpdatedIso,
     showTimeRange: state.showTimeRange,
-    // extraActions is a ReactNode — we cannot serialise it, so update whenever
-    // other identity changes.
+    hasActions: state.extraActions != null,
+    // lastUpdatedIso intentionally excluded — routes commonly pass
+    // `new Date().toISOString()`, which would otherwise re-fire the effect
+    // on every render and cause an infinite update loop.
   });
+  const ctxRef = useRef(ctx);
+  ctxRef.current = ctx;
   useEffect(() => {
-    if (!ctx) return;
-    ctx.set(state);
-    return () => ctx.set({});
+    const c = ctxRef.current;
+    if (!c) return;
+    c.set(latest.current);
+    return () => c.set({});
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ctx, serialised]);
-  // Also push extra actions on every render — cheap and keeps them current.
-  useEffect(() => {
-    if (!ctx) return;
-    ctx.set(state);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.extraActions]);
+  }, [serialised]);
 }

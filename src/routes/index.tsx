@@ -10,8 +10,15 @@ import { AnalyticsCarousel } from "@/features/dashboard/AnalyticsCarousel";
 import { TradeActivityHeatmap } from "@/features/dashboard/TradeActivityHeatmap";
 import { BalanceEquityChart, PnlOverTimeChart } from "@/features/dashboard/PnlCharts";
 import {
-  useDashboardKpis, useHeatmap, useInboxItems, useOrders,
-  usePnlSeries, usePositions, useRiskPolicyVersions, useRuntimeComponents, useSources,
+  useDashboardKpis,
+  useHeatmap,
+  useInboxItems,
+  useOrders,
+  usePnlSeries,
+  usePositions,
+  useRiskPolicyVersions,
+  useRuntimeComponents,
+  useSources,
 } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
 import { useEffect } from "react";
@@ -25,9 +32,15 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Dashboard — SignalOps Panel" },
-      { name: "description", content: "Operational overview: P&L, exposure, execution and heatmap." },
+      {
+        name: "description",
+        content: "Operational overview: P&L, exposure, execution and heatmap.",
+      },
       { property: "og:title", content: "Dashboard — SignalOps Panel" },
-      { property: "og:description", content: "Operational overview across accounts, sources and runtime." },
+      {
+        property: "og:description",
+        content: "Operational overview across accounts, sources and runtime.",
+      },
     ],
   }),
   component: DashboardPage,
@@ -45,8 +58,9 @@ function DashboardPage() {
   const runtime = useRuntimeComponents();
   const inbox = useInboxItems();
 
-  const loading = [kpis, pnl, heatmap, sources, orders, positions, risk, runtime, inbox]
-    .some((q) => q.isPending);
+  const loading = [kpis, pnl, heatmap, sources, orders, positions, risk, runtime, inbox].some(
+    (q) => q.isPending,
+  );
 
   useTopBar({
     title: t("dashboard.title"),
@@ -54,7 +68,9 @@ function DashboardPage() {
     showTimeRange: true,
   });
   // suppress-unused
-  useEffect(() => { void 0; }, []);
+  useEffect(() => {
+    void 0;
+  }, []);
 
   return (
     <div className="flex flex-col gap-4">
@@ -100,14 +116,25 @@ function DashboardPage() {
             />
           </div>
 
-
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="lg:col-span-2">
               <AnalyticsCarousel
                 slides={[
-                  { key: "be", label: t("dashboard.balance_equity"), content: <BalanceEquityChart data={pnl.data ?? []} /> },
-                  { key: "pnl", label: t("dashboard.pnl_over_time"), content: <PnlOverTimeChart data={pnl.data ?? []} /> },
-                  { key: "heat", label: t("dashboard.heatmap"), content: <TradeActivityHeatmap buckets={heatmap.data ?? []} /> },
+                  {
+                    key: "be",
+                    label: t("dashboard.balance_equity"),
+                    content: <BalanceEquityChart data={pnl.data ?? []} />,
+                  },
+                  {
+                    key: "pnl",
+                    label: t("dashboard.pnl_over_time"),
+                    content: <PnlOverTimeChart data={pnl.data ?? []} />,
+                  },
+                  {
+                    key: "heat",
+                    label: t("dashboard.heatmap"),
+                    content: <TradeActivityHeatmap buckets={heatmap.data ?? []} />,
+                  },
                 ]}
               />
             </div>
@@ -129,7 +156,11 @@ function DashboardPage() {
   );
 }
 
-function RiskTodayCard({ version }: { version: import("@/data/contracts").RiskPolicyVersion | undefined }) {
+function RiskTodayCard({
+  version,
+}: {
+  version: import("@/data/contracts").RiskPolicyVersion | undefined;
+}) {
   const t = useT();
   return (
     <Card>
@@ -146,10 +177,22 @@ function RiskTodayCard({ version }: { version: import("@/data/contracts").RiskPo
         </CardTitle>
       </CardHeader>
       <CardContent className="grid grid-cols-2 gap-3 text-sm">
-        <Metric label={t("dashboard.risk.daily_loss")} value={<MoneyUsd value={version?.dailyLossLimitUsd ?? 0} />} />
-        <Metric label={t("dashboard.risk.drawdown")} value={<MoneyUsd value={version?.drawdownLimitUsd ?? 0} />} />
-        <Metric label={t("dashboard.risk.margin_usage")} value={`${version?.marginBufferPct ?? 0}%`} />
-        <Metric label={t("dashboard.risk.budget")} value={<MoneyUsd value={version?.riskBudgetUsd ?? 0} />} />
+        <Metric
+          label={t("dashboard.risk.daily_loss")}
+          value={<MoneyUsd value={version?.dailyLossLimitUsd ?? 0} />}
+        />
+        <Metric
+          label={t("dashboard.risk.drawdown")}
+          value={<MoneyUsd value={version?.drawdownLimitUsd ?? 0} />}
+        />
+        <Metric
+          label={t("dashboard.risk.margin_usage")}
+          value={`${version?.marginBufferPct ?? 0}%`}
+        />
+        <Metric
+          label={t("dashboard.risk.budget")}
+          value={<MoneyUsd value={version?.riskBudgetUsd ?? 0} />}
+        />
       </CardContent>
     </Card>
   );
@@ -165,7 +208,8 @@ function Metric({ label, value }: { label: string; value: React.ReactNode }) {
 }
 
 function RuntimeInboxCard({
-  runtime, inbox,
+  runtime,
+  inbox,
 }: {
   runtime: import("@/data/contracts").RuntimeComponent[];
   inbox: import("@/data/contracts").InboxItem[];
@@ -197,7 +241,15 @@ function RuntimeInboxCard({
           {open.slice(0, 3).map((i) => (
             <li key={i.id} className="flex items-center justify-between gap-2">
               <span className="truncate">{i.title}</span>
-              <StatusBadge tone={i.severity === "critical" || i.severity === "blocker" ? "blocked" : i.severity === "warning" ? "degraded" : "input_required"} />
+              <StatusBadge
+                tone={
+                  i.severity === "critical" || i.severity === "blocker"
+                    ? "blocked"
+                    : i.severity === "warning"
+                      ? "degraded"
+                      : "input_required"
+                }
+              />
             </li>
           ))}
         </ul>
@@ -207,11 +259,17 @@ function RuntimeInboxCard({
 }
 
 function healthToTone(h: import("@/data/contracts").ComponentHealth): StatusTone {
-  return h === "healthy" ? "healthy"
-    : h === "degraded" ? "degraded"
-    : h === "input_required" ? "input_required"
-    : h === "blocked" ? "blocked"
-    : h === "stale" ? "stale" : "unavailable";
+  return h === "healthy"
+    ? "healthy"
+    : h === "degraded"
+      ? "degraded"
+      : h === "input_required"
+        ? "input_required"
+        : h === "blocked"
+          ? "blocked"
+          : h === "stale"
+            ? "stale"
+            : "unavailable";
 }
 
 function SourcePerformanceCard({ sources }: { sources: import("@/data/contracts").Source[] }) {
@@ -251,12 +309,20 @@ function SourcePerformanceCard({ sources }: { sources: import("@/data/contracts"
             {top.map((s) => (
               <tr key={s.id} className="border-b border-border/60 last:border-none">
                 <td className="px-4 py-2 font-medium">{s.displayName}</td>
-                <td className="px-2 py-2"><Pct value={s.signalWinRate} /></td>
-                <td className="px-2 py-2 text-right"><MoneyUsd value={s.netPnlUsd} colorize /></td>
-                <td className="px-2 py-2 text-right"><MoneyUsd value={s.todayPnlUsd} colorize /></td>
+                <td className="px-2 py-2">
+                  <Pct value={s.signalWinRate} />
+                </td>
+                <td className="px-2 py-2 text-right">
+                  <MoneyUsd value={s.netPnlUsd} colorize />
+                </td>
+                <td className="px-2 py-2 text-right">
+                  <MoneyUsd value={s.todayPnlUsd} colorize />
+                </td>
                 <td className="px-2 py-2 text-right tabular-nums">{s.netPips.toFixed(0)}</td>
                 <td className="px-2 py-2 text-right tabular-nums">{s.totalOrders}</td>
-                <td className="px-4 py-2"><StatusBadge tone={sourceToTone(s.lifecycle)} /></td>
+                <td className="px-4 py-2">
+                  <StatusBadge tone={sourceToTone(s.lifecycle)} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -267,15 +333,20 @@ function SourcePerformanceCard({ sources }: { sources: import("@/data/contracts"
 }
 
 function sourceToTone(lc: import("@/data/contracts").SourceLifecycle): StatusTone {
-  return lc === "enabled" ? "active"
-    : lc === "disabled" ? "disabled"
-    : lc === "draining" ? "draining"
-    : lc === "degraded" ? "degraded"
-    : "archived";
+  return lc === "enabled"
+    ? "active"
+    : lc === "disabled"
+      ? "disabled"
+      : lc === "draining"
+        ? "draining"
+        : lc === "degraded"
+          ? "degraded"
+          : "archived";
 }
 
 function RecentOrdersCard({
-  orders, positions,
+  orders,
+  positions,
 }: {
   orders: import("@/data/contracts").Order[];
   positions: import("@/data/contracts").Position[];
@@ -300,22 +371,30 @@ function RecentOrdersCard({
       </CardHeader>
       <CardContent className="space-y-3 text-sm">
         <div>
-          <div className="mb-1 text-xs font-medium uppercase text-muted-foreground">{t("nav.positions")}</div>
+          <div className="mb-1 text-xs font-medium uppercase text-muted-foreground">
+            {t("nav.positions")}
+          </div>
           <ul className="space-y-1">
             {positions.slice(0, 4).map((p) => (
               <li key={p.id} className="flex items-center justify-between gap-2">
-                <span className="truncate">{p.symbol} · {p.side.toUpperCase()} · {p.accountLabel}</span>
+                <span className="truncate">
+                  {p.symbol} · {p.side.toUpperCase()} · {p.accountLabel}
+                </span>
                 <MoneyUsd value={p.floatingPnlUsd} colorize />
               </li>
             ))}
           </ul>
         </div>
         <div>
-          <div className="mb-1 text-xs font-medium uppercase text-muted-foreground">{t("nav.orders")}</div>
+          <div className="mb-1 text-xs font-medium uppercase text-muted-foreground">
+            {t("nav.orders")}
+          </div>
           <ul className="space-y-1">
             {orders.slice(0, 5).map((o) => (
               <li key={o.id} className="flex items-center justify-between gap-2">
-                <span className="truncate">{o.symbol} · {o.side.toUpperCase()} · {o.accountLabel}</span>
+                <span className="truncate">
+                  {o.symbol} · {o.side.toUpperCase()} · {o.accountLabel}
+                </span>
                 <MoneyUsd value={o.netPnlUsd} colorize />
               </li>
             ))}

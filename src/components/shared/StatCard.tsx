@@ -3,7 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 export function StatCard({
-  label, value, delta, icon, children, className,
+  label,
+  value,
+  delta,
+  icon,
+  children,
+  className,
 }: {
   label: string;
   value: ReactNode;
@@ -15,9 +20,7 @@ export function StatCard({
   return (
     <Card className={cn("gap-2 py-4", className)}>
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-1">
-        <CardTitle className="text-xs font-medium text-muted-foreground">
-          {label}
-        </CardTitle>
+        <CardTitle className="text-xs font-medium text-muted-foreground">{label}</CardTitle>
         {icon ? <div className="text-muted-foreground">{icon}</div> : null}
       </CardHeader>
       <CardContent className="pt-0">

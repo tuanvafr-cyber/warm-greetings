@@ -18,9 +18,5 @@ export function PageHeader({
   className?: string;
 }) {
   if (!actions) return null;
-  return (
-    <div className="flex flex-wrap items-center gap-2 pb-2">
-      {actions}
-    </div>
-  );
+  return <div className="flex flex-wrap items-center gap-2 pb-2">{actions}</div>;
 }

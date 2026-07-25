@@ -31,10 +31,18 @@ export const Route = createFileRoute("/telegram")({
 });
 
 const stateToTone: Record<TelegramState, StatusTone> = {
-  config_missing: "input_required", api_id_missing: "input_required", api_hash_missing: "input_required",
-  auth_required: "input_required", code_sent: "input_required", otp_required: "input_required",
-  invalid_otp: "blocked", twofa_required: "input_required", ready: "healthy",
-  degraded: "degraded", disconnected: "unavailable", revoked: "blocked",
+  config_missing: "input_required",
+  api_id_missing: "input_required",
+  api_hash_missing: "input_required",
+  auth_required: "input_required",
+  code_sent: "input_required",
+  otp_required: "input_required",
+  invalid_otp: "blocked",
+  twofa_required: "input_required",
+  ready: "healthy",
+  degraded: "degraded",
+  disconnected: "unavailable",
+  revoked: "blocked",
 };
 
 function TelegramPage() {
@@ -51,10 +59,13 @@ function TelegramPage() {
     lastUpdatedIso: new Date().toISOString(),
     extraActions: s ? <StatusBadge tone={stateToTone[s.state]} /> : null,
   });
-  if (q.isPending || !s) return (<div className="flex flex-col gap-4">
-    <PageHeader title={t("telegram.title")} description={t("route.header.telegram")} />
-    <LoadingState />
-  </div>);
+  if (q.isPending || !s)
+    return (
+      <div className="flex flex-col gap-4">
+        <PageHeader title={t("telegram.title")} description={t("route.header.telegram")} />
+        <LoadingState />
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-4">
@@ -77,15 +88,22 @@ function TelegramPage() {
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
                 <Label>{t("telegram.api_id")}</Label>
-                <Input value={apiId} onChange={(e) => setApiId(e.target.value)}
+                <Input
+                  value={apiId}
+                  onChange={(e) => setApiId(e.target.value)}
                   placeholder={s.apiIdSet ? "•••• configured" : "Set API ID"}
-                  data-control-id={controls.telegram.apiIdEdit} />
+                  data-control-id={controls.telegram.apiIdEdit}
+                />
               </div>
               <div>
                 <Label>{t("telegram.api_hash")}</Label>
-                <Input value={apiHash} onChange={(e) => setApiHash(e.target.value)}
+                <Input
+                  value={apiHash}
+                  onChange={(e) => setApiHash(e.target.value)}
                   placeholder={s.apiHashSet ? "•••• configured" : "Set API Hash"}
-                  type="password" data-control-id={controls.telegram.apiHashEdit} />
+                  type="password"
+                  data-control-id={controls.telegram.apiHashEdit}
+                />
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -93,11 +111,19 @@ function TelegramPage() {
                 controlId={controls.telegram.configSave}
                 trigger={<Button size="sm">{t("telegram.save_config")}</Button>}
                 title={t("telegram.save_config")}
-                payloadPreview={{ intent: "telegram.config", api_id: apiId ? "•••" : "unchanged", api_hash: apiHash ? "•••" : "unchanged" }}
+                payloadPreview={{
+                  intent: "telegram.config",
+                  api_id: apiId ? "•••" : "unchanged",
+                  api_hash: apiHash ? "•••" : "unchanged",
+                }}
               />
               <BackendRequiredDialog
                 controlId={controls.telegram.sendCode}
-                trigger={<Button size="sm" variant="outline">{t("telegram.send_code")}</Button>}
+                trigger={
+                  <Button size="sm" variant="outline">
+                    {t("telegram.send_code")}
+                  </Button>
+                }
                 title={t("telegram.send_code")}
                 payloadPreview={{ intent: "telegram.send_code" }}
               />
@@ -106,7 +132,12 @@ function TelegramPage() {
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
                 <Label>{t("telegram.otp")}</Label>
-                <Input value={otp} onChange={(e) => setOtp(e.target.value)} inputMode="numeric" maxLength={6} />
+                <Input
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  inputMode="numeric"
+                  maxLength={6}
+                />
               </div>
               <div>
                 <Label>{t("telegram.twofa")}</Label>
@@ -122,32 +153,56 @@ function TelegramPage() {
               />
               <BackendRequiredDialog
                 controlId={controls.telegram.twoFaSubmit}
-                trigger={<Button size="sm" variant="outline">{t("telegram.twofa.submit")}</Button>}
+                trigger={
+                  <Button size="sm" variant="outline">
+                    {t("telegram.twofa.submit")}
+                  </Button>
+                }
                 title={t("telegram.twofa.submit")}
                 payloadPreview={{ intent: "telegram.2fa", password: twofa ? "•••" : "" }}
               />
               <BackendRequiredDialog
                 controlId={controls.telegram.authCancel}
-                trigger={<Button size="sm" variant="ghost">{t("telegram.cancel")}</Button>}
-                title={t("telegram.cancel")} payloadPreview={{ intent: "telegram.cancel" }}
+                trigger={
+                  <Button size="sm" variant="ghost">
+                    {t("telegram.cancel")}
+                  </Button>
+                }
+                title={t("telegram.cancel")}
+                payloadPreview={{ intent: "telegram.cancel" }}
               />
             </div>
 
             <div className="flex flex-wrap gap-2 border-t border-border pt-3">
               <BackendRequiredDialog
                 controlId={controls.telegram.testReadonly}
-                trigger={<Button size="sm" variant="outline">{t("telegram.test")}</Button>}
-                title={t("telegram.test")} payloadPreview={{ intent: "telegram.test_readonly" }}
+                trigger={
+                  <Button size="sm" variant="outline">
+                    {t("telegram.test")}
+                  </Button>
+                }
+                title={t("telegram.test")}
+                payloadPreview={{ intent: "telegram.test_readonly" }}
               />
               <BackendRequiredDialog
                 controlId={controls.telegram.reconnect}
-                trigger={<Button size="sm" variant="ghost">{t("telegram.reconnect")}</Button>}
-                title={t("telegram.reconnect")} payloadPreview={{ intent: "telegram.reconnect" }}
+                trigger={
+                  <Button size="sm" variant="ghost">
+                    {t("telegram.reconnect")}
+                  </Button>
+                }
+                title={t("telegram.reconnect")}
+                payloadPreview={{ intent: "telegram.reconnect" }}
               />
               <BackendRequiredDialog
                 controlId={controls.telegram.revoke}
-                trigger={<Button size="sm" variant="destructive">{t("telegram.revoke")}</Button>}
-                title={t("telegram.revoke")} payloadPreview={{ intent: "telegram.revoke" }}
+                trigger={
+                  <Button size="sm" variant="destructive">
+                    {t("telegram.revoke")}
+                  </Button>
+                }
+                title={t("telegram.revoke")}
+                payloadPreview={{ intent: "telegram.revoke" }}
               />
             </div>
           </CardContent>
@@ -156,7 +211,9 @@ function TelegramPage() {
         <div className="flex flex-col gap-4">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm" data-control-id={controls.telegram.identityOpen}>{t("telegram.identity")}</CardTitle>
+              <CardTitle className="text-sm" data-control-id={controls.telegram.identityOpen}>
+                {t("telegram.identity")}
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex items-center justify-between border-b border-border/60 pb-1">
@@ -176,11 +233,29 @@ function TelegramPage() {
 
           <Card>
             <CardContent className="flex flex-col gap-2 pt-4">
-              <Button asChild variant="outline" size="sm" data-control-id={controls.telegram.sourcesOpen} className="justify-start gap-2">
-                <Link to="/sources"><ListTree className="h-4 w-4" />{t("telegram.open_sources")}</Link>
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                data-control-id={controls.telegram.sourcesOpen}
+                className="justify-start gap-2"
+              >
+                <Link to="/sources">
+                  <ListTree className="h-4 w-4" />
+                  {t("telegram.open_sources")}
+                </Link>
               </Button>
-              <Button asChild variant="outline" size="sm" data-control-id={controls.telegram.inboxOpen} className="justify-start gap-2">
-                <Link to="/inbox"><Inbox className="h-4 w-4" />{t("telegram.open_inbox")}</Link>
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                data-control-id={controls.telegram.inboxOpen}
+                className="justify-start gap-2"
+              >
+                <Link to="/inbox">
+                  <Inbox className="h-4 w-4" />
+                  {t("telegram.open_inbox")}
+                </Link>
               </Button>
             </CardContent>
           </Card>
@@ -188,7 +263,8 @@ function TelegramPage() {
           <Alert>
             <AlertTitle>{t("backend.title")}</AlertTitle>
             <AlertDescription>
-              Message-sending test is disabled by product policy. Panel Next only ever performs read-only Telegram verification.
+              Message-sending test is disabled by product policy. Panel Next only ever performs
+              read-only Telegram verification.
             </AlertDescription>
           </Alert>
         </div>

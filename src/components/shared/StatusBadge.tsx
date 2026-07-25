@@ -50,10 +50,7 @@ const labelKey: Record<StatusTone, TKey> = {
 export function StatusBadge({ tone, className }: { tone: StatusTone; className?: string }) {
   const t = useT();
   return (
-    <Badge
-      variant="outline"
-      className={cn("gap-1.5 font-medium", toneClass[tone], className)}
-    >
+    <Badge variant="outline" className={cn("gap-1.5 font-medium", toneClass[tone], className)}>
       <span className="inline-block h-1.5 w-1.5 rounded-full bg-current" aria-hidden />
       {t(labelKey[tone])}
     </Badge>

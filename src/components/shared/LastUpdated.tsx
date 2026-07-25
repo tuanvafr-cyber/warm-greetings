@@ -21,21 +21,47 @@ export function LastUpdated({ iso }: { iso: string | null }) {
   const diffSec = Math.max(0, Math.round((now - new Date(iso).getTime()) / 1000));
   const prefix = `${t("shell.last_updated")} · `;
 
-  if (diffSec < 5) return <span>{prefix}{t("shell.just_updated")}</span>;
+  if (diffSec < 5)
+    return (
+      <span>
+        {prefix}
+        {t("shell.just_updated")}
+      </span>
+    );
   if (diffSec < 60) {
     const key = "shell.updated_seconds_ago" as const;
-    return <span>{prefix}{format(t(key), diffSec)}</span>;
+    return (
+      <span>
+        {prefix}
+        {format(t(key), diffSec)}
+      </span>
+    );
   }
   const min = Math.round(diffSec / 60);
   if (min < 60) {
-    return <span>{prefix}{format(t("shell.updated_minutes_ago"), min)}</span>;
+    return (
+      <span>
+        {prefix}
+        {format(t("shell.updated_minutes_ago"), min)}
+      </span>
+    );
   }
   const hr = Math.round(min / 60);
   if (hr < 48) {
-    return <span>{prefix}{format(t("shell.updated_hours_ago"), hr)}</span>;
+    return (
+      <span>
+        {prefix}
+        {format(t("shell.updated_hours_ago"), hr)}
+      </span>
+    );
   }
   const day = Math.round(hr / 24);
-  return <span>{prefix}{format(t("shell.updated_days_ago"), day)}</span>;
+  return (
+    <span>
+      {prefix}
+      {format(t("shell.updated_days_ago"), day)}
+    </span>
+  );
 
   function format(tpl: string, n: number) {
     // locale kept in scope so the closure re-runs when Intl-dependent code needs it.

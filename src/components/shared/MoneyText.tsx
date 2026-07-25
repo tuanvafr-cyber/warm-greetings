@@ -11,12 +11,16 @@ type Currency = "USD" | "USC";
 
 function formatUsd(n: number, bcp47: string) {
   return new Intl.NumberFormat(bcp47, {
-    style: "currency", currency: "USD", maximumFractionDigits: 2,
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 2,
   }).format(n);
 }
 
 export function MoneyUsd({
-  value, className, colorize = false,
+  value,
+  className,
+  colorize = false,
 }: {
   value: number;
   className?: string;
@@ -25,7 +29,13 @@ export function MoneyUsd({
   const { locale } = useI18n();
   const { privacyMode } = usePreferences();
   const bcp47 = locale === "vi" ? "vi-VN" : "en-US";
-  const sign = colorize ? (value > 0 ? "text-success" : value < 0 ? "text-destructive" : "text-muted-foreground") : "";
+  const sign = colorize
+    ? value > 0
+      ? "text-success"
+      : value < 0
+        ? "text-destructive"
+        : "text-muted-foreground"
+    : "";
   return (
     <span className={cn("tabular-nums", sign, className)}>
       {privacyMode ? "••••" : formatUsd(value, bcp47)}
@@ -34,7 +44,9 @@ export function MoneyUsd({
 }
 
 export function NativeAmount({
-  amount, currency, className,
+  amount,
+  currency,
+  className,
 }: {
   amount: number;
   currency: Currency;

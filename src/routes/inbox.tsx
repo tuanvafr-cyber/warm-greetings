@@ -30,7 +30,13 @@ export const Route = createFileRoute("/inbox")({
 });
 
 function severityTone(s: InboxSeverity): StatusTone {
-  return s === "critical" ? "blocked" : s === "blocker" ? "blocked" : s === "warning" ? "degraded" : "input_required";
+  return s === "critical"
+    ? "blocked"
+    : s === "blocker"
+      ? "blocked"
+      : s === "warning"
+        ? "degraded"
+        : "input_required";
 }
 
 function InboxPage() {
@@ -43,11 +49,16 @@ function InboxPage() {
   const [opened, setOpened] = useState<InboxItem | null>(null);
 
   const components = Array.from(new Set((q.data ?? []).map((i) => i.component)));
-  const filtered = useMemo(() => (q.data ?? []).filter((i) =>
-    (severity === "all" || i.severity === severity) &&
-    (component === "all" || i.component === component) &&
-    (state === "all" || i.state === state)
-  ), [q.data, severity, component, state]);
+  const filtered = useMemo(
+    () =>
+      (q.data ?? []).filter(
+        (i) =>
+          (severity === "all" || i.severity === severity) &&
+          (component === "all" || i.component === component) &&
+          (state === "all" || i.state === state),
+      ),
+    [q.data, severity, component, state],
+  );
 
   return (
     <div className="flex flex-col gap-4">
@@ -55,32 +66,56 @@ function InboxPage() {
       <FixtureBanner />
 
       <FilterBar>
-        <select className="h-8 rounded-md border border-input bg-background px-2 text-xs"
-          value={severity} onChange={(e) => setSeverity(e.target.value as never)}
-          data-control-id={controls.inbox.filterSeverity}>
+        <select
+          className="h-8 rounded-md border border-input bg-background px-2 text-xs"
+          value={severity}
+          onChange={(e) => setSeverity(e.target.value as never)}
+          data-control-id={controls.inbox.filterSeverity}
+        >
           <option value="all">All severities</option>
-          <option value="info">Info</option><option value="warning">Warning</option>
-          <option value="blocker">Blocker</option><option value="critical">Critical</option>
+          <option value="info">Info</option>
+          <option value="warning">Warning</option>
+          <option value="blocker">Blocker</option>
+          <option value="critical">Critical</option>
         </select>
-        <select className="h-8 rounded-md border border-input bg-background px-2 text-xs"
-          value={component} onChange={(e) => setComponent(e.target.value)}
-          data-control-id={controls.inbox.filterComponent}>
+        <select
+          className="h-8 rounded-md border border-input bg-background px-2 text-xs"
+          value={component}
+          onChange={(e) => setComponent(e.target.value)}
+          data-control-id={controls.inbox.filterComponent}
+        >
           <option value="all">All components</option>
-          {components.map((c) => <option key={c} value={c}>{c}</option>)}
+          {components.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
         </select>
-        <select className="h-8 rounded-md border border-input bg-background px-2 text-xs"
-          value={state} onChange={(e) => setState(e.target.value as never)}
-          data-control-id={controls.inbox.filterState}>
-          <option value="all">All states</option><option value="open">Open</option>
+        <select
+          className="h-8 rounded-md border border-input bg-background px-2 text-xs"
+          value={state}
+          onChange={(e) => setState(e.target.value as never)}
+          data-control-id={controls.inbox.filterState}
+        >
+          <option value="all">All states</option>
+          <option value="open">Open</option>
           <option value="acknowledged">Acknowledged</option>
         </select>
       </FilterBar>
 
-      {q.isPending ? <LoadingState /> : filtered.length === 0 ? <EmptyState /> : (
+      {q.isPending ? (
+        <LoadingState />
+      ) : filtered.length === 0 ? (
+        <EmptyState />
+      ) : (
         <div className="flex flex-col gap-2">
           {filtered.map((i) => (
-            <Card key={i.id} className="cursor-pointer hover:bg-muted/30" onClick={() => setOpened(i)}
-                  data-control-id={controls.inbox.openDetail}>
+            <Card
+              key={i.id}
+              className="cursor-pointer hover:bg-muted/30"
+              onClick={() => setOpened(i)}
+              data-control-id={controls.inbox.openDetail}
+            >
               <CardContent className="flex flex-wrap items-center justify-between gap-2 py-3">
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
@@ -103,7 +138,9 @@ function InboxPage() {
 
       <Sheet open={!!opened} onOpenChange={(v) => !v && setOpened(null)}>
         <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
-          <SheetHeader><SheetTitle>{opened?.title}</SheetTitle></SheetHeader>
+          <SheetHeader>
+            <SheetTitle>{opened?.title}</SheetTitle>
+          </SheetHeader>
           {opened ? (
             <div className="mt-4 space-y-3 text-sm">
               <div className="flex items-center gap-2">
@@ -113,8 +150,12 @@ function InboxPage() {
               <p>{opened.detail}</p>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <span className="font-mono">{opened.correlationId}</span>
-                <Button size="icon" variant="ghost" data-control-id={controls.inbox.copyCorrelation}
-                  onClick={() => navigator.clipboard?.writeText(opened.correlationId)}>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  data-control-id={controls.inbox.copyCorrelation}
+                  onClick={() => navigator.clipboard?.writeText(opened.correlationId)}
+                >
                   <Copy className="h-3 w-3" />
                 </Button>
               </div>
@@ -122,15 +163,27 @@ function InboxPage() {
                 <BackendRequiredDialog
                   controlId={controls.inbox.provideInput}
                   trigger={<Button size="sm">{t("inbox.provide_input")}</Button>}
-                  title={t("inbox.provide_input")} payloadPreview={{ intent: "inbox.provide_input", id: opened.id }}
+                  title={t("inbox.provide_input")}
+                  payloadPreview={{ intent: "inbox.provide_input", id: opened.id }}
                 />
                 <BackendRequiredDialog
                   controlId={controls.inbox.recheck}
-                  trigger={<Button size="sm" variant="outline">{t("inbox.recheck")}</Button>}
-                  title={t("inbox.recheck")} payloadPreview={{ intent: "inbox.recheck", id: opened.id }}
+                  trigger={
+                    <Button size="sm" variant="outline">
+                      {t("inbox.recheck")}
+                    </Button>
+                  }
+                  title={t("inbox.recheck")}
+                  payloadPreview={{ intent: "inbox.recheck", id: opened.id }}
                 />
-                <Button size="sm" variant="ghost" data-control-id={controls.inbox.exportEvidence} className="gap-1">
-                  <Download className="h-3.5 w-3.5" />{t("inbox.export_evidence")}
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  data-control-id={controls.inbox.exportEvidence}
+                  className="gap-1"
+                >
+                  <Download className="h-3.5 w-3.5" />
+                  {t("inbox.export_evidence")}
                 </Button>
               </div>
             </div>

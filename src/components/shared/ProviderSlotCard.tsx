@@ -13,13 +13,19 @@ import type { ProviderSlot } from "@/data/contracts";
  * required" dialog.
  */
 function slotTone(s: ProviderSlot["state"]): StatusTone {
-  return s === "active" || s === "ready" ? "healthy"
-    : s === "probing" ? "input_required"
-    : s === "cooldown" ? "input_required"
-    : s === "circuit_open" ? "blocked"
-    : s === "degraded" ? "degraded"
-    : s === "failed" ? "unavailable"
-    : "archived";
+  return s === "active" || s === "ready"
+    ? "healthy"
+    : s === "probing"
+      ? "input_required"
+      : s === "cooldown"
+        ? "input_required"
+        : s === "circuit_open"
+          ? "blocked"
+          : s === "degraded"
+            ? "degraded"
+            : s === "failed"
+              ? "unavailable"
+              : "archived";
 }
 
 export function ProviderSlotCard({ slot }: { slot: ProviderSlot }) {
@@ -49,35 +55,57 @@ export function ProviderSlotCard({ slot }: { slot: ProviderSlot }) {
           <div>{t("slot.assigned")}</div>
           <div className="text-right">{slot.assignedProviderId ?? "—"}</div>
           <div>{t("slot.attempts")}</div>
-          <div className="text-right tabular-nums">{slot.attempts} / {slot.maxAttempts}</div>
+          <div className="text-right tabular-nums">
+            {slot.attempts} / {slot.maxAttempts}
+          </div>
           <div>{t("slot.last_attempt")}</div>
-          <div className="text-right"><TimeAgo iso={slot.lastAttemptAt} /></div>
+          <div className="text-right">
+            <TimeAgo iso={slot.lastAttemptAt} />
+          </div>
           {slot.slot === 1 && (
             <>
               <div>{t("slot.recovery_probe")}</div>
-              <div className="text-right">{slot.recoveryProbeSeconds}s · <TimeAgo iso={slot.lastRecoveryProbeAt} /></div>
+              <div className="text-right">
+                {slot.recoveryProbeSeconds}s · <TimeAgo iso={slot.lastRecoveryProbeAt} />
+              </div>
             </>
           )}
           <div>{t("slot.cooldown")}</div>
-          <div className="text-right">{slot.cooldownEndsAt ? <TimeAgo iso={slot.cooldownEndsAt} /> : "—"}</div>
+          <div className="text-right">
+            {slot.cooldownEndsAt ? <TimeAgo iso={slot.cooldownEndsAt} /> : "—"}
+          </div>
           <div>{t("slot.circuit")}</div>
-          <div className="text-right">{slot.circuitOpenedAt ? t("slot.state.circuit_open") : "—"}</div>
+          <div className="text-right">
+            {slot.circuitOpenedAt ? t("slot.state.circuit_open") : "—"}
+          </div>
 
           <div>{t("slot.last_failover")}</div>
-          <div className="text-right"><TimeAgo iso={slot.lastFailoverAt} /></div>
+          <div className="text-right">
+            <TimeAgo iso={slot.lastFailoverAt} />
+          </div>
           <div>{t("slot.last_failback")}</div>
-          <div className="text-right"><TimeAgo iso={slot.lastFailbackAt} /></div>
+          <div className="text-right">
+            <TimeAgo iso={slot.lastFailbackAt} />
+          </div>
         </div>
         <div className="flex flex-wrap gap-1.5 border-t border-border pt-2">
           <BackendRequiredDialog
             controlId={controls.analysisProviders.assignSlot}
-            trigger={<Button size="sm" variant="outline">{t("slot.assign")}</Button>}
+            trigger={
+              <Button size="sm" variant="outline">
+                {t("slot.assign")}
+              </Button>
+            }
             title={t("slot.assign")}
             payloadPreview={{ intent: "analysis_providers.assign_slot", slot: slot.slot }}
           />
           <BackendRequiredDialog
             controlId={controls.analysisProviders.test}
-            trigger={<Button size="sm" variant="ghost">{t("provider.test")}</Button>}
+            trigger={
+              <Button size="sm" variant="ghost">
+                {t("provider.test")}
+              </Button>
+            }
             title={t("provider.test")}
             payloadPreview={{ intent: "analysis_providers.test", slot: slot.slot }}
           />
@@ -115,17 +143,23 @@ export function RoutingPolicyPanel({
       <CardHeader className="pb-2">
         <CardTitle className="text-sm">
           {t("routing.title")}{" "}
-          <span className="ml-2 rounded-md bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">v{policy.version}</span>
+          <span className="ml-2 rounded-md bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+            v{policy.version}
+          </span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2 text-sm">
         <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-xs text-muted-foreground">
           <div>{t("routing.strategy")}</div>
-          <div className="text-right">{t(`routing.strategy.${policy.strategy}` as import("@/lib/i18n/dictionary").TKey)}</div>
+          <div className="text-right">
+            {t(`routing.strategy.${policy.strategy}` as import("@/lib/i18n/dictionary").TKey)}
+          </div>
           <div>{t("routing.failover_after")}</div>
           <div className="text-right tabular-nums">{policy.failoverAfterAttempts} / 5</div>
           <div>{t("routing.failback_when")}</div>
-          <div className="text-right">{t(`routing.failback.${policy.failbackWhen}` as import("@/lib/i18n/dictionary").TKey)}</div>
+          <div className="text-right">
+            {t(`routing.failback.${policy.failbackWhen}` as import("@/lib/i18n/dictionary").TKey)}
+          </div>
           <div>{t("routing.recovery_probe")}</div>
           <div className="text-right tabular-nums">{policy.recoveryProbeSeconds}s</div>
           <div>{t("routing.cooldown")}</div>
@@ -133,12 +167,18 @@ export function RoutingPolicyPanel({
           <div>{t("routing.circuit_reset")}</div>
           <div className="text-right tabular-nums">{policy.circuitResetSeconds}s</div>
           <div>{t("routing.updated_by")}</div>
-          <div className="text-right">{policy.updatedBy} · <TimeAgo iso={policy.updatedAt} /></div>
+          <div className="text-right">
+            {policy.updatedBy} · <TimeAgo iso={policy.updatedAt} />
+          </div>
         </div>
         <div className="flex flex-wrap gap-1.5 border-t border-border pt-2">
           <BackendRequiredDialog
             controlId={controls.analysisProviders.routingPolicy}
-            trigger={<Button size="sm" variant="outline">{t("routing.edit")}</Button>}
+            trigger={
+              <Button size="sm" variant="outline">
+                {t("routing.edit")}
+              </Button>
+            }
             title={t("routing.edit")}
             payloadPreview={{ intent: "analysis_providers.routing_policy" }}
           />

@@ -72,7 +72,12 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     setPrivacyMode(read(KEYS.privacy, false));
     const pinned = read<string | "all" | null>(KEYS.pinned, null);
     setPinnedAccountId(pinned);
-    setAccountScopeState(read<AccountScope>(KEYS.scope, pinned && pinned !== "all" ? { id: pinned, label: pinned } : "all"));
+    setAccountScopeState(
+      read<AccountScope>(
+        KEYS.scope,
+        pinned && pinned !== "all" ? { id: pinned, label: pinned } : "all",
+      ),
+    );
     setCarouselAutoSlideState(read(KEYS.autoSlide, true));
   }, []);
 
