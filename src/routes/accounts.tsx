@@ -312,7 +312,7 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
 
 // ---------------- Add-account wizard ----------------
 
-type WizardStep = "detect" | "select" | "preview" | "confirm" | "provisioning" | "ready";
+type WizardStep = "detect" | "select" | "preview" | "confirm";
 
 function AddAccountWizard() {
   const t = useT();
