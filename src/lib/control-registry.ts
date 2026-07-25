@@ -53,7 +53,6 @@ export const controls = {
     archive: "accounts.archive",
     restore: "accounts.restore",
 
-    activationOpen: "accounts.activation.open",
     nativeCurrencyReview: "accounts.native_currency.review",
     // Add-account wizard
     addWizardDetect: "accounts.add_wizard.detect",
