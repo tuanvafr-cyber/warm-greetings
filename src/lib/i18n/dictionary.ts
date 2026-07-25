@@ -810,12 +810,12 @@ export const dictionary = {
   "runtime.tab.slots": { vi: "Analysis API Slots", en: "Analysis API Slots" },
   "runtime.slots.title": { vi: "Analysis API Slots", en: "Analysis API Slots" },
   "runtime.slots.desc": {
-    vi: "Ba slot cố định: Slot 1 chính, Slot 2 dự phòng, Slot 3 chẩn đoán. Không có chuyển đổi giả lập.",
-    en: "Three fixed slots: Slot 1 primary, Slot 2 failover, Slot 3 diagnostic. No simulated switching.",
+    vi: "Ba slot có thứ tự: Chính → Phụ → Bậc ba. Panel không mô phỏng chuyển đổi.",
+    en: "Three ordered slots: Primary → Secondary → Tertiary. The panel never simulates switching.",
   },
   "slot.role.primary": { vi: "Chính", en: "Primary" },
-  "slot.role.failover": { vi: "Dự phòng", en: "Failover" },
-  "slot.role.diagnostic": { vi: "Chẩn đoán", en: "Diagnostic" },
+  "slot.role.secondary": { vi: "Phụ", en: "Secondary" },
+  "slot.role.tertiary": { vi: "Bậc ba", en: "Tertiary" },
   "slot.state.empty": { vi: "Trống", en: "Empty" },
   "slot.state.ready": { vi: "Sẵn sàng", en: "Ready" },
   "slot.state.active": { vi: "Đang hoạt động", en: "Active" },
@@ -841,12 +841,11 @@ export const dictionary = {
   // Routing policy
   "routing.title": { vi: "Chính sách định tuyến provider", en: "Provider routing policy" },
   "routing.strategy": { vi: "Chiến lược", en: "Strategy" },
-  "routing.strategy.primary_then_failover": {
-    vi: "Chính rồi dự phòng",
-    en: "Primary then failover",
+  "routing.strategy.ordered_primary_secondary_tertiary": {
+    vi: "Ưu tiên: Chính → Phụ → Bậc ba",
+    en: "Ordered: Primary → Secondary → Tertiary",
   },
   "routing.strategy.primary_only": { vi: "Chỉ dùng chính", en: "Primary only" },
-  "routing.strategy.diagnostic_only": { vi: "Chỉ dùng chẩn đoán", en: "Diagnostic only" },
   "routing.failover_after": { vi: "Failover sau số lần thử", en: "Failover after attempts" },
   "routing.failback_when": { vi: "Failback khi", en: "Failback when" },
   "routing.failback.probe_ok": { vi: "Thăm dò thành công", en: "Probe succeeds" },

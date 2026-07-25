@@ -308,11 +308,12 @@ export type HermesRecommendation = {
 
 // ============================================================
 // Analysis API Provider Slots (Runtime)
-// Three fixed slots. Slot 1 = primary, Slot 2 = failover, Slot 3 = diagnostic.
-// Each attempt is bounded to 5 retries; Slot 1 gets a 60s recovery probe.
+// Three fixed slots in an ordered array: Primary → Secondary → Tertiary.
+// State fields are read-only presentations of backend-owned status.
 // The panel NEVER performs a real provider call and never fakes a switch success.
 // ============================================================
 export type ProviderSlotId = 1 | 2 | 3;
+export type ProviderSlotRole = "primary" | "secondary" | "tertiary";
 export type ProviderSlotState =
   | "empty"
   | "ready"
@@ -326,13 +327,13 @@ export type ProviderSlotState =
 export type ProviderSlot = {
   slot: ProviderSlotId;
   label: string; // "Analysis API Slot 1/2/3"
-  role: "primary" | "failover" | "diagnostic";
+  role: ProviderSlotRole;
   assignedProviderId: string | null;
   state: ProviderSlotState;
   attempts: number; // 0..5 (per current window)
   maxAttempts: 5;
   lastAttemptAt: string | null;
-  lastRecoveryProbeAt: string | null; // Slot 1 only
+  lastRecoveryProbeAt: string | null;
   recoveryProbeSeconds: 60;
   cooldownEndsAt: string | null;
   circuitOpenedAt: string | null;
@@ -344,11 +345,11 @@ export type ProviderSlot = {
 
 export type RoutingPolicy = {
   version: number;
-  strategy: "primary_then_failover" | "primary_only" | "diagnostic_only";
+  strategy: "ordered_primary_secondary_tertiary" | "primary_only";
   failoverAfterAttempts: number; // <= 5
   failbackWhen: "probe_ok" | "manual_only";
-  recoveryProbeSeconds: number; // 60 for slot 1
-  cooldownSeconds: number; // backoff between attempts
+  recoveryProbeSeconds: number;
+  cooldownSeconds: number;
   circuitResetSeconds: number;
   updatedAt: string;
   updatedBy: string;
