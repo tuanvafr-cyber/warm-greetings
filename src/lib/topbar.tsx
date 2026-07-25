@@ -54,10 +54,13 @@ export function useTopBar(state: TopBarState) {
     showTimeRange: state.showTimeRange,
     hasActions: state.extraActions != null,
   });
+  const ctxRef = useRef(ctx);
+  ctxRef.current = ctx;
   useEffect(() => {
-    if (!ctx) return;
-    ctx.set(latest.current);
-    return () => ctx.set({});
+    const c = ctxRef.current;
+    if (!c) return;
+    c.set(latest.current);
+    return () => c.set({});
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ctx, serialised]);
+  }, [serialised]);
 }
