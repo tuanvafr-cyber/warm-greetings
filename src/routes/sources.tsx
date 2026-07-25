@@ -47,7 +47,7 @@ function tone(l: SourceLifecycle): StatusTone {
 
 function SourcesPage() {
   const t = useT();
-  useTopBar({ title: t("nav.sources"), lastUpdatedIso: new Date().toISOString() });
+  useTopBar({ title: t("nav.sources"), lastUpdatedIso: useLastUpdatedFromQueries(q) });
   const [search, setSearch] = useState("");
   const q = useSources();
   const filter = (list: Source[]) =>

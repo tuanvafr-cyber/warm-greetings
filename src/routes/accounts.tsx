@@ -38,7 +38,7 @@ export const Route = createFileRoute("/accounts")({
 
 function AccountsPage() {
   const t = useT();
-  useTopBar({ title: t("nav.accounts"), lastUpdatedIso: new Date().toISOString() });
+  useTopBar({ title: t("nav.accounts"), lastUpdatedIso: useLastUpdatedFromQueries(q) });
   const [search, setSearch] = useState("");
   const q = useAccounts();
 

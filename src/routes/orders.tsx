@@ -65,7 +65,7 @@ function OrdersPage() {
 
   useTopBar({
     title: t("nav.orders"),
-    lastUpdatedIso: new Date().toISOString(),
+    lastUpdatedIso: useLastUpdatedFromQueries(q, accountsQ),
     showTimeRange: true,
     extraActions: (
       <>

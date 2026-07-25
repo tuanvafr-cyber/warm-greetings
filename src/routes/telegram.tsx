@@ -56,7 +56,7 @@ function TelegramPage() {
   const s = q.data;
   useTopBar({
     title: t("telegram.title"),
-    lastUpdatedIso: new Date().toISOString(),
+    lastUpdatedIso: useLastUpdatedFromQueries(q),
     extraActions: s ? <StatusBadge tone={stateToTone[s.state]} /> : null,
   });
   if (q.isPending || !s)

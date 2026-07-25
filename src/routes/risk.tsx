@@ -52,7 +52,7 @@ function RiskPage() {
 
   useTopBar({
     title: t("nav.risk"),
-    lastUpdatedIso: new Date().toISOString(),
+    lastUpdatedIso: useLastUpdatedFromQueries(q, accountsQ),
     extraActions: (
       <Button
         size="sm"

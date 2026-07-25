@@ -67,7 +67,7 @@ function SignalsPage() {
 
   useTopBar({
     title: t("nav.signals"),
-    lastUpdatedIso: new Date().toISOString(),
+    lastUpdatedIso: useLastUpdatedFromQueries(q),
     showTimeRange: true,
   });
 
