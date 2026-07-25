@@ -143,31 +143,21 @@ function DashboardPage() {
 
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="lg:col-span-2">
-              <AnalyticsCarousel
-                slides={[
-                  {
-                    key: "be",
-                    label: t("dashboard.balance_equity"),
-                    content: <BalanceEquityChart data={pnl.data ?? []} />,
-                  },
-                  {
-                    key: "pnl",
-                    label: t("dashboard.pnl_over_time"),
-                    content: <PnlOverTimeChart data={pnl.data ?? []} />,
-                  },
-                  {
-                    key: "heat",
-                    label: t("dashboard.heatmap"),
-                    content: <TradeActivityHeatmap buckets={heatmap.data ?? []} />,
-                  },
-                ]}
-              />
+              <AnalyticsCarousel slides={slides} onHeightChange={setAnalyticsHeight} />
             </div>
-            <div className="flex flex-col gap-4">
-              <RiskTodayCard version={risk.data?.[0]} />
-              <RuntimeInboxCard runtime={runtime.data ?? []} inbox={inbox.data ?? []} />
+            <div
+              className="flex flex-col gap-4 lg:h-full"
+              style={{ minHeight: analyticsHeight }}
+            >
+              <div className="flex-1 min-h-0">
+                <RiskTodayCard version={risk.data?.[0]} />
+              </div>
+              <div className="flex-1 min-h-0">
+                <RuntimeInboxCard runtime={runtime.data ?? []} inbox={inbox.data ?? []} />
+              </div>
             </div>
           </div>
+
 
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="lg:col-span-2">
