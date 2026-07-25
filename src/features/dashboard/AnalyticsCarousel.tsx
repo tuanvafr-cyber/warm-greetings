@@ -175,7 +175,7 @@ export function AnalyticsCarousel({
       tabIndex={0}
       onKeyDown={onKey}
       role="region"
-      aria-label="Analytics carousel"
+      aria-label={t("dashboard.carousel.aria")}
     >
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <div className="flex items-center gap-2">
@@ -205,7 +205,7 @@ export function AnalyticsCarousel({
               embla?.scrollPrev();
               pauseAfterInteract();
             }}
-            aria-label="Previous"
+            aria-label={t("common.prev")}
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
@@ -217,7 +217,7 @@ export function AnalyticsCarousel({
               embla?.scrollNext();
               pauseAfterInteract();
             }}
-            aria-label="Next"
+            aria-label={t("common.next")}
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
@@ -260,7 +260,7 @@ export function AnalyticsCarousel({
         onPointerCancel={onScrubUp}
         className="relative mx-4 mb-2 mt-3 h-2 cursor-pointer rounded-full bg-muted"
         role="slider"
-        aria-label="Carousel scrubber"
+        aria-label={t("dashboard.carousel.scrubber")}
         aria-valuemin={0}
         aria-valuemax={slides.length - 1}
         aria-valuenow={selected}
@@ -279,7 +279,7 @@ export function AnalyticsCarousel({
         <div
           role="separator"
           aria-orientation="horizontal"
-          aria-label="Resize analytics"
+          aria-label={t("dashboard.carousel.resize")}
           onPointerDown={onResizeDown}
           onPointerMove={onResizeMove}
           onPointerUp={onResizeUp}
