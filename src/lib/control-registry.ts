@@ -73,7 +73,7 @@ export const controls = {
     tabPerformance: "sources.tab.performance",
     tabArchive: "sources.tab.archive",
     tabMatrix: "sources.tab.matrix",
-    tabTelegram: "sources.tab.telegram",
+    
     tabInstruments: "sources.tab.instruments",
     tabAliases: "sources.tab.aliases",
     tabBrokerMappings: "sources.tab.broker_mappings",
