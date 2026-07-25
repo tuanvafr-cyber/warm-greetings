@@ -66,7 +66,9 @@ export function useCommandFlow<TInput, TPreview = unknown, TResult = unknown>(
     async (input: TInput) => {
       setState((s) => ({ ...s, phase: "previewing", error: null }));
       try {
-        const preview = runners.preview ? await runners.preview(input) : (input as unknown as TPreview);
+        const preview = runners.preview
+          ? await runners.preview(input)
+          : (input as unknown as TPreview);
         setState((s) => ({ ...s, phase: "preview_ready", preview }));
         return preview;
       } catch (err) {

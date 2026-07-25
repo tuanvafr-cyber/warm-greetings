@@ -70,7 +70,6 @@ function AccountsPage() {
               {t("common.refresh")}
             </Button>
             <AddAccountWizard />
-
           </>
         }
       />
@@ -330,7 +329,9 @@ function AddAccountWizard() {
   const t = useT();
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<WizardStep>("detect");
-  const [terminals, setTerminals] = useState<{ id: string; login: string; server: string; broker: string }[]>([]);
+  const [terminals, setTerminals] = useState<
+    { id: string; login: string; server: string; broker: string }[]
+  >([]);
   const [selected, setSelected] = useState<string | null>(null);
   const [detecting, setDetecting] = useState(false);
 
@@ -500,9 +501,7 @@ function AddAccountWizard() {
                 <p>
                   {t("accounts.wizard.ready")}: <StatusBadge tone="disabled" />
                 </p>
-                <p className="text-xs text-muted-foreground">
-                  {t("accounts.wizard.ready_note")}
-                </p>
+                <p className="text-xs text-muted-foreground">{t("accounts.wizard.ready_note")}</p>
                 <div className="flex justify-end pt-1">
                   <Button size="sm" onClick={() => setOpen(false)}>
                     {t("common.done")}
@@ -521,13 +520,49 @@ function AddAccountWizard() {
 
 function LifecycleActions({ account }: { account: Account }) {
   const t = useT();
-  const actions: { id: string; label: string; controlId: string; intent: string; tone?: "destructive" }[] = [
-    { id: "resume", label: t("accounts.lifecycle.resume"), controlId: controls.accounts.resume, intent: "account.resume" },
-    { id: "activate", label: t("accounts.lifecycle.activate"), controlId: controls.accounts.activate, intent: "account.activate" },
-    { id: "pause", label: t("accounts.lifecycle.pause"), controlId: controls.accounts.pause, intent: "account.pause" },
-    { id: "drain", label: t("accounts.lifecycle.drain_then_pause"), controlId: controls.accounts.drainThenPause, intent: "account.drain_then_pause" },
-    { id: "reconcile", label: t("accounts.lifecycle.reconcile"), controlId: controls.accounts.reconcile, intent: "account.reconcile" },
-    { id: "verifyId", label: t("accounts.lifecycle.verify_identity"), controlId: controls.accounts.verifyIdentity, intent: "account.verify_identity" },
+  const actions: {
+    id: string;
+    label: string;
+    controlId: string;
+    intent: string;
+    tone?: "destructive";
+  }[] = [
+    {
+      id: "resume",
+      label: t("accounts.lifecycle.resume"),
+      controlId: controls.accounts.resume,
+      intent: "account.resume",
+    },
+    {
+      id: "activate",
+      label: t("accounts.lifecycle.activate"),
+      controlId: controls.accounts.activate,
+      intent: "account.activate",
+    },
+    {
+      id: "pause",
+      label: t("accounts.lifecycle.pause"),
+      controlId: controls.accounts.pause,
+      intent: "account.pause",
+    },
+    {
+      id: "drain",
+      label: t("accounts.lifecycle.drain_then_pause"),
+      controlId: controls.accounts.drainThenPause,
+      intent: "account.drain_then_pause",
+    },
+    {
+      id: "reconcile",
+      label: t("accounts.lifecycle.reconcile"),
+      controlId: controls.accounts.reconcile,
+      intent: "account.reconcile",
+    },
+    {
+      id: "verifyId",
+      label: t("accounts.lifecycle.verify_identity"),
+      controlId: controls.accounts.verifyIdentity,
+      intent: "account.verify_identity",
+    },
   ];
   return (
     <>

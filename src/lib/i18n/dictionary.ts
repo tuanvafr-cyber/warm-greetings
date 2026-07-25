@@ -962,7 +962,10 @@ export const dictionary = {
     en: "Provider/model compatibility",
   },
   "telegram_ai.prompts.test_input": { vi: "Đầu vào thử nghiệm", en: "Test input" },
-  "telegram_ai.prompts.test_output": { vi: "Đầu ra JSON có cấu trúc", en: "Structured JSON output" },
+  "telegram_ai.prompts.test_output": {
+    vi: "Đầu ra JSON có cấu trúc",
+    en: "Structured JSON output",
+  },
   "telegram_ai.prompts.activate": { vi: "Kích hoạt phiên bản", en: "Activate version" },
   "telegram_ai.prompts.rollback": { vi: "Quay lại phiên bản trước", en: "Rollback" },
   "telegram_ai.prompts.duplicate": { vi: "Nhân bản làm nháp", en: "Duplicate as draft" },
@@ -1040,7 +1043,10 @@ export const dictionary = {
   "cmd.phase.success": { vi: "Backend xác nhận thành công", en: "Authoritative success" },
   "cmd.phase.rejection": { vi: "Backend từ chối", en: "Authoritative rejection" },
   "cmd.phase.transport_error": { vi: "Lỗi truyền tải", en: "Transport error" },
-  "cmd.backend_required.title": { vi: "Cần backend để hoàn tất", en: "Backend required to complete" },
+  "cmd.backend_required.title": {
+    vi: "Cần backend để hoàn tất",
+    en: "Backend required to complete",
+  },
   "cmd.backend_required.desc": {
     vi: "Bản xem trước phía React được ghi lại; không có thay đổi thực tế nào được gửi cho tới khi adapter thật được nối.",
     en: "The React preview has been captured; no authoritative change is submitted until the real adapter is connected.",

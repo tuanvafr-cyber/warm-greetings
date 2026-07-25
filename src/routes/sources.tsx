@@ -366,9 +366,7 @@ function AliasesTab() {
             data-control-id={controls.sources.aliasResolverTest}
           />
           <span className="text-muted-foreground">→</span>
-          <span className="font-mono">
-            {test ? (resolved ? resolved.canonical : "—") : ""}
-          </span>
+          <span className="font-mono">{test ? (resolved ? resolved.canonical : "—") : ""}</span>
         </CardContent>
       </Card>
     </div>
@@ -498,9 +496,7 @@ function EffectiveMatrixTab() {
                     {r.reason ? (
                       <BackendRequiredDialog
                         controlId={controls.sources.effectiveOpenReason}
-                        trigger={
-                          <button className="text-info hover:underline">{r.reason}</button>
-                        }
+                        trigger={<button className="text-info hover:underline">{r.reason}</button>}
                         title={r.reason}
                         payloadPreview={{
                           intent: "effective.reason_chain",
@@ -522,7 +518,6 @@ function EffectiveMatrixTab() {
     </div>
   );
 }
-
 
 function ActiveCard({ s }: { s: Source }) {
   const t = useT();

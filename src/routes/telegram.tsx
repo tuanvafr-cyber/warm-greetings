@@ -33,8 +33,7 @@ export const Route = createFileRoute("/telegram")({
       { title: "Telegram & AI — SignalOps Panel" },
       {
         name: "description",
-        content:
-          "Telegram sessions, sources, AI providers, routing profile and prompt library.",
+        content: "Telegram sessions, sources, AI providers, routing profile and prompt library.",
       },
       { property: "og:title", content: "Telegram & AI — SignalOps Panel" },
       {
@@ -409,9 +408,7 @@ function PromptsTab({ list }: { list: PromptProfile[] }) {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-2">
-          <p className="mb-2 px-2 text-xs text-muted-foreground">
-            {t("telegram_ai.prompts.desc")}
-          </p>
+          <p className="mb-2 px-2 text-xs text-muted-foreground">{t("telegram_ai.prompts.desc")}</p>
           <ul className="space-y-1">
             {list.map((p) => (
               <li key={p.id}>
@@ -419,9 +416,7 @@ function PromptsTab({ list }: { list: PromptProfile[] }) {
                   data-control-id={controls.prompts.selectProfile}
                   onClick={() => setSelectedId(p.id)}
                   className={`w-full rounded-md px-2 py-1.5 text-left text-sm ${
-                    selectedId === p.id
-                      ? "bg-primary/10 text-primary"
-                      : "hover:bg-muted"
+                    selectedId === p.id ? "bg-primary/10 text-primary" : "hover:bg-muted"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2">
@@ -430,9 +425,7 @@ function PromptsTab({ list }: { list: PromptProfile[] }) {
                       v{p.version}
                     </Badge>
                   </div>
-                  <div className="truncate text-[11px] text-muted-foreground">
-                    {p.purpose}
-                  </div>
+                  <div className="truncate text-[11px] text-muted-foreground">{p.purpose}</div>
                 </button>
               </li>
             ))}
@@ -483,7 +476,11 @@ function PromptDetail({ profile }: { profile: PromptProfile }) {
               controlId={controls.prompts.activate}
               trigger={<Button size="sm">{t("telegram_ai.prompts.activate")}</Button>}
               title={t("telegram_ai.prompts.activate")}
-              payloadPreview={{ intent: "prompt.activate", id: profile.id, version: profile.version }}
+              payloadPreview={{
+                intent: "prompt.activate",
+                id: profile.id,
+                version: profile.version,
+              }}
             />
             <BackendRequiredDialog
               controlId={controls.prompts.rollback}
@@ -531,11 +528,11 @@ function PromptDetail({ profile }: { profile: PromptProfile }) {
           />
           <PromptMeta
             label={t("telegram_ai.prompts.input_schema")}
-            value='{ signal, account, context }'
+            value="{ signal, account, context }"
           />
           <PromptMeta
             label={t("telegram_ai.prompts.output_schema")}
-            value='{ decision, confidence, rationale }'
+            value="{ decision, confidence, rationale }"
           />
         </div>
 

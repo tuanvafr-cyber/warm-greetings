@@ -73,7 +73,7 @@ export const controls = {
     tabPerformance: "sources.tab.performance",
     tabArchive: "sources.tab.archive",
     tabMatrix: "sources.tab.matrix",
-    
+
     tabInstruments: "sources.tab.instruments",
     tabAliases: "sources.tab.aliases",
     tabBrokerMappings: "sources.tab.broker_mappings",
@@ -165,7 +165,7 @@ export const controls = {
   prompts: {
     newProfile: "prompts.new_profile",
     selectProfile: "prompts.select_profile",
-    
+
     activate: "prompts.activate",
     rollback: "prompts.rollback",
     duplicate: "prompts.duplicate",
@@ -195,7 +195,7 @@ export const controls = {
     disable: "analysis_providers.disable",
     archive: "analysis_providers.archive",
     restore: "analysis_providers.restore",
-    
+
     routingPolicy: "analysis_providers.routing_policy",
     switchPreview: "analysis_providers.switch_preview",
     activate: "analysis_providers.activate",
