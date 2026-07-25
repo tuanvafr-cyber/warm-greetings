@@ -24,19 +24,25 @@ function slotTone(s: ProviderSlot["state"]): StatusTone {
 
 export function ProviderSlotCard({ slot }: { slot: ProviderSlot }) {
   const t = useT();
+  const roleKey = `slot.role.${slot.role}` as const;
+  const stateKey = `slot.state.${slot.state}` as const;
   return (
     <Card data-slot-id={slot.slot}>
       <CardHeader className="pb-2">
-        <CardTitle className="flex items-center justify-between text-sm">
-          <span>
+        <CardTitle className="flex items-center justify-between gap-2 text-sm">
+          <span className="min-w-0 truncate">
             {slot.label}
             <span className="ml-2 rounded-md bg-muted px-1.5 py-0.5 text-[10px] uppercase text-muted-foreground">
-              {t(`slot.role.${slot.role}`)}
+              {t(roleKey)}
             </span>
           </span>
-          <StatusBadge tone={slotTone(slot.state)}>{t(`slot.state.${slot.state}`)}</StatusBadge>
+          <div className="flex items-center gap-1.5">
+            <StatusBadge tone={slotTone(slot.state)} />
+            <span className="text-[11px] text-muted-foreground">{t(stateKey)}</span>
+          </div>
         </CardTitle>
       </CardHeader>
+
       <CardContent className="space-y-2 text-sm">
         <p className="text-xs text-muted-foreground">{slot.note}</p>
         <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-xs text-muted-foreground">
@@ -56,6 +62,7 @@ export function ProviderSlotCard({ slot }: { slot: ProviderSlot }) {
           <div className="text-right">{slot.cooldownEndsAt ? <TimeAgo iso={slot.cooldownEndsAt} /> : "—"}</div>
           <div>{t("slot.circuit")}</div>
           <div className="text-right">{slot.circuitOpenedAt ? t("slot.state.circuit_open") : "—"}</div>
+
           <div>{t("slot.last_failover")}</div>
           <div className="text-right"><TimeAgo iso={slot.lastFailoverAt} /></div>
           <div>{t("slot.last_failback")}</div>
