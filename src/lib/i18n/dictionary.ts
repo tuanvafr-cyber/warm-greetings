@@ -1057,6 +1057,54 @@ export const dictionary = {
     vi: "Chức năng chưa khả dụng — chờ backend nối vào adapter.",
     en: "Capability unavailable — pending backend adapter binding.",
   },
+
+  // Accounts card columns
+  "accounts.col.login": { vi: "Đăng nhập", en: "Login" },
+  "accounts.col.server": { vi: "Máy chủ", en: "Server" },
+  "accounts.col.broker": { vi: "Nhà môi giới", en: "Broker" },
+  "accounts.col.last_sync": { vi: "Đồng bộ gần nhất", en: "Last sync" },
+
+  // Wizard truthful backend-required
+  "accounts.wizard.backend_required_title": {
+    vi: "Cần backend để tạo tài khoản",
+    en: "Backend required to create account",
+  },
+  "accounts.wizard.backend_required_desc": {
+    vi: "Panel Next chỉ dựng payload xem trước. Chưa có adapter thật, nên không thể chuyển tài khoản sang READY_PAUSED.",
+    en: "Panel Next only builds the preview payload. Without a real adapter, no account can be transitioned to READY_PAUSED.",
+  },
+  "accounts.wizard.ack": { vi: "Đã hiểu", en: "Acknowledge" },
+
+  // Inbox filter labels
+  "inbox.filter.all_severities": { vi: "Mọi mức độ", en: "All severities" },
+  "inbox.filter.all_components": { vi: "Mọi thành phần", en: "All components" },
+  "inbox.filter.all_states": { vi: "Mọi trạng thái", en: "All states" },
+  "inbox.severity.info": { vi: "Thông tin", en: "Info" },
+  "inbox.severity.warning": { vi: "Cảnh báo", en: "Warning" },
+  "inbox.severity.blocker": { vi: "Chặn", en: "Blocker" },
+  "inbox.severity.critical": { vi: "Nghiêm trọng", en: "Critical" },
+  "inbox.state.open": { vi: "Đang mở", en: "Open" },
+  "inbox.state.acknowledged": { vi: "Đã ghi nhận", en: "Acknowledged" },
+
+  // Signals filters
+  "signals.filter.side": { vi: "Hướng", en: "Side" },
+  "signals.filter.all_accounts": { vi: "Mọi tài khoản", en: "All accounts" },
+  "signals.filter.all_sources": { vi: "Mọi nguồn", en: "All sources" },
+  "signals.filter.all_instruments": { vi: "Mọi mã", en: "All instruments" },
+  "signals.filter.all_sides": { vi: "Cả hai hướng", en: "Both sides" },
+
+  // Hermes localized bits
+  "hermes.recommendation.open": { vi: "Mở đề xuất", en: "Open recommendation" },
+  "hermes.accounts.note": {
+    vi: "Hermes chỉ đề xuất. Panel không có nút kích hoạt tài khoản ở đây — hành động thật phải chờ backend.",
+    en: "Hermes recommends only. There is no activation control here — real actions require the backend.",
+  },
+  "hermes.overview.pending": { vi: "Đề xuất đang chờ", en: "Pending recommendations" },
+  "hermes.overview.live_sources": { vi: "Nguồn đang theo dõi", en: "Live sources tracked" },
+  "hermes.overview.archived": {
+    vi: "Bộ dữ liệu đã lưu trữ / niêm phong",
+    en: "Archived / sealed datasets",
+  },
 } satisfies Dict;
 
 export type TKey = keyof typeof dictionary;

@@ -63,6 +63,10 @@ function SignalsPage() {
   const q = useSignals();
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<SignalStatus | "all">("all");
+  const [account, setAccount] = useState<string>("all");
+  const [source, setSource] = useState<string>("all");
+  const [symbol, setSymbol] = useState<string>("all");
+  const [side, setSide] = useState<"all" | "buy" | "sell">("all");
   const [openId, setOpenId] = useState<string | null>(null);
 
   useTopBar({
@@ -71,16 +75,31 @@ function SignalsPage() {
     showTimeRange: true,
   });
 
+  const data = q.data ?? [];
+  const accounts = useMemo(
+    () => Array.from(new Set(data.flatMap((s) => s.destinationAccountIds))).sort(),
+    [data],
+  );
+  const sources = useMemo(
+    () => Array.from(new Set(data.map((s) => s.sourceName))).sort(),
+    [data],
+  );
+  const symbols = useMemo(() => Array.from(new Set(data.map((s) => s.symbol))).sort(), [data]);
+
   const filtered = useMemo(() => {
-    return (q.data ?? []).filter(
+    return data.filter(
       (s) =>
         (status === "all" || s.status === status) &&
+        (account === "all" || s.destinationAccountIds.includes(account)) &&
+        (source === "all" || s.sourceName === source) &&
+        (symbol === "all" || s.symbol === symbol) &&
+        (side === "all" || s.side === side) &&
         (!search ||
           s.symbol.toLowerCase().includes(search.toLowerCase()) ||
           s.sourceName.toLowerCase().includes(search.toLowerCase()) ||
           s.correlationId.includes(search)),
     );
-  }, [q.data, search, status]);
+  }, [data, search, status, account, source, symbol, side]);
 
   const opened = filtered.find((s) => s.id === openId) ?? null;
 
@@ -96,6 +115,65 @@ function SignalsPage() {
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-xs"
         />
+        <select
+          className="h-8 rounded-md border border-input bg-background px-2 text-xs"
+          value={account}
+          onChange={(e) => setAccount(e.target.value)}
+          data-control-id={controls.signals.filterAccount}
+          aria-label={t("signals.filter.account")}
+        >
+          <option value="all">{t("signals.filter.all_accounts")}</option>
+          {accounts.map((a) => (
+            <option key={a} value={a}>
+              {a}
+            </option>
+          ))}
+        </select>
+        <select
+          className="h-8 rounded-md border border-input bg-background px-2 text-xs"
+          value={source}
+          onChange={(e) => setSource(e.target.value)}
+          data-control-id={controls.signals.filterSource}
+          aria-label={t("signals.filter.source")}
+        >
+          <option value="all">{t("signals.filter.all_sources")}</option>
+          {sources.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+        <select
+          className="h-8 rounded-md border border-input bg-background px-2 text-xs"
+          value={symbol}
+          onChange={(e) => setSymbol(e.target.value)}
+          data-control-id={controls.signals.filterSymbol}
+          aria-label={t("signals.filter.symbol")}
+        >
+          <option value="all">{t("signals.filter.all_instruments")}</option>
+          {symbols.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+        <div className="flex gap-1" data-control-id={controls.signals.filterSide}>
+          {(["all", "buy", "sell"] as const).map((v) => (
+            <Button
+              key={v}
+              size="sm"
+              variant={side === v ? "default" : "ghost"}
+              className="h-7 px-2 text-xs"
+              onClick={() => setSide(v)}
+            >
+              {v === "all"
+                ? t("signals.filter.all_sides")
+                : v === "buy"
+                  ? t("signals.side.buy")
+                  : t("signals.side.sell")}
+            </Button>
+          ))}
+        </div>
         <div className="flex flex-wrap gap-1" data-control-id={controls.signals.filterStatus}>
           {STATUS_OPTIONS.map((s) => (
             <Button
@@ -110,6 +188,7 @@ function SignalsPage() {
           ))}
         </div>
       </FilterBar>
+
 
       {q.isPending ? (
         <LoadingState />

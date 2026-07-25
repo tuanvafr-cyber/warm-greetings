@@ -81,7 +81,7 @@ function HermesPage() {
           <div className="grid gap-3 md:grid-cols-3">
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Pending recommendations</CardTitle>
+                <CardTitle className="text-sm">{t("hermes.overview.pending")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-semibold">
@@ -91,7 +91,7 @@ function HermesPage() {
             </Card>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Live sources tracked</CardTitle>
+                <CardTitle className="text-sm">{t("hermes.overview.live_sources")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-semibold">
@@ -101,7 +101,7 @@ function HermesPage() {
             </Card>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Archived / sealed datasets</CardTitle>
+                <CardTitle className="text-sm">{t("hermes.overview.archived")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-semibold">
@@ -114,36 +114,12 @@ function HermesPage() {
 
         <TabsContent value="accounts" className="mt-4">
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm">Activation preview</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2 text-sm">
-              <p className="text-xs text-muted-foreground">
-                Hermes proposes activation bundles. Panel Next never arms routes or grants broker
-                authority — the real activation only happens when the SignalOps backend accepts the
-                bundle.
-              </p>
-              <div className="flex gap-2">
-                <BackendRequiredDialog
-                  controlId={controls.hermes.activationPreview}
-                  trigger={
-                    <Button size="sm" variant="outline">
-                      {t("hermes.activation.preview")}
-                    </Button>
-                  }
-                  title={t("hermes.activation.preview")}
-                  payloadPreview={{ intent: "hermes.activation.preview" }}
-                />
-                <BackendRequiredDialog
-                  controlId={controls.hermes.activationOpen}
-                  trigger={<Button size="sm">{t("hermes.activation.open")}</Button>}
-                  title={t("hermes.activation.open")}
-                  payloadPreview={{ intent: "hermes.activation.open" }}
-                />
-              </div>
+            <CardContent className="py-4 text-sm text-muted-foreground">
+              {t("hermes.accounts.note")}
             </CardContent>
           </Card>
         </TabsContent>
+
 
         <TabsContent value="sources" className="mt-4">
           {sources.isPending ? (
@@ -239,10 +215,10 @@ function HermesPage() {
                         controlId={controls.hermes.recommendationOpen}
                         trigger={
                           <Button size="sm" variant="outline">
-                            Open recommendation
+                            {t("hermes.recommendation.open")}
                           </Button>
                         }
-                        title="Open recommendation"
+                        title={t("hermes.recommendation.open")}
                         payloadPreview={{ intent: "hermes.recommendation.open", id: r.id }}
                       />
                     </div>

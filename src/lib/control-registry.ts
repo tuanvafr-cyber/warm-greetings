@@ -53,7 +53,6 @@ export const controls = {
     archive: "accounts.archive",
     restore: "accounts.restore",
 
-    activationOpen: "accounts.activation.open",
     nativeCurrencyReview: "accounts.native_currency.review",
     // Add-account wizard
     addWizardDetect: "accounts.add_wizard.detect",
@@ -105,6 +104,10 @@ export const controls = {
 
   signals: {
     filterStatus: "signals.filter.status",
+    filterAccount: "signals.filter.account",
+    filterSource: "signals.filter.source",
+    filterSymbol: "signals.filter.symbol",
+    filterSide: "signals.filter.side",
     search: "signals.search",
     openDetail: "signals.open_detail",
     openTrace: "signals.open_trace",
@@ -209,8 +212,6 @@ export const controls = {
     tabPolicies: "hermes.tab.policies",
     tabTrace: "hermes.tab.trace",
     tabPrompts: "hermes.prompts.tab",
-    activationPreview: "hermes.activation.preview",
-    activationOpen: "hermes.activation.open",
     recommendationOpen: "hermes.recommendation.open",
     datasetOpen: "hermes.dataset.open",
   },
@@ -257,6 +258,7 @@ export const plannedControls = {
     riskAmountEdit: "accounts.risk_amount_per_order.edit",
     sourceMatrixOpen: "accounts.source_matrix.open",
     accountLineOpen: "accounts.account_line.open",
+    activationOpen: "accounts.activation.open",
     instrumentMappingOpen: "accounts.instrument_mapping.open",
     deletePermanent: "accounts.delete_permanent",
   },
@@ -271,9 +273,6 @@ export const plannedControls = {
   },
   signals: {
     filterDate: "signals.filter.date",
-    filterAccount: "signals.filter.account",
-    filterSource: "signals.filter.source",
-    filterSymbol: "signals.filter.symbol",
     filterParser: "signals.filter.parser",
     timeRangeOpen: "signals.time_range.open",
     openOriginal: "signals.open_original",
@@ -310,6 +309,8 @@ export const plannedControls = {
     deletePermanent: "analysis_providers.delete_permanent",
   },
   hermes: {
+    activationPreview: "hermes.activation.preview",
+    activationOpen: "hermes.activation.open",
     evidenceOpen: "hermes.evidence.open",
     modelSelect: "hermes.model.select",
     sourcesSelect: "hermes.sources.select",
