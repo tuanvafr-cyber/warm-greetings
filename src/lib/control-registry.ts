@@ -273,9 +273,6 @@ export const plannedControls = {
   },
   signals: {
     filterDate: "signals.filter.date",
-    filterAccount: "signals.filter.account",
-    filterSource: "signals.filter.source",
-    filterSymbol: "signals.filter.symbol",
     filterParser: "signals.filter.parser",
     timeRangeOpen: "signals.time_range.open",
     openOriginal: "signals.open_original",
