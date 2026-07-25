@@ -215,10 +215,10 @@ function HermesPage() {
                         controlId={controls.hermes.recommendationOpen}
                         trigger={
                           <Button size="sm" variant="outline">
-                            Open recommendation
+                            {t("hermes.recommendation.open")}
                           </Button>
                         }
-                        title="Open recommendation"
+                        title={t("hermes.recommendation.open")}
                         payloadPreview={{ intent: "hermes.recommendation.open", id: r.id }}
                       />
                     </div>
