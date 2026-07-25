@@ -54,7 +54,7 @@ function RiskPage() {
       <Alert>
         <Info className="h-4 w-4" />
         <AlertDescription className="text-xs">
-          {t("risk.margin_context")}
+          {t("risk.margin_context.title")}: {t("risk.margin_context.desc")}
         </AlertDescription>
       </Alert>
 
