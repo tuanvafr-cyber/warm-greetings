@@ -212,8 +212,6 @@ export const controls = {
     tabPolicies: "hermes.tab.policies",
     tabTrace: "hermes.tab.trace",
     tabPrompts: "hermes.prompts.tab",
-    activationPreview: "hermes.activation.preview",
-    activationOpen: "hermes.activation.open",
     recommendationOpen: "hermes.recommendation.open",
     datasetOpen: "hermes.dataset.open",
   },
