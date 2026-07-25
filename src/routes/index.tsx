@@ -234,7 +234,8 @@ function RuntimeInboxCard({
   const degraded = runtime.filter((c) => c.health !== "healthy");
   const open = inbox.filter((i) => i.state === "open");
   return (
-    <Card>
+    <Card className="flex h-full flex-col">
+
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center justify-between text-sm">
           {t("dashboard.runtime_inbox")}
