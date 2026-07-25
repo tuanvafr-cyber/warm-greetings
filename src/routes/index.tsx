@@ -14,11 +14,12 @@ import {
   usePnlSeries, usePositions, useRiskPolicyVersions, useRuntimeComponents, useSources,
 } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
-import { useState } from "react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { StatusBadge, type StatusTone } from "@/components/shared/StatusBadge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { controls } from "@/lib/control-registry";
+import { useTopBar } from "@/lib/topbar";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,7 +35,6 @@ export const Route = createFileRoute("/")({
 
 function DashboardPage() {
   const t = useT();
-  // time range persists via URL through <TimeRangePicker />.
   const kpis = useDashboardKpis();
   const pnl = usePnlSeries();
   const heatmap = useHeatmap();
@@ -48,22 +48,58 @@ function DashboardPage() {
   const loading = [kpis, pnl, heatmap, sources, orders, positions, risk, runtime, inbox]
     .some((q) => q.isPending);
 
+  useTopBar({
+    title: t("dashboard.title"),
+    lastUpdatedIso: new Date().toISOString(),
+    showTimeRange: true,
+  });
+  // suppress-unused
+  useEffect(() => { void 0; }, []);
+
   return (
     <div className="flex flex-col gap-4">
-      <PageHeader
-        title={t("dashboard.title")}
-        description={t("dashboard.subtitle")}
-        actions={
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs text-muted-foreground">
-              {t("dashboard.last_updated")} <TimeAgo iso={new Date().toISOString()} />
-            </span>
-            <TimeRangePicker />
-            <span className="sr-only">{/* setRange placeholder — historical */}</span>
-          </div>
-        }
-      />
       <FixtureBanner />
+
+      {loading || !kpis.data ? (
+        <LoadingState />
+      ) : (
+        <>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <StatCard
+              label={t("dashboard.trading_pnl")}
+              value={<MoneyUsd value={kpis.data.tradingPnlUsd} colorize />}
+              delta={`${t("dashboard.executed")}: ${kpis.data.executedSignals}`}
+              icon={<TrendingUp className="h-4 w-4" />}
+            />
+            <StatCard
+              label={t("dashboard.total_income")}
+              value={<MoneyUsd value={kpis.data.totalIncomeUsd} colorize />}
+              delta={t("dashboard.income_breakdown")}
+              icon={<Gauge className="h-4 w-4" />}
+            />
+            <StatCard
+              label={t("dashboard.active_exposure")}
+              value={<MoneyUsd value={kpis.data.activeExposureUsd} />}
+              delta={`${kpis.data.openPositions} ${t("dashboard.exposure_open")} · ${kpis.data.pendingOrders} ${t("dashboard.exposure_pending")} · ${t("dashboard.exposure_floating")}: `}
+              icon={<Activity className="h-4 w-4" />}
+            >
+              <div className="mt-1 flex items-center justify-between text-[11px] text-muted-foreground">
+                <span>{t("dashboard.exposure_floating")}</span>
+                <MoneyUsd value={kpis.data.floatingPnlUsd} colorize />
+              </div>
+              <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+                <span>{t("dashboard.exposure_margin_used")}</span>
+                <MoneyUsd value={kpis.data.marginUsedUsd} />
+              </div>
+            </StatCard>
+            <StatCard
+              label={t("dashboard.signal_execution_rate")}
+              value={<Pct value={kpis.data.executionRate} />}
+              delta={`${t("dashboard.eligible")}: ${kpis.data.eligibleSignals} · ${t("dashboard.blocked")}: ${kpis.data.blockedSignals} · ${t("dashboard.tech_failed")}: ${kpis.data.technicalFailedSignals}`}
+              icon={<Zap className="h-4 w-4" />}
+            />
+          </div>
+
 
       {loading || !kpis.data ? (
         <LoadingState />
