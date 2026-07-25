@@ -321,3 +321,230 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
     </div>
   );
 }
+
+// ---------------- Add-account wizard ----------------
+
+type WizardStep = "detect" | "select" | "preview" | "confirm" | "provisioning" | "ready";
+
+function AddAccountWizard() {
+  const t = useT();
+  const [open, setOpen] = useState(false);
+  const [step, setStep] = useState<WizardStep>("detect");
+  const [terminals, setTerminals] = useState<{ id: string; login: string; server: string; broker: string }[]>([]);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [detecting, setDetecting] = useState(false);
+
+  function reset() {
+    setStep("detect");
+    setTerminals([]);
+    setSelected(null);
+    setDetecting(false);
+  }
+
+  function runDetect() {
+    setDetecting(true);
+    setTimeout(() => {
+      setTerminals([
+        { id: "t1", login: "500123456", server: "ICMarkets-Live02", broker: "IC Markets" },
+        { id: "t2", login: "900444210", server: "Exness-Real14", broker: "Exness" },
+      ]);
+      setDetecting(false);
+      setStep("select");
+    }, 600);
+  }
+
+  const chosen = terminals.find((x) => x.id === selected);
+
+  return (
+    <>
+      <Button
+        size="sm"
+        className="gap-1.5"
+        data-control-id={controls.accounts.add}
+        onClick={() => {
+          reset();
+          setOpen(true);
+        }}
+      >
+        <Plus className="h-3.5 w-3.5" />
+        {t("accounts.add")}
+      </Button>
+
+      {open && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="w-full max-w-lg rounded-lg border border-border bg-background p-4 shadow-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-sm font-semibold">{t("accounts.add")}</h2>
+              <span className="text-xs text-muted-foreground">
+                {t(`accounts.wizard.step.${step}` as import("@/lib/i18n/dictionary").TKey)}
+              </span>
+            </div>
+
+            {step === "detect" && (
+              <div className="space-y-3">
+                <p className="text-sm text-muted-foreground">{t("accounts.wizard.detect_desc")}</p>
+                <Button
+                  size="sm"
+                  onClick={runDetect}
+                  disabled={detecting}
+                  data-control-id={controls.accounts.addWizardDetect}
+                >
+                  {detecting ? t("common.loading") : t("accounts.wizard.run_detect")}
+                </Button>
+              </div>
+            )}
+
+            {step === "select" && (
+              <div className="space-y-2">
+                <p className="text-xs text-muted-foreground">{t("accounts.wizard.select_desc")}</p>
+                {terminals.map((tm) => (
+                  <button
+                    key={tm.id}
+                    className={`w-full rounded border p-2 text-left text-sm ${selected === tm.id ? "border-primary bg-primary/5" : "border-border"}`}
+                    onClick={() => setSelected(tm.id)}
+                    data-control-id={controls.accounts.addWizardSelect}
+                  >
+                    <div className="font-mono">{tm.login}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {tm.broker} · {tm.server}
+                    </div>
+                  </button>
+                ))}
+                <div className="flex justify-end gap-2 pt-1">
+                  <Button size="sm" variant="ghost" onClick={() => setStep("detect")}>
+                    {t("common.back")}
+                  </Button>
+                  <Button size="sm" disabled={!selected} onClick={() => setStep("preview")}>
+                    {t("common.next")}
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {step === "preview" && chosen && (
+              <div className="space-y-2">
+                <p className="text-xs text-muted-foreground">{t("accounts.wizard.preview_desc")}</p>
+                <pre className="max-h-52 overflow-auto rounded bg-muted p-2 font-mono text-xs">
+                  {JSON.stringify(
+                    {
+                      intent: "account.add.preview",
+                      terminal: chosen,
+                      derived: { currency: "USD", lifecycle: "READY_PAUSED" },
+                    },
+                    null,
+                    2,
+                  )}
+                </pre>
+                <div className="flex justify-end gap-2 pt-1">
+                  <Button size="sm" variant="ghost" onClick={() => setStep("select")}>
+                    {t("common.back")}
+                  </Button>
+                  <Button
+                    size="sm"
+                    onClick={() => setStep("confirm")}
+                    data-control-id={controls.accounts.addWizardPreview}
+                  >
+                    {t("common.next")}
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {step === "confirm" && chosen && (
+              <div className="space-y-2">
+                <p className="text-sm">{t("accounts.wizard.confirm_desc")}</p>
+                <div className="rounded border border-dashed border-border p-2 text-xs">
+                  <div>
+                    <Label className="text-xs">Login</Label> {chosen.login}
+                  </div>
+                  <div>
+                    <Label className="text-xs">Broker</Label> {chosen.broker}
+                  </div>
+                </div>
+                <p className="text-xs text-warning-foreground">{t("backend.desc")}</p>
+                <div className="flex justify-end gap-2 pt-1">
+                  <Button size="sm" variant="ghost" onClick={() => setStep("preview")}>
+                    {t("common.back")}
+                  </Button>
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      setStep("provisioning");
+                      setTimeout(() => setStep("ready"), 800);
+                    }}
+                    data-control-id={controls.accounts.addWizardApply}
+                  >
+                    {t("accounts.wizard.simulate_submit")}
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {step === "provisioning" && (
+              <div className="space-y-2 text-sm">
+                <p>{t("accounts.wizard.provisioning")}</p>
+                <div className="h-1.5 w-full overflow-hidden rounded bg-muted">
+                  <div className="h-full w-2/3 animate-pulse bg-primary" />
+                </div>
+              </div>
+            )}
+
+            {step === "ready" && (
+              <div className="space-y-2 text-sm">
+                <p>
+                  {t("accounts.wizard.ready")}: <StatusBadge tone="disabled" />
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {t("accounts.wizard.ready_note")}
+                </p>
+                <div className="flex justify-end pt-1">
+                  <Button size="sm" onClick={() => setOpen(false)}>
+                    {t("common.done")}
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+// ---------------- Lifecycle action cluster ----------------
+
+function LifecycleActions({ account }: { account: Account }) {
+  const t = useT();
+  const actions: { id: string; label: string; controlId: string; intent: string; tone?: "destructive" }[] = [
+    { id: "resume", label: t("accounts.lifecycle.resume"), controlId: controls.accounts.resume, intent: "account.resume" },
+    { id: "activate", label: t("accounts.lifecycle.activate"), controlId: controls.accounts.activate, intent: "account.activate" },
+    { id: "pause", label: t("accounts.lifecycle.pause"), controlId: controls.accounts.pause, intent: "account.pause" },
+    { id: "drain", label: t("accounts.lifecycle.drain_then_pause"), controlId: controls.accounts.drainThenPause, intent: "account.drain_then_pause" },
+    { id: "reconcile", label: t("accounts.lifecycle.reconcile"), controlId: controls.accounts.reconcile, intent: "account.reconcile" },
+    { id: "verifyId", label: t("accounts.lifecycle.verify_identity"), controlId: controls.accounts.verifyIdentity, intent: "account.verify_identity" },
+  ];
+  return (
+    <>
+      {actions.map((a) => (
+        <BackendRequiredDialog
+          key={a.id}
+          controlId={a.controlId}
+          trigger={
+            <Button size="sm" variant="ghost">
+              {a.label}
+            </Button>
+          }
+          title={a.label}
+          description={t("backend.desc")}
+          payloadPreview={{ intent: a.intent, id: account.id }}
+        />
+      ))}
+    </>
+  );
+}
