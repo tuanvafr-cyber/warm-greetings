@@ -480,3 +480,149 @@ export const hermesRecommendations: HermesRecommendation[] = [
     rationale: "Volatility regime shift; reduce sizing 20%.",
     confidence: 0.64, createdAt: new Date(Date.now() - 40 * 3600_000).toISOString(), state: "reviewed" },
 ];
+
+// ------------------------------------------------------------
+// Analysis API Provider Slots
+// ------------------------------------------------------------
+import type {
+  ProviderSlot, RoutingPolicy, PromptProfile,
+  NativeCurrencyReview, AccountLine, AccountReadiness,
+  InstrumentMappingRow, SourceAccountCell,
+} from "./contracts";
+
+export const providerSlots: ProviderSlot[] = [
+  {
+    slot: 1, label: "Analysis API Slot 1", role: "primary",
+    assignedProviderId: "prov-a",
+    state: "active",
+    attempts: 0, maxAttempts: 5,
+    lastAttemptAt: new Date(Date.now() - 45_000).toISOString(),
+    lastRecoveryProbeAt: new Date(Date.now() - 60_000).toISOString(),
+    recoveryProbeSeconds: 60,
+    cooldownEndsAt: null,
+    circuitOpenedAt: null,
+    circuitResetSeconds: 120,
+    lastFailoverAt: null,
+    lastFailbackAt: new Date(Date.now() - 6 * 3600_000).toISOString(),
+    note: "Primary slot. 60-second recovery probe active.",
+  },
+  {
+    slot: 2, label: "Analysis API Slot 2", role: "failover",
+    assignedProviderId: "prov-b",
+    state: "ready",
+    attempts: 0, maxAttempts: 5,
+    lastAttemptAt: null,
+    lastRecoveryProbeAt: null,
+    recoveryProbeSeconds: 60,
+    cooldownEndsAt: null,
+    circuitOpenedAt: null,
+    circuitResetSeconds: 120,
+    lastFailoverAt: null,
+    lastFailbackAt: null,
+    note: "Standby failover. Never auto-activates.",
+  },
+  {
+    slot: 3, label: "Analysis API Slot 3", role: "diagnostic",
+    assignedProviderId: "prov-c",
+    state: "cooldown",
+    attempts: 3, maxAttempts: 5,
+    lastAttemptAt: new Date(Date.now() - 30_000).toISOString(),
+    lastRecoveryProbeAt: null,
+    recoveryProbeSeconds: 60,
+    cooldownEndsAt: new Date(Date.now() + 90_000).toISOString(),
+    circuitOpenedAt: null,
+    circuitResetSeconds: 120,
+    lastFailoverAt: null,
+    lastFailbackAt: null,
+    note: "Diagnostic slot in cooldown after 3/5 retries.",
+  },
+];
+
+export const routingPolicy: RoutingPolicy = {
+  version: 4,
+  strategy: "primary_then_failover",
+  failoverAfterAttempts: 5,
+  failbackWhen: "probe_ok",
+  recoveryProbeSeconds: 60,
+  cooldownSeconds: 30,
+  circuitResetSeconds: 120,
+  updatedAt: new Date(Date.now() - 2 * 86400_000).toISOString(),
+  updatedBy: "operator@signalops",
+};
+
+export const promptProfiles: PromptProfile[] = [
+  { id: "pp-1", name: "Gold parser v3", version: 3, state: "published",
+    purpose: "Extract entry/SL/TP from gold desks.",
+    updatedAt: new Date(Date.now() - 5 * 86400_000).toISOString() },
+  { id: "pp-2", name: "EU flow classifier", version: 2, state: "evaluated",
+    purpose: "Classify EU flow desk direction.",
+    updatedAt: new Date(Date.now() - 12 * 86400_000).toISOString() },
+  { id: "pp-3", name: "Generic v2", version: 2, state: "draft",
+    purpose: "Fallback parser for unknown formats.",
+    updatedAt: new Date(Date.now() - 1 * 86400_000).toISOString() },
+];
+
+export const nativeCurrencyReviews: NativeCurrencyReview[] = [
+  { accountId: "acc-usc-001", configuredCurrency: "USC", brokerReportedCurrency: "USC",
+    state: "verified", detectedAt: new Date(Date.now() - 60_000).toISOString(),
+    note: "Broker report matches configured native currency." },
+  { accountId: "acc-usd-104", configuredCurrency: "USD", brokerReportedCurrency: "USC",
+    state: "mismatch", detectedAt: new Date(Date.now() - 40 * 60_000).toISOString(),
+    note: "Broker now reports USC — review required before further orders." },
+  { accountId: "acc-usd-off", configuredCurrency: "USD", brokerReportedCurrency: null,
+    state: "input_required", detectedAt: null,
+    note: "Broker offline; cannot confirm currency." },
+];
+
+export const accountLines: AccountLine[] = accounts.map((a, i) => ({
+  accountId: a.id, revision: 12 + i,
+  effectiveState: a.lifecycle === "archived" ? "archived"
+    : a.lifecycle === "draining" ? "draining"
+    : a.lifecycle === "connected" ? "connected" : "disconnected",
+  desiredState: a.lifecycle === "archived" ? "archived"
+    : a.lifecycle === "draining" ? "disconnected" : "connected",
+  pendingChange: a.lifecycle === "draining" ? "drain_to_disconnected" : null,
+  workerOwner: a.lifecycle === "offline" ? null : `worker-${(i % 3) + 1}`,
+  bridgeOwner: a.lifecycle === "offline" ? null : `bridge-${(i % 2) + 1}`,
+  terminalIdentity: `${a.broker}:${a.server}:${a.login}`,
+  updatedAt: a.lastSyncAt,
+}));
+
+export const accountReadiness: AccountReadiness[] = accounts.map((a) => ({
+  accountId: a.id,
+  ready: a.lifecycle === "connected",
+  blockers: a.lifecycle === "input_required" ? [{ code: "IDENTITY_CHANGED", reason: "Broker changed reported currency." }]
+    : a.lifecycle === "offline" ? [{ code: "TERMINAL_OFFLINE", reason: "MT5 terminal is offline." }]
+    : a.lifecycle === "draining" ? [{ code: "DRAINING", reason: "Draining to disconnected." }]
+    : [],
+  updatedAt: a.lastSyncAt,
+}));
+
+export const instrumentMapping: InstrumentMappingRow[] = accounts.flatMap((a) => (
+  ["XAUUSD", "EURUSD", "GBPUSD"].map((sym) => ({
+    accountId: a.id, canonicalSymbol: sym,
+    brokerSymbol: sym === "GBPUSD" && a.id === "acc-usd-104" ? null : sym,
+    state: (sym === "GBPUSD" && a.id === "acc-usd-104" ? "input_required" : "mapped") as "mapped" | "input_required",
+    reason: sym === "GBPUSD" && a.id === "acc-usd-104" ? "No broker symbol resolved." : null,
+  }))
+));
+
+export const sourceAccountMatrix: SourceAccountCell[] = sources.flatMap((s, si) => (
+  accounts.filter((a) => a.lifecycle !== "archived").map((a, ai) => {
+    const desired = (si + ai) % 3 !== 0;
+    const drained = s.lifecycle === "draining";
+    const disabled = s.lifecycle === "disabled";
+    return {
+      sourceId: s.id, accountId: a.id,
+      desiredEnabled: desired,
+      effectiveEnabled: desired && !drained && !disabled && a.lifecycle === "connected",
+      effectiveState: s.lifecycle === "archived" ? "archived"
+        : drained ? "draining" : disabled ? "disabled" : "active",
+      pendingChange: (si + ai) % 5 === 0 ? "enable" : "none",
+      revision: 3 + (si + ai) % 4,
+      blockerReason: a.lifecycle === "input_required" ? "Account requires input."
+        : disabled ? "Source disabled." : null,
+      updatedAt: new Date(Date.now() - (si + ai) * 3600_000).toISOString(),
+    } satisfies SourceAccountCell;
+  })
+));
