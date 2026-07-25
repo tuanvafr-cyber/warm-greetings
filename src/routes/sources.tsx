@@ -13,10 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useSources } from "@/data/hooks";
+import { useSources, useAccounts, useSourceAccountMatrix } from "@/data/hooks";
 import { useT } from "@/lib/i18n";
 import { controls } from "@/lib/control-registry";
-import type { Source, SourceLifecycle } from "@/data/contracts";
+import type { Source, SourceLifecycle, SourceAccountCell, Account } from "@/data/contracts";
+
 
 export const Route = createFileRoute("/sources")({
   head: () => ({
@@ -85,8 +86,10 @@ function SourcesPage() {
         <TabsList>
           <TabsTrigger value="active" data-control-id={controls.sources.tabActive}>{t("sources.tab.active")}</TabsTrigger>
           <TabsTrigger value="perf" data-control-id={controls.sources.tabPerformance}>{t("sources.tab.performance")}</TabsTrigger>
+          <TabsTrigger value="matrix" data-control-id={controls.sources.tabMatrix}>{t("sources.tab.matrix")}</TabsTrigger>
           <TabsTrigger value="archive" data-control-id={controls.sources.tabArchive}>{t("sources.tab.archive")}</TabsTrigger>
         </TabsList>
+
 
         <div className="mt-3">
           <Input
@@ -113,7 +116,12 @@ function SourcesPage() {
           )}
         </TabsContent>
 
+        <TabsContent value="matrix" className="mt-4">
+          <SourceAccountMatrixView />
+        </TabsContent>
+
         <TabsContent value="archive" className="mt-4">
+
           <p className="mb-2 text-xs text-muted-foreground">{t("sources.archived_note")}</p>
           {q.isPending ? <LoadingState /> : archive.length === 0 ? <EmptyState /> : (
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
