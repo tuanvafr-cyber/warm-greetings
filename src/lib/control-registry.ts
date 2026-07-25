@@ -52,15 +52,32 @@ export const controls = {
     pin: "accounts.pin",
     archive: "accounts.archive",
     restore: "accounts.restore",
-    
+
     activationOpen: "accounts.activation.open",
     nativeCurrencyReview: "accounts.native_currency.review",
+    // Add-account wizard
+    addWizardDetect: "accounts.add_wizard.detect",
+    addWizardSelect: "accounts.add_wizard.select",
+    addWizardPreview: "accounts.add_wizard.preview",
+    addWizardApply: "accounts.add_wizard.apply",
+    // Lifecycle actions on account cards
+    resume: "accounts.resume",
+    reconcile: "accounts.reconcile",
+    verifyIdentity: "accounts.verify_identity",
+    activate: "accounts.activate",
+    pause: "accounts.pause",
+    drainThenPause: "accounts.drain_then_pause",
   },
   sources: {
     tabActive: "sources.tab.active",
     tabPerformance: "sources.tab.performance",
     tabArchive: "sources.tab.archive",
     tabMatrix: "sources.tab.matrix",
+
+    tabInstruments: "sources.tab.instruments",
+    tabAliases: "sources.tab.aliases",
+    tabBrokerMappings: "sources.tab.broker_mappings",
+    tabEffectiveMatrix: "sources.tab.effective_matrix",
     search: "sources.search",
     add: "sources.add",
     import: "sources.import",
@@ -70,9 +87,22 @@ export const controls = {
     toggle: "sources.toggle",
     archive: "sources.archive",
     restore: "sources.restore",
-    
+
     accountMatrixOpen: "sources.account_matrix.open",
+    // Instruments / aliases / broker mappings
+    instrumentAdd: "sources.instrument.add",
+    instrumentEdit: "sources.instrument.edit",
+    instrumentArchive: "sources.instrument.archive",
+    aliasAdd: "sources.alias.add",
+    aliasEdit: "sources.alias.edit",
+    aliasDisable: "sources.alias.disable",
+    aliasResolverTest: "sources.alias.resolver_test",
+    brokerScan: "sources.broker.scan",
+    brokerSelect: "sources.broker.select",
+    brokerVerify: "sources.broker.verify",
+    effectiveOpenReason: "sources.effective.open_reason",
   },
+
   signals: {
     filterStatus: "signals.filter.status",
     search: "signals.search",
@@ -125,6 +155,24 @@ export const controls = {
     sourcesOpen: "telegram.sources.open",
     inboxOpen: "telegram.inbox.open",
   },
+  telegramAi: {
+    tabSessions: "telegram_ai.tab.sessions",
+    tabSources: "telegram_ai.tab.sources",
+    tabProviders: "telegram_ai.tab.providers",
+    tabRouting: "telegram_ai.tab.routing",
+    tabPrompts: "telegram_ai.tab.prompts",
+  },
+  prompts: {
+    newProfile: "prompts.new_profile",
+    selectProfile: "prompts.select_profile",
+
+    activate: "prompts.activate",
+    rollback: "prompts.rollback",
+    duplicate: "prompts.duplicate",
+    archive: "prompts.archive",
+    runTest: "prompts.run_test",
+    openAudit: "prompts.open_audit",
+  },
   runtime: {
     tabOverview: "runtime.tab.overview",
     tabComponents: "runtime.tab.components",
@@ -147,7 +195,7 @@ export const controls = {
     disable: "analysis_providers.disable",
     archive: "analysis_providers.archive",
     restore: "analysis_providers.restore",
-    
+
     routingPolicy: "analysis_providers.routing_policy",
     switchPreview: "analysis_providers.switch_preview",
     activate: "analysis_providers.activate",

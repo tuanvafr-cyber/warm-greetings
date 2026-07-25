@@ -104,7 +104,7 @@ function SourcesPage() {
       <FixtureBanner />
 
       <Tabs defaultValue="active">
-        <TabsList>
+        <TabsList className="flex-wrap">
           <TabsTrigger value="active" data-control-id={controls.sources.tabActive}>
             {t("sources.tab.active")}
           </TabsTrigger>
@@ -113,6 +113,18 @@ function SourcesPage() {
           </TabsTrigger>
           <TabsTrigger value="matrix" data-control-id={controls.sources.tabMatrix}>
             {t("sources.tab.matrix")}
+          </TabsTrigger>
+          <TabsTrigger value="instruments" data-control-id={controls.sources.tabInstruments}>
+            {t("sources.tab.instruments")}
+          </TabsTrigger>
+          <TabsTrigger value="aliases" data-control-id={controls.sources.tabAliases}>
+            {t("sources.tab.aliases")}
+          </TabsTrigger>
+          <TabsTrigger value="broker" data-control-id={controls.sources.tabBrokerMappings}>
+            {t("sources.tab.broker_mappings")}
+          </TabsTrigger>
+          <TabsTrigger value="effective" data-control-id={controls.sources.tabEffectiveMatrix}>
+            {t("sources.tab.effective_matrix")}
           </TabsTrigger>
           <TabsTrigger value="archive" data-control-id={controls.sources.tabArchive}>
             {t("sources.tab.archive")}
@@ -156,6 +168,22 @@ function SourcesPage() {
           <SourceAccountMatrixView />
         </TabsContent>
 
+        <TabsContent value="instruments" className="mt-4">
+          <InstrumentsTab />
+        </TabsContent>
+
+        <TabsContent value="aliases" className="mt-4">
+          <AliasesTab />
+        </TabsContent>
+
+        <TabsContent value="broker" className="mt-4">
+          <BrokerMappingsTab />
+        </TabsContent>
+
+        <TabsContent value="effective" className="mt-4">
+          <EffectiveMatrixTab />
+        </TabsContent>
+
         <TabsContent value="archive" className="mt-4">
           <p className="mb-2 text-xs text-muted-foreground">{t("sources.archived_note")}</p>
           {q.isPending ? (
@@ -171,6 +199,322 @@ function SourcesPage() {
           )}
         </TabsContent>
       </Tabs>
+    </div>
+  );
+}
+
+// ---------------- Instruments / Aliases / Broker mappings / Effective ----------------
+
+function InstrumentsTab() {
+  const t = useT();
+  const rows = [
+    { code: "XAUUSD", desc: "Gold vs USD", digits: 2, unit: "oz" },
+    { code: "EURUSD", desc: "Euro vs USD", digits: 5, unit: "lot" },
+    { code: "US30", desc: "Dow Jones Index", digits: 1, unit: "idx" },
+    { code: "BTCUSD", desc: "Bitcoin vs USD", digits: 2, unit: "coin" },
+  ];
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <p className="text-xs text-muted-foreground">{t("sources.instruments.desc")}</p>
+        <BackendRequiredDialog
+          controlId={controls.sources.instrumentAdd}
+          trigger={<Button size="sm">{t("sources.instruments.add")}</Button>}
+          title={t("sources.instruments.add")}
+          payloadPreview={{ intent: "instrument.add" }}
+        >
+          <div className="grid gap-2 py-2">
+            <Input placeholder="XAUUSD" />
+            <Input placeholder="Description (Gold vs USD)" />
+          </div>
+        </BackendRequiredDialog>
+      </div>
+      <Card>
+        <CardContent className="overflow-x-auto p-0">
+          <table className="w-full text-sm">
+            <thead className="border-b border-border text-left text-xs uppercase text-muted-foreground">
+              <tr>
+                <th className="px-3 py-2">Code</th>
+                <th className="px-2 py-2">Description</th>
+                <th className="px-2 py-2 text-right">Digits</th>
+                <th className="px-2 py-2">Unit</th>
+                <th className="px-2 py-2 text-right"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.code} className="border-b border-border/60 last:border-none">
+                  <td className="px-3 py-2 font-mono">{r.code}</td>
+                  <td className="px-2 py-2">{r.desc}</td>
+                  <td className="px-2 py-2 text-right tabular-nums">{r.digits}</td>
+                  <td className="px-2 py-2">{r.unit}</td>
+                  <td className="px-2 py-2 text-right">
+                    <BackendRequiredDialog
+                      controlId={controls.sources.instrumentEdit}
+                      trigger={
+                        <Button size="sm" variant="ghost">
+                          {t("common.edit")}
+                        </Button>
+                      }
+                      title={t("sources.instruments.edit")}
+                      payloadPreview={{ intent: "instrument.edit", code: r.code }}
+                    />
+                    <BackendRequiredDialog
+                      controlId={controls.sources.instrumentArchive}
+                      trigger={
+                        <Button size="sm" variant="ghost">
+                          {t("common.archive")}
+                        </Button>
+                      }
+                      title={t("common.archive")}
+                      payloadPreview={{ intent: "instrument.archive", code: r.code }}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+function AliasesTab() {
+  const t = useT();
+  const rows = [
+    { alias: "GOLD", canonical: "XAUUSD", scope: "global" },
+    { alias: "XAU", canonical: "XAUUSD", scope: "global" },
+    { alias: "EU", canonical: "EURUSD", scope: "source:@fx-alpha" },
+    { alias: "DJ30", canonical: "US30", scope: "global" },
+  ];
+  const [test, setTest] = useState("");
+  const resolved = rows.find((r) => r.alias.toLowerCase() === test.trim().toLowerCase());
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <p className="text-xs text-muted-foreground">{t("sources.aliases.desc")}</p>
+        <BackendRequiredDialog
+          controlId={controls.sources.aliasAdd}
+          trigger={<Button size="sm">{t("sources.aliases.add")}</Button>}
+          title={t("sources.aliases.add")}
+          payloadPreview={{ intent: "alias.add" }}
+        >
+          <div className="grid gap-2 py-2">
+            <Input placeholder="Alias (e.g. GOLD)" />
+            <Input placeholder="Canonical (e.g. XAUUSD)" />
+            <Input placeholder="Scope (global | source:@name)" />
+          </div>
+        </BackendRequiredDialog>
+      </div>
+      <Card>
+        <CardContent className="overflow-x-auto p-0">
+          <table className="w-full text-sm">
+            <thead className="border-b border-border text-left text-xs uppercase text-muted-foreground">
+              <tr>
+                <th className="px-3 py-2">Alias</th>
+                <th className="px-2 py-2">Canonical</th>
+                <th className="px-2 py-2">{t("sources.aliases.scope")}</th>
+                <th className="px-2 py-2 text-right"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.alias} className="border-b border-border/60 last:border-none">
+                  <td className="px-3 py-2 font-mono">{r.alias}</td>
+                  <td className="px-2 py-2 font-mono">{r.canonical}</td>
+                  <td className="px-2 py-2 text-xs text-muted-foreground">{r.scope}</td>
+                  <td className="px-2 py-2 text-right">
+                    <BackendRequiredDialog
+                      controlId={controls.sources.aliasEdit}
+                      trigger={
+                        <Button size="sm" variant="ghost">
+                          {t("common.edit")}
+                        </Button>
+                      }
+                      title={t("common.edit")}
+                      payloadPreview={{ intent: "alias.edit", alias: r.alias }}
+                    />
+                    <BackendRequiredDialog
+                      controlId={controls.sources.aliasDisable}
+                      trigger={
+                        <Button size="sm" variant="ghost">
+                          {t("common.disable")}
+                        </Button>
+                      }
+                      title={t("common.disable")}
+                      payloadPreview={{ intent: "alias.disable", alias: r.alias }}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm">{t("sources.aliases.resolver_test")}</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-wrap items-center gap-2 text-sm">
+          <Input
+            className="max-w-xs"
+            placeholder="GOLD"
+            value={test}
+            onChange={(e) => setTest(e.target.value)}
+            data-control-id={controls.sources.aliasResolverTest}
+          />
+          <span className="text-muted-foreground">→</span>
+          <span className="font-mono">{test ? (resolved ? resolved.canonical : "—") : ""}</span>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+function BrokerMappingsTab() {
+  const t = useT();
+  const rows = [
+    { canonical: "XAUUSD", broker: "XAUUSDm", state: "mapped" },
+    { canonical: "EURUSD", broker: "EURUSD", state: "mapped" },
+    { canonical: "US30", broker: null, state: "input_required" as const },
+    { canonical: "BTCUSD", broker: "BTCUSDT", state: "input_required" as const },
+  ];
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <p className="text-xs text-muted-foreground">{t("sources.broker.desc")}</p>
+        <BackendRequiredDialog
+          controlId={controls.sources.brokerScan}
+          trigger={<Button size="sm">{t("sources.broker.scan")}</Button>}
+          title={t("sources.broker.scan")}
+          payloadPreview={{ intent: "broker.scan" }}
+        />
+      </div>
+      <Card>
+        <CardContent className="overflow-x-auto p-0">
+          <table className="w-full text-sm">
+            <thead className="border-b border-border text-left text-xs uppercase text-muted-foreground">
+              <tr>
+                <th className="px-3 py-2">Canonical</th>
+                <th className="px-2 py-2">Broker symbol</th>
+                <th className="px-2 py-2">State</th>
+                <th className="px-2 py-2 text-right"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.canonical} className="border-b border-border/60 last:border-none">
+                  <td className="px-3 py-2 font-mono">{r.canonical}</td>
+                  <td className="px-2 py-2 font-mono">{r.broker ?? "—"}</td>
+                  <td className="px-2 py-2">
+                    <StatusBadge tone={r.state === "mapped" ? "healthy" : "input_required"} />
+                  </td>
+                  <td className="px-2 py-2 text-right">
+                    <BackendRequiredDialog
+                      controlId={controls.sources.brokerSelect}
+                      trigger={
+                        <Button size="sm" variant="ghost">
+                          {t("common.edit")}
+                        </Button>
+                      }
+                      title={t("common.edit")}
+                      payloadPreview={{ intent: "broker.select", canonical: r.canonical }}
+                    />
+                    <BackendRequiredDialog
+                      controlId={controls.sources.brokerVerify}
+                      trigger={
+                        <Button size="sm" variant="ghost">
+                          {t("sources.broker.verify_mapping")}
+                        </Button>
+                      }
+                      title={t("sources.broker.verify_mapping")}
+                      payloadPreview={{ intent: "broker.verify", canonical: r.canonical }}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+function EffectiveMatrixTab() {
+  const t = useT();
+  const rows = [
+    {
+      source: "@fx-alpha",
+      account: "IC 500123",
+      instrument: "XAUUSD",
+      eligible: true,
+      reason: null,
+    },
+    {
+      source: "@fx-alpha",
+      account: "Exness 900444",
+      instrument: "BTCUSD",
+      eligible: false,
+      reason: "broker.symbol_unmapped",
+    },
+    {
+      source: "@gold-only",
+      account: "IC 500123",
+      instrument: "EURUSD",
+      eligible: false,
+      reason: "source.scope_excludes_instrument",
+    },
+  ];
+  return (
+    <div className="space-y-3">
+      <p className="text-xs text-muted-foreground">{t("sources.effective.desc")}</p>
+      <Card>
+        <CardContent className="overflow-x-auto p-0">
+          <table className="w-full text-sm">
+            <thead className="border-b border-border text-left text-xs uppercase text-muted-foreground">
+              <tr>
+                <th className="px-3 py-2">Source</th>
+                <th className="px-2 py-2">Account</th>
+                <th className="px-2 py-2">Instrument</th>
+                <th className="px-2 py-2">Eligible</th>
+                <th className="px-2 py-2">Reason chain</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r, i) => (
+                <tr key={i} className="border-b border-border/60 last:border-none">
+                  <td className="px-3 py-2">{r.source}</td>
+                  <td className="px-2 py-2">{r.account}</td>
+                  <td className="px-2 py-2 font-mono">{r.instrument}</td>
+                  <td className="px-2 py-2">
+                    <StatusBadge tone={r.eligible ? "healthy" : "blocked"} />
+                  </td>
+                  <td className="px-2 py-2 font-mono text-xs">
+                    {r.reason ? (
+                      <BackendRequiredDialog
+                        controlId={controls.sources.effectiveOpenReason}
+                        trigger={<button className="text-info hover:underline">{r.reason}</button>}
+                        title={r.reason}
+                        payloadPreview={{
+                          intent: "effective.reason_chain",
+                          source: r.source,
+                          account: r.account,
+                          instrument: r.instrument,
+                        }}
+                      />
+                    ) : (
+                      "—"
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
     </div>
   );
 }
