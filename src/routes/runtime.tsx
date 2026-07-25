@@ -335,16 +335,6 @@ function RuntimePage() {
                             title={t("common.restore")}
                             payloadPreview={{ intent: "provider.restore", id: p.id }}
                           />
-                          <BackendRequiredDialog
-                            controlId={controls.analysisProviders.deletePermanent}
-                            trigger={
-                              <Button size="sm" variant="destructive">
-                                {t("common.delete_permanent")}
-                              </Button>
-                            }
-                            title={t("common.delete_permanent")}
-                            payloadPreview={{ intent: "provider.delete_permanent", id: p.id }}
-                          />
                         </>
                       ) : (
                         <BackendRequiredDialog

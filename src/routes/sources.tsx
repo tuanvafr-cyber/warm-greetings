@@ -287,16 +287,6 @@ function ArchiveCard({ s }: { s: Source }) {
             <Download className="h-3.5 w-3.5" />
             {t("common.export")}
           </Button>
-          <BackendRequiredDialog
-            controlId={controls.sources.deletePermanent}
-            trigger={
-              <Button size="sm" variant="destructive">
-                {t("common.delete_permanent")}
-              </Button>
-            }
-            title={t("common.delete_permanent")}
-            payloadPreview={{ intent: "source.delete_permanent", id: s.id }}
-          />
         </div>
       </CardContent>
     </Card>

@@ -339,17 +339,6 @@ function AccountGrid({ list, isArchive }: { list: Account[]; isArchive: boolean 
                       description={t("backend.desc")}
                       payloadPreview={{ intent: "account.restore", id: a.id }}
                     />
-                    <BackendRequiredDialog
-                      controlId={controls.accounts.deletePermanent}
-                      trigger={
-                        <Button size="sm" variant="destructive">
-                          {t("common.delete_permanent")}
-                        </Button>
-                      }
-                      title={t("common.delete_permanent")}
-                      description={t("backend.desc")}
-                      payloadPreview={{ intent: "account.delete_permanent", id: a.id }}
-                    />
                   </>
                 )}
               </div>

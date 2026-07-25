@@ -52,7 +52,7 @@ export const controls = {
     pin: "accounts.pin",
     archive: "accounts.archive",
     restore: "accounts.restore",
-    deletePermanent: "accounts.delete_permanent",
+    
     activationOpen: "accounts.activation.open",
     nativeCurrencyReview: "accounts.native_currency.review",
   },
@@ -70,7 +70,7 @@ export const controls = {
     toggle: "sources.toggle",
     archive: "sources.archive",
     restore: "sources.restore",
-    deletePermanent: "sources.delete_permanent",
+    
     accountMatrixOpen: "sources.account_matrix.open",
   },
   signals: {
@@ -147,7 +147,7 @@ export const controls = {
     disable: "analysis_providers.disable",
     archive: "analysis_providers.archive",
     restore: "analysis_providers.restore",
-    deletePermanent: "analysis_providers.delete_permanent",
+    
     routingPolicy: "analysis_providers.routing_policy",
     switchPreview: "analysis_providers.switch_preview",
     activate: "analysis_providers.activate",
@@ -210,6 +210,7 @@ export const plannedControls = {
     sourceMatrixOpen: "accounts.source_matrix.open",
     accountLineOpen: "accounts.account_line.open",
     instrumentMappingOpen: "accounts.instrument_mapping.open",
+    deletePermanent: "accounts.delete_permanent",
   },
   sources: {
     filterGroup: "sources.filter.group",
@@ -218,6 +219,7 @@ export const plannedControls = {
     performanceOpen: "sources.performance.open",
     historyOpen: "sources.history.open",
     instrumentMatrixOpen: "sources.instrument_matrix.open",
+    deletePermanent: "sources.delete_permanent",
   },
   signals: {
     filterDate: "signals.filter.date",
@@ -257,6 +259,7 @@ export const plannedControls = {
     reorder: "analysis_providers.reorder",
     logs: "analysis_providers.logs",
     inbox: "analysis_providers.inbox",
+    deletePermanent: "analysis_providers.delete_permanent",
   },
   hermes: {
     evidenceOpen: "hermes.evidence.open",
